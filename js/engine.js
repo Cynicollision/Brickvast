@@ -165,13 +165,31 @@ Entity.prototype.step = function () {
 // Game 
 //  Manages game-level components such as the currently running Controller object, 
 //  routing input, and accessing assets through AssetManager instances.
-function Game() { }
+//
+// Properties
+//  activeController    - The "running" Controller object: whose step() and draw() are called.
+//
+function Game() {
+    this.activeController;
+}
 
 Game.Assets = function () { }
 Game.Assets.Images = new AssetManager("image");
 Game.Assets.Audio = new AssetManager("audio");
 Game.CanvasManager = new CanvasManager();
-Game.ActiveController;
+
+
+// Game.setActiveController(newActiveController)
+//  Sets the running Controller to the given Controller object.
+Game.setActiveController = function (newActiveController) {
+    this.activeController = newActiveController;
+}
+
+// Game.getActiveController()
+//  Returns the running Controller
+Game.getActiveController = function () {
+    return this.activeController;
+}
 
 // Game.getTimestamp()
 //  Returns the current timestamp (e.g. 87.134....)
@@ -181,27 +199,34 @@ Game.getTimestamp = function () {
 
 // Game.run()
 //  The main game loop. Keeps the game running at a fixed FPS.
+//  Note: this will fail if there is no active Controller!
 Game.run = function () {
-    var step = 1 / 60; // TODO: constant or from "global game settings"?
-    var offset = 0;
-    var current;
-    previous = Game.getTimestamp()
-    
-    function frame() {
-        current = Game.getTimestamp();
-        offset += (Math.min(1, (current - previous) / 1000));
-
-        while (offset > step) {
-            Game.ActiveController.step(step);
-            offset -= step;
-        }
-
-        Game.CanvasManager.draw(Game.ActiveController);
-        previous = current;
-        requestAnimationFrame(frame);
+    // make sure an active Controller has been defined
+    if (this.activeController === undefined) {
+        return "No active controller set!";
     }
 
-    requestAnimationFrame(frame);
+    var stepSize = 1 / 60; // TODO: constant or from "global game settings"?
+    var offset = 0;
+    var previous = Game.getTimestamp()
+    
+    function stepAndDraw() {
+        var current = Game.getTimestamp();
+        offset += (Math.min(1, (current - previous) / 1000));
+
+        // still step during the offset (time difference between frames)
+        while (offset > stepSize) {
+            Game.getActiveController().step(stepSize);
+            offset -= stepSize;
+        }
+
+        // draw
+        Game.CanvasManager.draw(Game.getActiveController());
+        previous = current;
+        requestAnimationFrame(stepAndDraw);
+    }
+
+    requestAnimationFrame(stepAndDraw);
 }
 
 //************************************************************************************//

@@ -6,7 +6,8 @@ function buildAndRun() {
     Game.Assets.Images.load();
 
     // configure game-specific stuff
-    Game.ActiveController = setupController();
+    var myTestController = setupController();
+    Game.setActiveController(myTestController);
 
     // set the background color
     Game.CanvasManager.setBackgroundColor("#59c");
