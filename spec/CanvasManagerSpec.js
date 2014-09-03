@@ -21,12 +21,3 @@ describe('CanvasManager: Can find the drawing context', function () {
         expect(cm).toBeDefined();
     });
 });
-
-describe('CanvasManager: Can find the drawing context', function () {
-    it('Retrieves and stores a local this.context from the TheDOM class', function () {
-        var cm = new CanvasManager();
-
-        // assert
-        expect(cm).toBeDefined();
-    });
-});

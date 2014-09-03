@@ -33,14 +33,14 @@ function setupController() {
     var player2 = new Entity('fastPlayer');
     player2.setImage(testPlayerImage);
     player2.setY(200);
-    player2.step = function () {
-        this.x += 25;
-    }
 
     // create a controller and add the entities to it
     var controller = new Controller();
     controller.addEntity(player);
     controller.addEntity(player2);
+
+    controller.view.setX(50);
+    controller.view.setY(50);
 
     // what the controller can check for after every step
     controller.postStep = function () {
@@ -48,12 +48,6 @@ function setupController() {
         {
             player.x = -100;
             player.y += 100;
-        }
-
-        if (player2.x > 800)
-        {
-            player2.x = -200;
-            player2.y += 20;
         }
     }
 

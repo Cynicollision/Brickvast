@@ -33,6 +33,10 @@ CanvasManager.prototype.draw = function (controller) {
     // clear
     this.context.clearRect(0, 0, TheDOM.CanvasContext.width, TheDOM.CanvasContext.height);
 
+    // get relative (x,y) to the location of the controller's view
+    var relativeX = this.getRelativeX(controller);
+    var relativeY = this.getRelativeY(controller);
+
     controller.sortEntities();
     var entities = controller.getEntities();
 
@@ -42,11 +46,45 @@ CanvasManager.prototype.draw = function (controller) {
     for (var i = 0; i < entities.length; i++) {
         var img = entities[i].getImage();
         if (img !== undefined) {
-            this.context.drawImage(img, entities[i].x, entities[i].y);
+            this.context.drawImage(img, entities[i].x - relativeX, entities[i].y);
         }
     }
 }
 
+// TODO: test, document
+CanvasManager.prototype.getRelativeX = function (controller) {
+    if ((controller !== undefined) && (controller.view !== undefined)) {
+        return controller.view.x;
+    } else {
+        return 0;
+    }
+}
+
+// TODO: test, document
+CanvasManager.prototype.getRelativeY = function (controller) {
+    if ((controller !== undefined) && (controller.view !== undefined)) {
+        return controller.view.y;
+    } else {
+        return 0;
+    }
+}
+
+
+function View() {
+    this.x = 0;
+    this.y = 0;
+}
+
+
+// TODO: test, document
+View.prototype.setX = function (newX) {
+    this.x = newX;
+}
+
+// TODO: test, document
+View.prototype.setY = function (newY) {
+    this.y = newY;
+}
 
 
 //************************************************************************************//
@@ -61,6 +99,12 @@ CanvasManager.prototype.draw = function (controller) {
 //  Constructor
 function Controller() {
     this.entities = [];
+    this.view = new View();
+}
+
+// TODO: test, document
+Controller.prototype.getView = function () {
+    return this.view;
 }
 
 // addEntity(newEnt)
@@ -131,6 +175,7 @@ function Entity(type, id) {
     this.depth = 0;
     this.type = type;
     this.id = id;
+    //TODO: speed, direction, width, height
 }
 
 // getImage()
@@ -248,10 +293,12 @@ function AssetManager(type) {
     this.type = type;
 }
 
+// TODO: test, document
 AssetManager.prototype.add = function (newName, src) {
     this.assets.push({ name: newName, source: src, asset: undefined });
 }
 
+// TODO: test, document
 AssetManager.prototype.getByName = function (name) {
     for (var i = 0; i < this.assets.length; i++) {
         if (this.assets[i].name === name) {
@@ -260,6 +307,7 @@ AssetManager.prototype.getByName = function (name) {
     }
 }
 
+// TODO: test, document
 AssetManager.prototype.load = function () {
     for (var i = 0; i < this.assets.length; i++) {
         if (this.type === 'image') {
