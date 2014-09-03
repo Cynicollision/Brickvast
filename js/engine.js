@@ -33,10 +33,12 @@ CanvasManager.prototype.draw = function (controller) {
     // clear
     this.context.clearRect(0, 0, TheDOM.CanvasContext.width, TheDOM.CanvasContext.height);
 
+    controller.sortEntities();
     var entities = controller.getEntities();
 
-    // draw entities
-    // TODO: sort by depth
+    // draw entities (sorted in reverse order by depth)
+    // TODO: check a state here? or expect a destroyed state in step()
+    var sortedEntities = entities
     for (var i = 0; i < entities.length; i++) {
         var img = entities[i].getImage();
         if (img !== undefined) {
@@ -101,6 +103,14 @@ Controller.prototype.postStep = function () {
     // to be overridden in instantiation
 }
 
+// sortEntities()
+//  Sorts entities in descending order by depth.
+Controller.prototype.sortEntities = function () {
+    this.entities.sort(function (a, b) {
+        return -(a.depth - b.depth);
+    })
+}
+
 
 //************************************************************************************//
 // Entity
@@ -114,13 +124,13 @@ Controller.prototype.postStep = function () {
 //  id      - The ID of this Entity. Can be used to retrieve a specific Entity by ID from the Controller.
 //
 // Entity(type)
-//  Contructor - instantiates a Entity object with the given type value.
-function Entity(type) {
+//  Contructor - instantiates a Entity object with the given type and id values
+function Entity(type, id) {
     this.x = 0;
     this.y = 0;
     this.depth = 0;
     this.type = type;
-    this.id = undefined;
+    this.id = id;
 }
 
 // getImage()
@@ -145,12 +155,6 @@ Entity.prototype.setX = function (newX) {
 //  Sets the Entity's Y position to newY.
 Entity.prototype.setY = function (newY) {
     this.y = newY;
-}
-
-// setId(newId)
-//  Sets the id property to the given value. Can be used for unique retrieval later.
-Entity.prototype.setId = function (newId) {
-    this.id = newId;
 }
 
 // step()

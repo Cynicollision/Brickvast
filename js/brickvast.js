@@ -22,9 +22,8 @@ function setupController() {
     var testPlayerImage = Game.Assets.Images.getByName('player');
 
     // create some entities
-    var player = new Entity('slowPlayer');
+    var player = new Entity('slowPlayer', 'player1');
     player.setImage(testPlayerImage);
-    player.setId('player1');
 
     // what the player does, checks for, etc. every step
     player.step = function () {
