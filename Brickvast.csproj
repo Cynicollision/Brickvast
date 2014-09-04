@@ -47,13 +47,13 @@
     <Content Include="img\player.png" />
     <Content Include="js\brickvast.js" />
     <Content Include="index.html" />
-    <Content Include="jquery\jquery-2.1.1.min.js" />
+    <Content Include="js\jquery-2.1.1.min.js" />
     <Content Include="js\engine.js" />
     <Content Include="Scripts\jasmine\boot.js" />
     <Content Include="Scripts\jasmine\console.js" />
     <Content Include="Scripts\jasmine\jasmine-html.js" />
     <Content Include="Scripts\jasmine\jasmine.js" />
-    <Content Include="spec\CanvasManagerSpec.js" />
+    <Content Include="spec\BrickbotSpec.js" />
     <Content Include="spec\ControllerEntitySpec.js" />
     <Content Include="spec\TheDOMSpec.js" />
     <Content Include="web.config" />
