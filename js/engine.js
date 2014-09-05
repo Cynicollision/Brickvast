@@ -1,4 +1,32 @@
 ﻿//************************************************************************************//
+// Class: MathUtil
+//  For performing various mathematical calculations, trig etc.
+function MathUtil() { }
+
+// MathUtil.getPointDistance(x1, y1, x2, y2)
+//  Returns the distance between two points ((x1, y1), (x2, y2))
+MathUtil.getPointDistance = function (x1, y1, x2, y2) {
+    return Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
+}
+
+// MathUtil.getPointDirection
+/// Returns the direction from two points (x1, y1) to (x2, y2)
+MathUtil.getPointDirection = function (x1, y1, x2, y2) {
+    return ((180 / Math.PI) * Math.atan2(y2 - y1, x2 - x1));
+}
+
+MathUtil.getLengthDirectionX = function (len, dir) {
+    var v = Math.floor(len * Math.cos(dir * (Math.PI / 180)));
+    return Math.floor(len * Math.cos(dir * (Math.PI / 180)));
+}
+
+MathUtil.getLengthDirectionY = function (len, dir) {
+    var v = Math.floor(len * Math.cos(dir * (Math.PI / 180)));
+    return Math.floor(len * Math.sin(dir * (Math.PI / 180)));
+}
+
+
+//************************************************************************************//
 // Class: TheDOM
 //  For interacting directly with the DOM.
 function TheDOM() { }
@@ -21,10 +49,22 @@ function CanvasManager() {
 }
 
 // setBackgroundColor(newColor)
-//  Sets the background color of the main game canvas to newColor.
+//  Sets the background-color property of the main game canvas to newColor.
 CanvasManager.prototype.setBackgroundColor = function(color) {
-    TheDOM.Canvas.css('background-color', color);
+    TheDOM.Canvas.css('background', color);
 }
+
+// setBackgroundImage(newImage, tiled)
+//  Sets the background-image property of the main canvas to the given image url amd tiled or not.
+CanvasManager.prototype.setBackgroundImage = function (url, tiled) {
+    TheDOM.Canvas.css('background-image', 'url(' + url + ')');
+
+    if (!tiled) {
+        TheDOM.Canvas.css('background-repeat', 'no-repeat');
+    }
+    
+}
+
 
 // draw()
 //  Clears the game canvas and draws the current controller (entities relative to viewport).
@@ -79,6 +119,7 @@ CanvasManager.prototype.getViewRelativeY = function (controller) {
 //
 // Properties
 //  entities    - Collection of entities managed by this controller object.
+//  view        - Coordinates to adjust the "view" of the game (relative origin of top-left corner)
 //
 // Controller()
 //  Constructor
@@ -115,7 +156,20 @@ Controller.prototype.getEntityById = function (id) {
 //  Called by the controller continuously while the game loop is running. Calls all 
 //  managed entities' own step() functions, then its own postStep() function.
 Controller.prototype.step = function () {
+    // remove destroyed enemies
+    this.removeDestroyedEntities();
+
     for (var i = 0; i < this.entities.length; i++) {
+
+        // apply enemy motion
+        if (this.entities[i].speed !== 0) {
+            var newX = MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection());
+            var newY = MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection());
+
+            this.entities[i].x += newX;
+            this.entities[i].y += newY;
+        }
+
         this.entities[i].step();
     }
 
@@ -130,12 +184,20 @@ Controller.prototype.postStep = function () {
 
 // sortEntities()
 //  Sorts entities in descending order by depth.
-// TODO: rename, return copy with all isDestroyed === true
 Controller.prototype.sortEntities = function () {
     this.entities.sort(function (a, b) {
         return -(a.depth - b.depth);
     })
 }
+
+// removeDestroyedEntities()
+//  Removes all managed Entity object where property isDestroyed is true
+Controller.prototype.removeDestroyedEntities = function () {
+    this.entities = this.entities.filter(function (entity) {
+        return !entity.isDestroyed;
+    });
+}
+
 
 
 //************************************************************************************//
@@ -158,31 +220,10 @@ function Entity(type, id) {
     this.type = type;
     this.id = id;
     this.isDestroyed = false;
-    //TODO: speed, direction, width, height
-}
-
-// getImage()
-//  Returns the main Image object for this Entity.
-Entity.prototype.getImage = function () {
-    return this.image;
-}
-
-// setImage(newImage)
-//  Sets the main Image object to newImage.
-Entity.prototype.setImage = function (newImage) {
-    this.image = newImage;
-}
-
-// setX(newX)
-//  Sets the Entity's X position to newX.
-Entity.prototype.setX = function (newX) {
-    this.x = newX;
-}
-
-// setY(newY)
-//  Sets the Entity's Y position to newY.
-Entity.prototype.setY = function (newY) {
-    this.y = newY;
+    this.speed = 0;
+    this.direction = 0;
+    this.width = 0;
+    this.height = 0;
 }
 
 // step()
@@ -191,7 +232,56 @@ Entity.prototype.step = function () {
     // to be overridden in instantiation
 }
 
+// destroy()
+//  Destroy this Entity (remove from managing Controller's collection)
+Entity.prototype.destroy = function () {
+    this.isDestroyed = true;
+}
 
+// getters and setters
+Entity.prototype.getImage = function () {
+    return this.image;
+}
+
+Entity.prototype.setImage = function (newImage) {
+    this.image = newImage;
+}
+
+Entity.prototype.getX = function () {
+    return this.x;
+}
+
+Entity.prototype.setX = function (newX) {
+    this.x = newX;
+}
+
+Entity.prototype.getY = function () {
+    return this.y;
+}
+
+Entity.prototype.setY = function (newY) {
+    this.y = newY;
+}
+
+Entity.prototype.getSpeed = function () {
+    return this.speed;
+}
+
+Entity.prototype.setSpeed = function (newSpeed) {
+    this.speed = newSpeed;
+}
+
+Entity.prototype.getDirection = function () {
+    if (this.direction > 180) {
+        return this.direction - 360;
+    } else {
+        return this.direction;
+    }
+}
+
+Entity.prototype.setDirection= function (newDir) {
+    this.direction = newDir;
+}
 
 //************************************************************************************//
 // Game 
@@ -235,7 +325,7 @@ Game.getTimestamp = function () {
 Game.run = function () {
     // make sure an active Controller has been defined
     if (this.activeController === undefined) {
-        return "No active controller set!";
+        throw "No active controller set!";
     }
 
     var stepSize = 1 / 60; // TODO: constant or from "global game settings"?

@@ -53,7 +53,7 @@
     <Content Include="tests\Scripts\jasmine\console.js" />
     <Content Include="tests\Scripts\jasmine\jasmine-html.js" />
     <Content Include="tests\Scripts\jasmine\jasmine.js" />
-    <Content Include="tests\spec\BrickbotSpec.js" />
+    <Content Include="tests\spec\BrickvastSpec.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>

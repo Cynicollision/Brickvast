@@ -1,5 +1,4 @@
-﻿buildAndRun();
-
+﻿// a demo of sorts
 function buildAndRun() {
     // loading assets probably should be done asynchonously, but before calling Game.run
     Game.Assets.Images.add('player', 'img/player.png');
@@ -32,12 +31,17 @@ function setupController() {
 
     var player2 = new Entity('fastPlayer');
     player2.setImage(testPlayerImage);
-    player2.setY(200);
+    player2.setX(300);
+    player2.setY(300);
 
     // create a controller and add the entities to it
     var controller = new Controller();
     controller.addEntity(player);
     controller.addEntity(player2);
+
+    // set speed and direction on player2
+    player2.setSpeed(10);
+    player2.setDirection(225);
 
     controller.view.x = 50;
     controller.view.y = 50;
@@ -46,8 +50,8 @@ function setupController() {
     controller.postStep = function () {
         if (player.x > 800)
         {
-            player.x = -100;
-            player.y += 100;
+            player.x = -50;
+            player.y += 50;
         }
     }
 
@@ -58,3 +62,5 @@ function setupController() {
 
     return controller;
 }
+
+buildAndRun();
