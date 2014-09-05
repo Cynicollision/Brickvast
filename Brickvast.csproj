@@ -42,27 +42,25 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Content\jasmine\jasmine.css" />
-    <Content Include="Content\jasmine\jasmine_favicon.png" />
+    <Content Include="tests\Content\jasmine\jasmine.css" />
+    <Content Include="tests\Content\jasmine\jasmine_favicon.png" />
     <Content Include="img\player.png" />
     <Content Include="js\brickvast.js" />
     <Content Include="index.html" />
     <Content Include="js\jquery-2.1.1.min.js" />
     <Content Include="js\engine.js" />
-    <Content Include="Scripts\jasmine\boot.js" />
-    <Content Include="Scripts\jasmine\console.js" />
-    <Content Include="Scripts\jasmine\jasmine-html.js" />
-    <Content Include="Scripts\jasmine\jasmine.js" />
-    <Content Include="spec\BrickbotSpec.js" />
-    <Content Include="spec\ControllerEntitySpec.js" />
-    <Content Include="spec\TheDOMSpec.js" />
+    <Content Include="tests\Scripts\jasmine\boot.js" />
+    <Content Include="tests\Scripts\jasmine\console.js" />
+    <Content Include="tests\Scripts\jasmine\jasmine-html.js" />
+    <Content Include="tests\Scripts\jasmine\jasmine.js" />
+    <Content Include="tests\spec\BrickbotSpec.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Jasmine\SpecRunner.cshtml" />
+    <Content Include="tests\Views\Jasmine\SpecRunner.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -71,7 +69,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\JasmineController.cs" />
+    <Compile Include="tests\Controllers\JasmineController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />

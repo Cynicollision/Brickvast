@@ -1,4 +1,4 @@
-﻿
+﻿buildAndRun();
 
 function buildAndRun() {
     // loading assets probably should be done asynchonously, but before calling Game.run
@@ -39,8 +39,8 @@ function setupController() {
     controller.addEntity(player);
     controller.addEntity(player2);
 
-    controller.view.setX(50);
-    controller.view.setY(50);
+    controller.view.x = 50;
+    controller.view.y = 50;
 
     // what the controller can check for after every step
     controller.postStep = function () {

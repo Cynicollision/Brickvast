@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 describe('Class: name of test', function () {
     it('does stuff', function () {
         // code + https://github.com/pivotal/jasmine/wiki/Matchers
@@ -12,13 +13,13 @@ describe('Class: name of test', function () {
 //************************************************************************************//
 // Test suite for TheDOM class
 //************************************************************************************//
-describe('TheDOM class tests', function () {
+describe('TheDOM', function () {
+
     it('Uses jQuery to retrieve a valid Canvas element and calling getContext(\'2d\')', function () {
         var theCanvas = $("#theCanvas");
-
-        // assert
         expect(theCanvas[0].getContext('2d')).toBeDefined();
     })
+
 });
 
 
@@ -27,22 +28,37 @@ describe('TheDOM class tests', function () {
 //************************************************************************************//
 // Test suite for CanvasManager class
 //************************************************************************************//
+describe('CanvasManager', function () {
 
-describe('CanvasManager: Can find the drawing context', function () {
     it('Retrieves and stores a local this.context from the TheDOM class', function () {
         var cm = new CanvasManager();
+        expect(cm.context).toBeDefined();
+    }),
 
-        // assert
-        expect(cm).toBeDefined();
-    });
+    it('Finds the correct relative (x,y) of the View of the given Controller', function () {
+        var cm = new CanvasManager();
+        var testX = 25, testY = 50;
+
+        var ctrl = new Controller();
+        ctrl.view.x = testX;
+        ctrl.view.y = testY;
+
+        var relX = cm.getViewRelativeX(ctrl);
+        var relY = cm.getViewRelativeY(ctrl);
+
+        expect(relX).toEqual(testX);
+        expect(relY).toEqual(testY);
+    })
+
 });
 
 
 //************************************************************************************//
 // Test suite for Controller and Entity classes
 //************************************************************************************//
-describe('Controller: addEntity and getEntityById to copare on Entity ID values', function () {
-    it('adds an entity to the managed collection, then retrieves by the same Entity ID to verify we have a type match', function () {
+describe('Controller - entity management', function () {
+
+    it('Adds an entity to the managed collection that can be retrieved by Entity ID', function () {
         var entity_id = 'entId1';
         var entity1 = new Entity(null, entity_id);
         entity1.type = "testEntity";
@@ -52,13 +68,10 @@ describe('Controller: addEntity and getEntityById to copare on Entity ID values'
         var entity2 = controller1.getEntityById(entity_id);
         var returned_type = entity2.type;
 
-        // assert
         expect(returned_type).toEqual("testEntity");
-    })
-});
+    }),
 
-describe('Controller: sortEntities sorts correctly', function () {
-    it('sorts the managed collection of Entity objects in descending order by depth (largest (deepest) drawn first)', function () {
+    it('Sorts the managed collection of Entity objects in descending order by depth (largest = deepest first)', function () {
         var ctrl = new Controller();
         var ent1 = new Entity(null, "e1");
         ctrl.addEntity(ent1);
@@ -77,11 +90,12 @@ describe('Controller: sortEntities sorts correctly', function () {
         ctrl.sortEntities();
         var sortedEntities = ctrl.getEntities();
 
-        // assert
         expect(sortedEntities[0].id).toEqual("e2");
         expect(sortedEntities[1].id).toEqual("e1");
         expect(sortedEntities[2].id).toEqual("e4");
         expect(sortedEntities[3].id).toEqual("e3");
     })
+
 });
 
+    

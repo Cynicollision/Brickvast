@@ -12,7 +12,6 @@ TheDOM.Canvas = $('#theCanvas');
 //  Specifically for manipulating the main game canvas, i.e. drawing on it.
 //
 // Properties
-//  canvas  - The "main" canvas to manipulate.
 //  context - The drawing context of that canvas.
 //
 // CanvasManager()
@@ -34,8 +33,8 @@ CanvasManager.prototype.draw = function (controller) {
     this.context.clearRect(0, 0, TheDOM.CanvasContext.width, TheDOM.CanvasContext.height);
 
     // get relative (x,y) to the location of the controller's view
-    var relativeX = this.getRelativeX(controller);
-    var relativeY = this.getRelativeY(controller);
+    var relativeX = this.getViewRelativeX(controller);
+    var relativeY = this.getViewRelativeY(controller);
 
     controller.sortEntities();
     var entities = controller.getEntities();
@@ -51,40 +50,26 @@ CanvasManager.prototype.draw = function (controller) {
     }
 }
 
-// TODO: test, document
-CanvasManager.prototype.getRelativeX = function (controller) {
-    if ((controller !== undefined) && (controller.view !== undefined)) {
+// getViewRelativeX()
+//  Returns the x-coordinate of the given Controller's view
+CanvasManager.prototype.getViewRelativeX = function (controller) {
+    if (controller.view !== undefined) {
         return controller.view.x;
     } else {
         return 0;
     }
 }
 
-// TODO: test, document
-CanvasManager.prototype.getRelativeY = function (controller) {
-    if ((controller !== undefined) && (controller.view !== undefined)) {
+// getViewRelativeY()
+//  Returns the y-coordinate of the given Controller's view
+CanvasManager.prototype.getViewRelativeY = function (controller) {
+    if (controller.view !== undefined) {
         return controller.view.y;
     } else {
         return 0;
     }
 }
 
-
-function View() {
-    this.x = 0;
-    this.y = 0;
-}
-
-
-// TODO: test, document
-View.prototype.setX = function (newX) {
-    this.x = newX;
-}
-
-// TODO: test, document
-View.prototype.setY = function (newY) {
-    this.y = newY;
-}
 
 
 //************************************************************************************//
@@ -99,13 +84,9 @@ View.prototype.setY = function (newY) {
 //  Constructor
 function Controller() {
     this.entities = [];
-    this.view = new View();
+    this.view = { x: 0, y: 0 }
 }
 
-// TODO: test, document
-Controller.prototype.getView = function () {
-    return this.view;
-}
 
 // addEntity(newEnt)
 //  Adds Entity object newEnt to the collection of entities managed by this controller.
@@ -149,6 +130,7 @@ Controller.prototype.postStep = function () {
 
 // sortEntities()
 //  Sorts entities in descending order by depth.
+// TODO: rename, return copy with all isDestroyed === true
 Controller.prototype.sortEntities = function () {
     this.entities.sort(function (a, b) {
         return -(a.depth - b.depth);
@@ -175,6 +157,7 @@ function Entity(type, id) {
     this.depth = 0;
     this.type = type;
     this.id = id;
+    this.isDestroyed = false;
     //TODO: speed, direction, width, height
 }
 
