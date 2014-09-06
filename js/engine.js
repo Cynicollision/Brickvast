@@ -15,13 +15,13 @@ MathUtil.getPointDirection = function (x1, y1, x2, y2) {
     return ((180 / Math.PI) * Math.atan2(y2 - y1, x2 - x1));
 }
 
+// TODO: test, document
 MathUtil.getLengthDirectionX = function (len, dir) {
-    var v = Math.floor(len * Math.cos(dir * (Math.PI / 180)));
     return Math.floor(len * Math.cos(dir * (Math.PI / 180)));
 }
 
+// TODO: test, document
 MathUtil.getLengthDirectionY = function (len, dir) {
-    var v = Math.floor(len * Math.cos(dir * (Math.PI / 180)));
     return Math.floor(len * Math.sin(dir * (Math.PI / 180)));
 }
 
@@ -83,6 +83,9 @@ CanvasManager.prototype.draw = function (controller) {
     // TODO: check a state here? or expect a destroyed state in step()
     var sortedEntities = entities
     for (var i = 0; i < entities.length; i++) {
+        // call the Entity object's draw method
+        entities[i].draw();
+
         var img = entities[i].getImage();
         if (img !== undefined) {
             this.context.drawImage(img, entities[i].x - relativeX, entities[i].y);
@@ -163,11 +166,8 @@ Controller.prototype.step = function () {
 
         // apply enemy motion
         if (this.entities[i].speed !== 0) {
-            var newX = MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection());
-            var newY = MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection());
-
-            this.entities[i].x += newX;
-            this.entities[i].y += newY;
+            this.entities[i].x += MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection());
+            this.entities[i].y += MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection());
         }
 
         this.entities[i].step();
@@ -229,6 +229,12 @@ function Entity(type, id) {
 // step()
 //  Called by the managing Controller object's own step() function continuously.
 Entity.prototype.step = function () {
+    // to be overridden in instantiation
+}
+
+// draw()
+//  Called by the managing Controller object's own draw() function each frame.
+Entity.prototype.draw = function () {
     // to be overridden in instantiation
 }
 
