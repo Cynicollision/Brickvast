@@ -31,34 +31,34 @@ describe('MathUtil', function () {
 
         d = MathUtil.getPointDistance(x1, y1, x2, y2);
         expect(d).toEqual(13);
-    }),
-
-    it('Calculates the direction from two points (x1, y1) to (x2, y2)', function () {
-        var d, x1, y1, x2, y2;
-
-        x1 = 0;
-        y1 = 50;
-        x2 = 0;
-        y2 = 100;
-
-        d = MathUtil.getPointDirection(x1, y1, x2, y2);
-        expect(d).toEqual(90);
-
-        x1 = 0;
-        y1 = 0;
-        x2 = 45;
-        y2 = 45;
-
-        d = MathUtil.getPointDirection(x1, y1, x2, y2);
-        expect(Math.floor(d)).toEqual(45);
-        x1 = 0;
-        y1 = 0;
-        x2 = 45;
-        y2 = -45;
-
-        d = MathUtil.getPointDirection(x1, y1, x2, y2);
-        expect(Math.floor(d)).toEqual(45);
     })
+
+    //it('Calculates the direction from two points (x1, y1) to (x2, y2)', function () {
+    //    var d, x1, y1, x2, y2;
+
+    //    x1 = 0;
+    //    y1 = 50;
+    //    x2 = 0;
+    //    y2 = 100;
+
+    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
+    //    expect(d).toEqual(90);
+
+    //    x1 = 0;
+    //    y1 = 0;
+    //    x2 = 45;
+    //    y2 = 45;
+
+    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
+    //    expect(Math.floor(d)).toEqual(45);
+    //    x1 = 0;
+    //    y1 = 0;
+    //    x2 = 45;
+    //    y2 = -45;
+
+    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
+    //    expect(Math.floor(d)).toEqual(45);
+    //})
 
     //it('', function () {
     //}),
@@ -178,6 +178,24 @@ describe('Controller - entity management', function () {
         expect(testController.entities.length).toEqual(3);
     })
 
+    // TODO: enhance test to check for clicking on multiple entities
+    it('Passes on-click coordinates to the clicked-on entity/entities', function () {
+        var ent1 = new Entity(null, 'ent1');
+        ent1.setSize(100, 100);
+        ent1.x = 50;
+        ent1.y = 50;
+        testController.addEntity(ent1);
+
+        var mockClickEvent = { pageX: 60, pageY: 80 };
+
+        // the spy
+        spyOn(ent1, 'click')
+        
+        // force a call to click()
+        testController.click(mockClickEvent);
+
+        expect(ent1.click).toHaveBeenCalled();
+    })
 });
 
     

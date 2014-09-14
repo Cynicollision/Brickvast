@@ -32,6 +32,11 @@ MathUtil.getLengthDirectionY = function (len, dir) {
 function TheDOM() { }
 TheDOM.CanvasContext = $('#theCanvas')[0];
 TheDOM.Canvas = $('#theCanvas');
+TheDOM.Canvas.click(function (e) {
+    if (Game.getActiveController() !== undefined) {
+        Game.getActiveController().click(e);
+    }
+});
 
 
 
@@ -88,7 +93,7 @@ CanvasManager.prototype.draw = function (controller) {
 
         var img = entities[i].getImage();
         if (img !== undefined) {
-            this.context.drawImage(img, entities[i].x - relativeX, entities[i].y);
+            this.context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
         }
     }
 }
@@ -132,6 +137,21 @@ function Controller() {
 }
 
 
+// click(clickEvent)
+//  Calls click() on any managed Entity object's that were clicked on.
+Controller.prototype.click = function (e) {
+    var clickX = e.pageX;
+    var clickY = e.pageY;
+
+    for (var i = 0; i < this.entities.length; i++) {
+        var ent = this.entities[i];
+        if ((clickX > ent.x) && (clickY > ent.y) && (clickX < ent.x + ent.width) && (clickY < ent.y + ent.height)) {
+            ent.click(e);
+        }
+    }
+}
+
+
 // addEntity(newEnt)
 //  Adds Entity object newEnt to the collection of entities managed by this controller.
 Controller.prototype.addEntity = function (newEnt) {
@@ -159,15 +179,14 @@ Controller.prototype.getEntityById = function (id) {
 //  Called by the controller continuously while the game loop is running. Calls all 
 //  managed entities' own step() functions, then its own postStep() function.
 Controller.prototype.step = function () {
-    // remove destroyed enemies
     this.removeDestroyedEntities();
 
     for (var i = 0; i < this.entities.length; i++) {
 
-        // apply enemy motion
+        // apply Entity motion
         if (this.entities[i].speed !== 0) {
-            this.entities[i].x += MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection());
-            this.entities[i].y += MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection());
+            this.entities[i].x += (MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10);
+            this.entities[i].y += (MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10);
         }
 
         this.entities[i].step();
@@ -229,13 +248,19 @@ function Entity(type, id) {
 // step()
 //  Called by the managing Controller object's own step() function continuously.
 Entity.prototype.step = function () {
-    // to be overridden in instantiation
+    // to be overridden in instantiation to define step behavior
+}
+
+// click()
+//  Called by the managing Controller object if e's coordinates are within this Entity's bounding area
+Entity.prototype.click = function (e) {
+    // to be overridden in instantiation to define on-click behavior
 }
 
 // draw()
 //  Called by the managing Controller object's own draw() function each frame.
 Entity.prototype.draw = function () {
-    // to be overridden in instantiation
+    // to be overridden in instantiation to perform special drawing functions
 }
 
 // destroy()
@@ -287,6 +312,11 @@ Entity.prototype.getDirection = function () {
 
 Entity.prototype.setDirection= function (newDir) {
     this.direction = newDir;
+}
+
+Entity.prototype.setSize = function (newWidth, newHeight) {
+    this.width = newWidth;
+    this.height = newHeight;
 }
 
 //************************************************************************************//
