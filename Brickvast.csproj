@@ -47,20 +47,31 @@
     <Content Include="img\engine_demo\sun.jpg" />
     <Content Include="img\engine_demo\tile.png" />
     <Content Include="img\tile.png" />
+    <Content Include="js\AssetManager.js" />
+    <Content Include="js\CanvasManager.js" />
+    <Content Include="js\Controller.js" />
     <Content Include="js\engine_demo\demo_drawing1.js" />
     <Content Include="js\engine_demo\demo_mazegame1.js" />
+    <Content Include="js\Entity.js" />
+    <Content Include="js\Game.js" />
+    <Content Include="js\MathUtil.js" />
+    <Content Include="js\TheDOM.js" />
     <Content Include="tests\Content\jasmine\jasmine.css" />
     <Content Include="tests\Content\jasmine\jasmine_favicon.png" />
     <Content Include="img\player.png" />
     <Content Include="js\brickvast.js" />
     <Content Include="index.html" />
     <Content Include="js\jquery-2.1.1.min.js" />
-    <Content Include="js\engine.js" />
     <Content Include="tests\Scripts\jasmine\boot.js" />
     <Content Include="tests\Scripts\jasmine\console.js" />
     <Content Include="tests\Scripts\jasmine\jasmine-html.js" />
     <Content Include="tests\Scripts\jasmine\jasmine.js" />
-    <Content Include="tests\spec\BrickvastSpec.js" />
+    <Content Include="tests\spec\AssetManagerSpec.js" />
+    <Content Include="tests\spec\CanvasManagerSpec.js" />
+    <Content Include="tests\spec\ControllerSpec.js" />
+    <Content Include="tests\spec\GameSpec.js" />
+    <Content Include="tests\spec\MathUtilSpec.js" />
+    <Content Include="tests\spec\TheDOMSpec.js" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
