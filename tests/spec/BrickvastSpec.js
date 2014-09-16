@@ -9,77 +9,26 @@ describe('Class: name of test', function () {
 
 */
 
-//************************************************************************************//
-// Test suite for MathUtil class
-//************************************************************************************//
-describe('MathUtil', function () {
-    it('Calculates the distance between points (x1, y1) and (x2, y2)', function () {
-        var d, x1, y1, x2, y2;
-        
-        x1 = 0;
-        y1 = -50;
-        x2 = 0;
-        y2 = 100;
-
-        d = MathUtil.getPointDistance(x1, y1, x2, y2);
-        expect(d).toEqual(150);
-
-        x1 = 5;
-        y1 = 6;
-        x2 = -7;
-        y2 = 11;
-
-        d = MathUtil.getPointDistance(x1, y1, x2, y2);
-        expect(d).toEqual(13);
-    })
-
-    //it('Calculates the direction from two points (x1, y1) to (x2, y2)', function () {
-    //    var d, x1, y1, x2, y2;
-
-    //    x1 = 0;
-    //    y1 = 50;
-    //    x2 = 0;
-    //    y2 = 100;
-
-    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
-    //    expect(d).toEqual(90);
-
-    //    x1 = 0;
-    //    y1 = 0;
-    //    x2 = 45;
-    //    y2 = 45;
-
-    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
-    //    expect(Math.floor(d)).toEqual(45);
-    //    x1 = 0;
-    //    y1 = 0;
-    //    x2 = 45;
-    //    y2 = -45;
-
-    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
-    //    expect(Math.floor(d)).toEqual(45);
-    //})
-
-    //it('', function () {
-    //}),
-
-    //it('', function () {
-    //})
-});
 
 //************************************************************************************//
-// Test suite for TheDOM class
+// Test suite for AssetManager class
 //************************************************************************************//
-describe('TheDOM', function () {
+describe('AssetManager', function () {
+    var testAssetManager;
 
-    it('Uses jQuery to retrieve a valid Canvas element and calling getContext(\'2d\')', function () {
-        var theCanvas = $("#theCanvas");
-        expect(theCanvas[0].getContext('2d')).toBeDefined();
-    })
+    beforeEach(function () {
+        testAssetManager = new AssetManager('image');
+    });
+
+    it('Adds and retrieves resources by ID value', function () {
+        testAssetManager.add('testAsset', 'src/tile.png');
+        var asset = testAssetManager.getById('testAsset');
+        expect(testAssetManager.assets[0].id).toEqual('testAsset');
+        expect(testAssetManager.assets[0].source).toEqual('src/tile.png');
+        expect(asset).not.toBeDefined();
+    });
 
 });
-
-
 
 
 //************************************************************************************//
@@ -121,7 +70,7 @@ describe('Controller - entity management', function () {
     });
 
     it('Has a defined View property upon instantiation', function () {
-        var ctrl
+        expect(testController.view).toBeDefined();
     });
 
     it('Adds an entity to the managed collection that can be retrieved by Entity ID', function () {
@@ -190,7 +139,7 @@ describe('Controller - entity management', function () {
 
         // the spy
         spyOn(ent1, 'click')
-        
+
         // force a call to click()
         testController.click(mockClickEvent);
 
@@ -198,4 +147,88 @@ describe('Controller - entity management', function () {
     })
 });
 
-    
+
+//************************************************************************************//
+// Test suite for Game class
+//************************************************************************************//
+describe('Game', function () {
+    it('Defines global objects for managing various resources', function () {
+        expect(Game.Assets).toBeDefined();
+        expect(Game.Assets.Images).toBeDefined();
+        expect(Game.Assets.Audio).toBeDefined();
+        expect(Game.CanvasManager).toBeDefined();
+    });
+});
+
+
+//************************************************************************************//
+// Test suite for MathUtil class
+//************************************************************************************//
+describe('MathUtil', function () {
+    it('Calculates the distance between points (x1, y1) and (x2, y2)', function () {
+        var d, x1, y1, x2, y2;
+        
+        x1 = 0;
+        y1 = -50;
+        x2 = 0;
+        y2 = 100;
+
+        d = MathUtil.getPointDistance(x1, y1, x2, y2);
+        expect(d).toEqual(150);
+
+        x1 = 5;
+        y1 = 6;
+        x2 = -7;
+        y2 = 11;
+
+        d = MathUtil.getPointDistance(x1, y1, x2, y2);
+        expect(d).toEqual(13);
+    })
+
+    //it('Calculates the direction from two points (x1, y1) to (x2, y2)', function () {
+    //    var d, x1, y1, x2, y2;
+
+    //    x1 = 0;
+    //    y1 = 50;
+    //    x2 = 0;
+    //    y2 = 100;
+
+    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
+    //    expect(d).toEqual(90);
+
+    //    x1 = 0;
+    //    y1 = 0;
+    //    x2 = 45;
+    //    y2 = 45;
+
+    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
+    //    expect(Math.floor(d)).toEqual(45);
+    //    x1 = 0;
+    //    y1 = 0;
+    //    x2 = 45;
+    //    y2 = -45;
+
+    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
+    //    expect(Math.floor(d)).toEqual(45);
+    //})
+
+    //it('', function () {
+    //}),
+
+    //it('', function () {
+    //})
+});
+
+
+//************************************************************************************//
+// Test suite for TheDOM class
+//************************************************************************************//
+describe('TheDOM', function () {
+
+    it('Uses jQuery to retrieve a valid Canvas element and calling getContext(\'2d\')', function () {
+        var theCanvas = $("#theCanvas");
+        expect(theCanvas[0].getContext('2d')).toBeDefined();
+    })
+
+});
+

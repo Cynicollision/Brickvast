@@ -18,7 +18,7 @@ function buildAndRun() {
 
 // instantiates and returns a controller
 function setupController() {
-    var testPlayerImage = Game.Assets.Images.getByName('player');
+    var testPlayerImage = Game.Assets.Images.getById('player');
 
     // create some entities
 
@@ -45,8 +45,16 @@ function setupController() {
     player2.setY(500);
 
     // set speed and direction
+    // E:   0
+    // SE:  45
+    // S:   90
+    // SW:  135
+    // W:   180
+    // NW:  225
+    // N:   270
+    // NE:  315
     player2.setSpeed(15);
-    player2.setDirection(-22.5);
+    player2.setDirection(315);
 
     // example: drawing primitives 
     var d = 0;

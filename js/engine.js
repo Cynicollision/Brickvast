@@ -9,7 +9,7 @@ MathUtil.getPointDistance = function (x1, y1, x2, y2) {
     return Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
 }
 
-// MathUtil.getPointDirection
+// MathUtil.getPointDirection(x1, y1, x2, y2)
 /// Returns the direction from two points (x1, y1) to (x2, y2)
 MathUtil.getPointDirection = function (x1, y1, x2, y2) {
     return ((180 / Math.PI) * Math.atan2(y2 - y1, x2 - x1));
@@ -81,11 +81,13 @@ CanvasManager.prototype.draw = function (controller) {
     var relativeX = this.getViewRelativeX(controller);
     var relativeY = this.getViewRelativeY(controller);
 
+    // remove destroyed entities, then sort
+    controller.removeDestroyedEntities();
     controller.sortEntities();
+    
     var entities = controller.getEntities();
 
     // draw entities (sorted in reverse order by depth)
-    // TODO: check a state here? or expect a destroyed state in step()
     var sortedEntities = entities
     for (var i = 0; i < entities.length; i++) {
         // call the Entity object's draw method
@@ -212,9 +214,11 @@ Controller.prototype.sortEntities = function () {
 // removeDestroyedEntities()
 //  Removes all managed Entity object where property isDestroyed is true
 Controller.prototype.removeDestroyedEntities = function () {
-    this.entities = this.entities.filter(function (entity) {
-        return !entity.isDestroyed;
-    });
+    if (this.entities !== undefined && this.entities.length > 0) {
+        this.entities = this.entities.filter(function (entity) {
+            return !entity.isDestroyed;
+        });
+    }
 }
 
 
@@ -269,13 +273,18 @@ Entity.prototype.destroy = function () {
     this.isDestroyed = true;
 }
 
-// getters and setters
+// getters and setters (TODO: need some tests for these)
 Entity.prototype.getImage = function () {
     return this.image;
 }
 
 Entity.prototype.setImage = function (newImage) {
     this.image = newImage;
+}
+
+Entity.prototype.setPosition = function (newX, newY) {
+    this.x = newX;
+    this.y = newY;
 }
 
 Entity.prototype.getX = function () {
@@ -303,11 +312,11 @@ Entity.prototype.setSpeed = function (newSpeed) {
 }
 
 Entity.prototype.getDirection = function () {
-    if (this.direction > 180) {
-        return this.direction - 360;
-    } else {
-        return this.direction;
+    if (this.direction > 360) {
+        this.direction -= 360;
     }
+
+    return this.direction;
 }
 
 Entity.prototype.setDirection= function (newDir) {
@@ -332,10 +341,9 @@ function Game() {
 }
 
 Game.Assets = function () { }
-Game.Assets.Images = new AssetManager("image");
-Game.Assets.Audio = new AssetManager("audio");
+Game.Assets.Images = new AssetManager('image');
+Game.Assets.Audio = new AssetManager('audio');
 Game.CanvasManager = new CanvasManager();
-
 
 // Game.setActiveController(newActiveController)
 //  Sets the running Controller to the given Controller object.
@@ -364,7 +372,7 @@ Game.run = function () {
         throw "No active controller set!";
     }
 
-    var stepSize = 1 / 60; // TODO: constant or from "global game settings"?
+    var stepSize = 1 / 60; // TODO: load from "global game settings" (whatever those end up being)
     var offset = 0;
     var previous = Game.getTimestamp()
     
@@ -389,7 +397,7 @@ Game.run = function () {
 
 //************************************************************************************//
 // AssetManager
-//  Used to store, pre-load, and retrieve game assets such as images and audio.
+//  Dictionary used to store, pre-load, and retrieve game assets such as images and audio.
 //
 // Properties
 //  assets  - Collection of assets managed by this object.
@@ -400,17 +408,23 @@ Game.run = function () {
 function AssetManager(type) {
     this.assets = [];
     this.type = type;
+    if (type != 'image' && type != 'audio')
+    {
+        throw 'Invalid asset type "' + type + '"';
+    }
 }
 
-// TODO: test, document
-AssetManager.prototype.add = function (newName, src) {
-    this.assets.push({ name: newName, source: src, asset: undefined });
+// add(newId, src)
+//  Adds a new asset with the given ID (used for retrieval) and relative source file location.
+AssetManager.prototype.add = function (newId, src) {
+    this.assets.push({ id: newId, source: src, asset: undefined });
 }
 
-// TODO: test, document
-AssetManager.prototype.getByName = function (name) {
+// getById(id)
+//  Returns the asset with the given ID if it exists.
+AssetManager.prototype.getById = function (id) {
     for (var i = 0; i < this.assets.length; i++) {
-        if (this.assets[i].name === name) {
+        if (this.assets[i].id === id) {
             return this.assets[i].asset;
         }
     }
@@ -420,12 +434,10 @@ AssetManager.prototype.getByName = function (name) {
 AssetManager.prototype.load = function () {
     for (var i = 0; i < this.assets.length; i++) {
         if (this.type === 'image') {
-            var newImg = new Image();
-            newImg.src = this.assets[i].source;
-            this.assets[i].asset = newImg;
+            this.assets[i].asset = new Image();
+            this.assets[i].asset.src = this.assets[i].source;
         } else if (this.type === 'audio') {
             // TODO: load sounds and stuff
-        }
-        
+        } 
     }
 }

@@ -42,6 +42,10 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="demo_drawing1.html" />
+    <Content Include="img\engine_demo\tile.png" />
+    <Content Include="img\tile.png" />
+    <Content Include="js\engine_demo\demo_drawing1.js" />
     <Content Include="tests\Content\jasmine\jasmine.css" />
     <Content Include="tests\Content\jasmine\jasmine_favicon.png" />
     <Content Include="img\player.png" />
@@ -54,7 +58,9 @@
     <Content Include="tests\Scripts\jasmine\jasmine-html.js" />
     <Content Include="tests\Scripts\jasmine\jasmine.js" />
     <Content Include="tests\spec\BrickvastSpec.js" />
-    <Content Include="web.config" />
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
