@@ -1,16 +1,18 @@
 ﻿//************************************************************************************//
 // Class: TheDOM
 //  For interacting directly with the DOM.
-//  TODO: create theCanvas, don't find it in HTML
+//  TODO: create theCanvas, don't "find" it in HTML
 function TheDOM() {
     this.canvas = $('#theCanvas');
 
+    // forward the even to the Game's active controller
     this.canvas.mousedown(function (e) {
         if (Game.getActiveController() !== undefined) {
             Game.getActiveController().mousedown(e);
         }
     });
 
+    // forward the even to the Game's active controller
     this.canvas.mouseup(function (e) {
         if (Game.getActiveController() !== undefined) {
             Game.getActiveController().mouseup(e);

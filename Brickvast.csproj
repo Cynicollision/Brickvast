@@ -44,6 +44,7 @@
   <ItemGroup>
     <Content Include="demo_drawing1.html" />
     <Content Include="demo_mazegame1.html" />
+    <Content Include="img\engine_demo\stone.png" />
     <Content Include="img\engine_demo\sun.jpg" />
     <Content Include="img\engine_demo\tile.png" />
     <Content Include="img\tile.png" />
