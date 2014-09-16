@@ -43,9 +43,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="demo_drawing1.html" />
+    <Content Include="demo_mazegame1.html" />
+    <Content Include="img\engine_demo\sun.jpg" />
     <Content Include="img\engine_demo\tile.png" />
     <Content Include="img\tile.png" />
     <Content Include="js\engine_demo\demo_drawing1.js" />
+    <Content Include="js\engine_demo\demo_mazegame1.js" />
     <Content Include="tests\Content\jasmine\jasmine.css" />
     <Content Include="tests\Content\jasmine\jasmine_favicon.png" />
     <Content Include="img\player.png" />

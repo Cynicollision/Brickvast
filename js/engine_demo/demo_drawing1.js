@@ -31,9 +31,9 @@ function buildEntityTwo() {
 
     // draw some text by overridding the draw() method
     testEntTwo.draw = function () {
-        var drawingContext = Game.CanvasManager.context;
-        drawingContext.font = '20px "Courier New"';
-        drawingContext.fillText('Hello World!', 300, 100);
+        var drawingContext = Game.CanvasManager.getDrawingContext();
+        drawingContext.font = '48px "Courier New"';
+        drawingContext.fillText('Hello World!', 250, 100);
     }
 
     return testEntTwo;

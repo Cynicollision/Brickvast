@@ -138,12 +138,12 @@ describe('Controller - entity management', function () {
         var mockClickEvent = { pageX: 60, pageY: 80 };
 
         // the spy
-        spyOn(ent1, 'click')
+        spyOn(ent1, 'mousedown')
 
         // force a call to click()
-        testController.click(mockClickEvent);
+        testController.mousedown(mockClickEvent);
 
-        expect(ent1.click).toHaveBeenCalled();
+        expect(ent1.mousedown).toHaveBeenCalled();
     })
 });
 
@@ -185,38 +185,49 @@ describe('MathUtil', function () {
         expect(d).toEqual(13);
     })
 
-    //it('Calculates the direction from two points (x1, y1) to (x2, y2)', function () {
-    //    var d, x1, y1, x2, y2;
+    it('Calculates the direction from two points (x1, y1) to (x2, y2)', function () {
+        var d, x1, y1, x2, y2;
 
-    //    x1 = 0;
-    //    y1 = 50;
-    //    x2 = 0;
-    //    y2 = 100;
+        // east
+        x1 = 0; y1 = 0; x2 = 50; y2 = 0;
+        d = MathUtil.getPointDirection(x1, y1, x2, y2);
+        expect(d).toEqual(0);
 
-    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
-    //    expect(d).toEqual(90);
+        // southeast
+        x1 = 0; y1 = 0; x2 = 50; y2 = 50;
+        d = MathUtil.getPointDirection(x1, y1, x2, y2);
+        expect(d).toEqual(45);
 
-    //    x1 = 0;
-    //    y1 = 0;
-    //    x2 = 45;
-    //    y2 = 45;
+        // south
+        x1 = 0; y1 = 0; x2 = 0; y2 = 50;
+        d = MathUtil.getPointDirection(x1, y1, x2, y2);
+        expect(d).toEqual(90);
 
-    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
-    //    expect(Math.floor(d)).toEqual(45);
-    //    x1 = 0;
-    //    y1 = 0;
-    //    x2 = 45;
-    //    y2 = -45;
+        // southwest
+        x1 = 0; y1 = 0; x2 = -50; y2 = 50;
+        d = MathUtil.getPointDirection(x1, y1, x2, y2);
+        expect(d).toEqual(135);
 
-    //    d = MathUtil.getPointDirection(x1, y1, x2, y2);
-    //    expect(Math.floor(d)).toEqual(45);
-    //})
+        // west
+        x1 = 0; y1 = 0; x2 = -50; y2 = 0;
+        d = MathUtil.getPointDirection(x1, y1, x2, y2);
+        expect(d).toEqual(180);
 
-    //it('', function () {
-    //}),
+        // northwest
+        x1 = 0; y1 = 0; x2 = -50; y2 = -50;
+        d = MathUtil.getPointDirection(x1, y1, x2, y2);
+        expect(d).toEqual(225);
 
-    //it('', function () {
-    //})
+        // north
+        x1 = 0; y1 = 0; x2 = 0; y2 = -50;
+        d = MathUtil.getPointDirection(x1, y1, x2, y2);
+        expect(d).toEqual(270);
+
+        // northeast
+        x1 = 0; y1 = 0; x2 = 50; y2 = -50;
+        d = MathUtil.getPointDirection(x1, y1, x2, y2);
+        expect(d).toEqual(315);
+    })
 });
 
 

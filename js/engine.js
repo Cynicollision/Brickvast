@@ -12,15 +12,23 @@ MathUtil.getPointDistance = function (x1, y1, x2, y2) {
 // MathUtil.getPointDirection(x1, y1, x2, y2)
 /// Returns the direction from two points (x1, y1) to (x2, y2)
 MathUtil.getPointDirection = function (x1, y1, x2, y2) {
-    return ((180 / Math.PI) * Math.atan2(y2 - y1, x2 - x1));
+    var direction = ((180 / Math.PI) * Math.atan2(y2 - y1, x2 - x1));
+    if (direction > 360) {
+        direction -= 360;
+    } else if (direction < 0) {
+        direction += 360;
+    }
+    return direction;
 }
 
-// TODO: test, document
+// MathUtil.getLengthDirectionX(length, direction)
+//  Returns the x-offset of a point the given length and direction from (0, 0).
 MathUtil.getLengthDirectionX = function (len, dir) {
     return Math.floor(len * Math.cos(dir * (Math.PI / 180)));
 }
 
-// TODO: test, document
+// MathUtil.getLengthDirectionY(length, direction)
+//  Returns the y-offset of a point the given length and direction from (0, 0).
 MathUtil.getLengthDirectionY = function (len, dir) {
     return Math.floor(len * Math.sin(dir * (Math.PI / 180)));
 }
@@ -32,9 +40,14 @@ MathUtil.getLengthDirectionY = function (len, dir) {
 function TheDOM() { }
 TheDOM.CanvasContext = $('#theCanvas')[0];
 TheDOM.Canvas = $('#theCanvas');
-TheDOM.Canvas.click(function (e) {
+TheDOM.Canvas.mousedown(function (e) {
     if (Game.getActiveController() !== undefined) {
-        Game.getActiveController().click(e);
+        Game.getActiveController().mousedown(e);
+    }
+});
+TheDOM.Canvas.mouseup(function (e) {
+    if (Game.getActiveController() !== undefined) {
+        Game.getActiveController().mouseup(e);
     }
 });
 
@@ -53,6 +66,11 @@ function CanvasManager() {
     this.context = TheDOM.CanvasContext.getContext('2d');
 }
 
+// TODO: test, document
+CanvasManager.prototype.getDrawingContext = function () {
+    return this.context;
+}
+
 // setBackgroundColor(newColor)
 //  Sets the background-color property of the main game canvas to newColor.
 CanvasManager.prototype.setBackgroundColor = function(color) {
@@ -68,6 +86,16 @@ CanvasManager.prototype.setBackgroundImage = function (url, tiled) {
         TheDOM.Canvas.css('background-repeat', 'no-repeat');
     }
     
+}
+
+// TODO: test, document
+CanvasManager.prototype.getCanvasWidth = function () {
+    return TheDOM.CanvasContext.width;
+}
+
+// TODO: test, document
+CanvasManager.prototype.getCanvasHeight = function () {
+    return TheDOM.CanvasContext.height;
 }
 
 
@@ -139,16 +167,37 @@ function Controller() {
 }
 
 
-// click(clickEvent)
-//  Calls click() on any managed Entity object's that were clicked on.
-Controller.prototype.click = function (e) {
+// mousedown(clickEvent)
+//  Calls mousedown() on any managed Entity object's that were clicked on.
+Controller.prototype.mousedown = function (e) {
     var clickX = e.pageX;
     var clickY = e.pageY;
 
     for (var i = 0; i < this.entities.length; i++) {
         var ent = this.entities[i];
         if ((clickX > ent.x) && (clickY > ent.y) && (clickX < ent.x + ent.width) && (clickY < ent.y + ent.height)) {
-            ent.click(e);
+            ent.mousedown(e);
+        }
+    }
+
+    this.postmousedown(e);
+}
+
+// TODO: test, document
+Controller.prototype.postmousedown = function (e) {
+    // to be overridden
+}
+
+// mouseup(clickEvent)
+//  Calls mousedown() on any managed Entity object's that were un-clicked on.
+Controller.prototype.mouseup = function (e) {
+    var clickX = e.pageX;
+    var clickY = e.pageY;
+
+    for (var i = 0; i < this.entities.length; i++) {
+        var ent = this.entities[i];
+        if ((clickX > ent.x) && (clickY > ent.y) && (clickX < ent.x + ent.width) && (clickY < ent.y + ent.height)) {
+            ent.mouseup(e);
         }
     }
 }
@@ -255,10 +304,16 @@ Entity.prototype.step = function () {
     // to be overridden in instantiation to define step behavior
 }
 
-// click()
+// mousedown()
 //  Called by the managing Controller object if e's coordinates are within this Entity's bounding area
-Entity.prototype.click = function (e) {
-    // to be overridden in instantiation to define on-click behavior
+Entity.prototype.mousedown = function (e) {
+    // to be overridden in instantiation to define on-mousedown behavior
+}
+
+// mouseup()
+//  Called by the managing Controller object if e's coordinates are within this Entity's bounding area
+Entity.prototype.mouseup = function (e) {
+    // to be overridden in instantiation to define on-mouseup behavior
 }
 
 // draw()
@@ -273,7 +328,7 @@ Entity.prototype.destroy = function () {
     this.isDestroyed = true;
 }
 
-// getters and setters (TODO: need some tests for these)
+// getters and setters
 Entity.prototype.getImage = function () {
     return this.image;
 }
@@ -312,10 +367,6 @@ Entity.prototype.setSpeed = function (newSpeed) {
 }
 
 Entity.prototype.getDirection = function () {
-    if (this.direction > 360) {
-        this.direction -= 360;
-    }
-
     return this.direction;
 }
 

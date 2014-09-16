@@ -26,16 +26,15 @@ function setupController() {
     var player = new Entity('slowPlayer', 'player1');
     player.setImage(testPlayerImage);
     player.setSize(140, 140);
+    player.isHeld = false;
 
     // example: defining on-click functionality.
-    player.click = function (e) {
-        var str = 'mouse click = (x: ' + e.pageX + ', y: ' + e.pageY + ')';
-        alert(str);
+    player.mousedown = function (e) {
+        player.isHeld = true;
     }
 
-    // what the player does, checks for, etc. every step
-    player.step = function () {
-        //this.x += 4;
+    player.mouseup = function (e) {
+        player.isHeld = false;
     }
 
     // player 2
@@ -84,19 +83,6 @@ function setupController() {
     //controller.view.x = 50;
     //controller.view.y = 50;
 
-    // what the controller can check for after every step
-    //controller.postStep = function () {
-    //    if (player.x > 800)
-    //    {
-    //        player.x = -50;
-    //        player.y += 50;
-    //    }
-    //}
-
-    //if (controller.getEntityById('player1') !== undefined) {
-    //    var ent = controller.getEntityById('player1');
-    //    // whatever you want to do with the specific entity
-    //}
 
     return controller;
 }
