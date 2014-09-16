@@ -1,8 +1,11 @@
-﻿// a demo of sorts
+﻿
+// a demo of sorts
 function buildAndRun() {
     // loading assets probably should be done asynchonously, but before calling Game.run
     Game.Assets.Images.add('player', 'img/player.png');
     Game.Assets.Images.load();
+
+    
 
     // configure game-specific stuff
     var myTestController = setupController();

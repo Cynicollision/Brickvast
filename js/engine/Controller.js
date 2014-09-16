@@ -113,7 +113,12 @@ Controller.prototype.sortEntities = function () {
 Controller.prototype.removeDestroyedEntities = function () {
     if (this.entities !== undefined && this.entities.length > 0) {
         this.entities = this.entities.filter(function (entity) {
-            return !entity.isDestroyed;
+            try {
+                return !entity.isDestroyed;
+            }
+            catch (e) {
+                throw "Can't call step() on undefined managed Entity!";
+            }
         });
     }
 }

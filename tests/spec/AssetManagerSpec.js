@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\js/engine/AssetManager.js" />
+
 /*
 describe('Class: name of test', function () {
     it('does stuff', function () {
