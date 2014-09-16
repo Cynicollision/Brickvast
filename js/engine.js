@@ -236,8 +236,8 @@ Controller.prototype.step = function () {
 
         // apply Entity motion
         if (this.entities[i].speed !== 0) {
-            this.entities[i].x += (MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10);
-            this.entities[i].y += (MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10);
+            this.entities[i].x += Math.round((MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
+            this.entities[i].y += Math.round((MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
         }
 
         this.entities[i].step();

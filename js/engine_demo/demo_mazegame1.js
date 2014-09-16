@@ -80,9 +80,11 @@ function buildPlayerEntity() {
 function playerStep() {
     var x = Math.floor(mainPlayer.getX());
     var y = Math.floor(mainPlayer.getY());
-    if ((x % tileSize < 3) && (y % tileSize < 3) && (mainPlayer.getSpeed() > 0)) {
+    if ((x % tileSize < 5) && (y % tileSize < 5) && (mainPlayer.getSpeed() > 0)) {
         mainPlayer.setSpeed(0);
-        mainPlayer.setPosition(x, y);
+        var newX = tileSize * Math.floor(x / tileSize);
+        var newY = tileSize * Math.floor(y / tileSize);
+        mainPlayer.setPosition(newX, newY);
     }
 }
 
