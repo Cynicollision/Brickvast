@@ -49,8 +49,8 @@ CanvasManager.prototype.getCanvasHeight = function () {
 //  Clears the game canvas and draws the current controller (entities relative to viewport).
 CanvasManager.prototype.draw = function (controller) {
     // clear
-    var context = this.theDOM.getCanvasContext();
-    this.context.clearRect(0, 0, context.width, context.height);
+    var contextArea = this.theDOM.getCanvasContext();
+    this.context.clearRect(0, 0, contextArea.width, contextArea.height);
 
     // get relative (x,y) to the location of the controller's view
     var relativeX = this.getViewRelativeX(controller);
