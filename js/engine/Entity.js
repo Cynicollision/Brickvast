@@ -32,13 +32,13 @@ Entity.prototype.step = function () {
 
 // mousedown()
 //  Called by the managing Controller object if e's coordinates are within this Entity's bounding area
-Entity.prototype.mousedown = function (e) {
+Entity.prototype.mousedown = function (x, y) {
     // to be overridden in instantiation to define on-mousedown behavior
 }
 
 // mouseup()
 //  Called by the managing Controller object if e's coordinates are within this Entity's bounding area
-Entity.prototype.mouseup = function (e) {
+Entity.prototype.mouseup = function (x, y) {
     // to be overridden in instantiation to define on-mouseup behavior
 }
 

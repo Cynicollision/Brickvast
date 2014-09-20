@@ -18,36 +18,40 @@ function Controller() {
 // mousedown(clickEvent)
 //  Calls mousedown() on any managed Entity object's that were clicked on.
 Controller.prototype.mousedown = function (e) {
-    var clickX = e.pageX;
-    var clickY = e.pageY;
+    // need to adjust for view's coordinates
+    var clickX = e.pageX + this.view.x;
+    var clickY = e.pageY + this.view.y;
 
     for (var i = 0; i < this.entities.length; i++) {
         var ent = this.entities[i];
         if ((clickX > ent.x) && (clickY > ent.y) && (clickX < ent.x + ent.width) && (clickY < ent.y + ent.height)) {
-            ent.mousedown(e);
+            ent.mousedown(clickX, clickY);
         }
     }
 
-    this.postmousedown(e);
+    this.postmousedown(clickX, clickY);
 }
 
-// TODO: test, document
-Controller.prototype.postmousedown = function (e) {
-    // to be overridden
-}
 
 // mouseup(clickEvent)
 //  Calls mousedown() on any managed Entity object's that were un-clicked on.
 Controller.prototype.mouseup = function (e) {
-    var clickX = e.pageX;
-    var clickY = e.pageY;
+    // need to adjust for view's coordinates
+    var clickX = e.pageX + this.view.x;
+    var clickY = e.pageY + this.view.y;
 
     for (var i = 0; i < this.entities.length; i++) {
         var ent = this.entities[i];
         if ((clickX > ent.x) && (clickY > ent.y) && (clickX < ent.x + ent.width) && (clickY < ent.y + ent.height)) {
-            ent.mouseup(e);
+            ent.mouseup(clickX, clickY);
         }
     }
+}
+
+
+// TODO: test, document
+Controller.prototype.postmousedown = function (x, y) {
+    // to be overridden
 }
 
 
@@ -72,6 +76,19 @@ Controller.prototype.getEntityById = function (id) {
             return this.entities[i];
         }
     }
+}
+
+// getEntitiesAtPosition(x, y)
+//  Returns a collection of Entity objects for which (x, y)
+//  falls within its width and height bounds
+Controller.prototype.getEntitiesAtPosition = function (x, y) {
+    var hits = [];
+    for (var i = 0; i < this.entities.length; i++) {
+        if (x > this.entities[i].x && y > this.entities[i].y && x < this.entities[i].x + this.entities[i].width && y < this.entities[i].y + this.entities[i].height) {
+            hits.push(this.entities[i]);
+        }
+    }
+    return hits;
 }
 
 // step()
@@ -121,4 +138,11 @@ Controller.prototype.removeDestroyedEntities = function () {
             }
         });
     }
+}
+
+// setViewPosition(x, y)
+//  Sets the view position to the given coordinates.
+Controller.prototype.setViewPosition = function (newX, newY) {
+    this.view.x = newX;
+    this.view.y = newY;
 }

@@ -27,19 +27,15 @@ CanvasManager.prototype.setBackgroundColor = function (color) {
 //  Sets the background-image property of the main canvas to the given image url amd tiled or not.
 CanvasManager.prototype.setBackgroundImage = function (url, tiled) {
     this.theDOM.getCanvas().css('background-image', 'url(' + url + ')');
-
     if (!tiled) {
         this.theDOM.getCanvas().css('background-repeat', 'no-repeat');
     }
-
 }
 
-// TODO: test, document
 CanvasManager.prototype.getCanvasWidth = function () {
     return this.theDOM.getCanvasContext().width;
 }
 
-// TODO: test, document
 CanvasManager.prototype.getCanvasHeight = function () {
     return this.theDOM.getCanvasContext().height;
 }
@@ -56,16 +52,14 @@ CanvasManager.prototype.draw = function (controller) {
     var relativeX = this.getViewRelativeX(controller);
     var relativeY = this.getViewRelativeY(controller);
 
-    // remove destroyed entities, then sort
-    controller.removeDestroyedEntities();
+    // adjust the background position according to the relative (x, y)
+    var val = -relativeX + 'px ' + -relativeY + 'px';
+    this.theDOM.getCanvas().css('background-position', val);
+
+    // draw entities (sorted in reverse order by depth): .draw() then Image
     controller.sortEntities();
-
     var entities = controller.getEntities();
-
-    // draw entities (sorted in reverse order by depth)
-    var sortedEntities = entities
     for (var i = 0; i < entities.length; i++) {
-        // call the Entity object's draw method
         entities[i].draw();
 
         var img = entities[i].getImage();

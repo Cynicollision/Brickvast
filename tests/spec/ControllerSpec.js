@@ -1,4 +1,5 @@
 ﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\js/engine/Controller.js" />
+/// <reference path="C:\Users\Sean\workspace\Brickvast\js/engine/Entity.js" />
 //************************************************************************************//
 // Test suite for Controller class
 //************************************************************************************//
@@ -65,14 +66,13 @@ describe('Controller', function () {
         testController.removeDestroyedEntities();
 
         expect(testController.entities.length).toEqual(3);
-    })
+    }),
 
     // TODO: enhance test to check for clicking on multiple entities
     it('Passes on-click coordinates to the clicked-on entity/entities', function () {
         var ent1 = new Entity(null, 'ent1');
         ent1.setSize(100, 100);
-        ent1.x = 50;
-        ent1.y = 50;
+        ent1.setPosition(50, 50);
         testController.addEntity(ent1);
 
         var mockClickEvent = { pageX: 60, pageY: 80 };
@@ -84,5 +84,26 @@ describe('Controller', function () {
         testController.mousedown(mockClickEvent);
 
         expect(ent1.mousedown).toHaveBeenCalled();
+    }),
+
+    it('Finds a collection of Entity objects at a given (x, y) position', function () {
+        var ent1 = new Entity(null, 'ent1');
+        ent1.setSize(50, 50);
+        ent1.setPosition(50, 50);
+        testController.addEntity(ent1);
+
+        var ent2 = new Entity(null, 'ent2');
+        ent2.setSize(50, 50);
+        ent2.setPosition(75, 75);
+        testController.addEntity(ent2);
+
+        var entsAtPos1 = testController.getEntitiesAtPosition(60, 60);
+        expect(entsAtPos1.length).toEqual(1);
+
+        var entsAtPos2 = testController.getEntitiesAtPosition(90, 90);
+        expect(entsAtPos2.length).toEqual(2);
+
+        var entsAtPos3 = testController.getEntitiesAtPosition(30, 30);
+        expect(entsAtPos3.length).toEqual(0);
     })
 });
