@@ -2,6 +2,7 @@
 // Class: TheDOM
 //  For interacting directly with the DOM.
 //  TODO: create theCanvas, don't "find" it in HTML
+//  TODO: can this be moved to the CanvasManager instead?
 function TheDOM() {
     this.canvas = $('#theCanvas');
 
@@ -26,4 +27,10 @@ TheDOM.prototype.getCanvasContext = function () {
 
 TheDOM.prototype.getCanvas = function () {
     return this.canvas;
+}
+
+// setBackgroundPosition(x, y)
+//  Adjusts the CSS of the canvas's background to the given coordinates.
+TheDOM.prototype.setBackgroundPosition = function (x, y) {
+    this.canvas.css('background-position', x + 'px ' + y + 'px');
 }
