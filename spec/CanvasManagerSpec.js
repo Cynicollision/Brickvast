@@ -1,4 +1,4 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\js/engine/CanvasManager.js" />
+﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/CanvasManager.js" />
 //************************************************************************************//
 // Test suite for CanvasManager class
 //************************************************************************************//

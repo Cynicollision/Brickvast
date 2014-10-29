@@ -1,4 +1,4 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\js/engine/MathUtil.js" />
+﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/MathUtil.js" />
 //************************************************************************************//
 // Test suite for MathUtil class
 //************************************************************************************//

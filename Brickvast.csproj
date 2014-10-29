@@ -43,47 +43,47 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="demo\demo_sounds1.js" />
-    <Content Include="demo_sounds1.html" />
-    <Content Include="demo_drawing1.html" />
-    <Content Include="demo_mazegame1.html" />
-    <Content Include="img\engine_demo\stone.png" />
-    <Content Include="img\engine_demo\sun.jpg" />
-    <Content Include="img\engine_demo\tile.png" />
-    <Content Include="img\tile.png" />
-    <Content Include="js\engine\AssetManager.js" />
-    <Content Include="js\engine\CanvasManager.js" />
-    <Content Include="js\engine\Controller.js" />
+    <Content Include="demo\demo_sounds1.html" />
+    <Content Include="demo\demo_drawing1.html" />
+    <Content Include="demo\demo_mazegame1.html" />
+    <Content Include="demo\images\enemy.png" />
+    <Content Include="demo\images\flag.png" />
+    <Content Include="demo\images\stone.png" />
+    <Content Include="demo\images\sun.jpg" />
+    <Content Include="demo\images\texture.png" />
+    <Content Include="demo\images\tile.png" />
+    <Content Include="src\AssetManager.js" />
+    <Content Include="src\CanvasManager.js" />
+    <Content Include="src\Controller.js" />
     <Content Include="demo\demo_drawing1.js" />
     <Content Include="demo\demo_mazegame1.js" />
-    <Content Include="js\engine\Entity.js" />
-    <Content Include="js\engine\Game.js" />
-    <Content Include="js\engine\MathUtil.js" />
-    <Content Include="sounds\LOZ_Get_Rupee.wav" />
-    <Content Include="tests\Content\jasmine\jasmine.css" />
-    <Content Include="tests\Content\jasmine\jasmine_favicon.png" />
-    <Content Include="img\player.png" />
-    <Content Include="js\brickvast.js" />
-    <Content Include="index.html" />
-    <Content Include="js\jquery-2.1.1.min.js" />
-    <Content Include="tests\Scripts\jasmine\boot.js" />
-    <Content Include="tests\Scripts\jasmine\console.js" />
-    <Content Include="tests\Scripts\jasmine\jasmine-html.js" />
-    <Content Include="tests\Scripts\jasmine\jasmine.js" />
-    <Content Include="tests\spec\AssetManagerSpec.js" />
-    <Content Include="tests\spec\CanvasManagerSpec.js" />
-    <Content Include="tests\spec\ControllerSpec.js" />
-    <Content Include="tests\spec\EntitySpec.js" />
-    <Content Include="tests\spec\GameSpec.js" />
-    <Content Include="tests\spec\MathUtilSpec.js" />
+    <Content Include="src\Entity.js" />
+    <Content Include="src\Game.js" />
+    <Content Include="src\MathUtil.js" />
+    <Content Include="demo\sounds\LOZ_Get_Rupee.wav" />
+    <Content Include="spec\Content\jasmine\jasmine.css" />
+    <Content Include="spec\Content\jasmine\jasmine_favicon.png" />
+    <Content Include="vendor\jquery-2.1.1.min.js" />
+    <Content Include="spec\Scripts\jasmine\boot.js" />
+    <Content Include="spec\Scripts\jasmine\console.js" />
+    <Content Include="spec\Scripts\jasmine\jasmine-html.js" />
+    <Content Include="spec\Scripts\jasmine\jasmine.js" />
+    <Content Include="spec\AssetManagerSpec.js" />
+    <Content Include="spec\CanvasManagerSpec.js" />
+    <Content Include="spec\ControllerSpec.js" />
+    <Content Include="spec\EntitySpec.js" />
+    <Content Include="spec\GameSpec.js" />
+    <Content Include="spec\MathUtilSpec.js" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="build\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="tests\Views\Jasmine\SpecRunner.cshtml" />
+    <Content Include="spec\Views\Jasmine\SpecRunner.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -92,7 +92,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="tests\Controllers\JasmineController.cs" />
+    <Compile Include="spec\Controllers\JasmineController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />

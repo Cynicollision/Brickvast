@@ -1,5 +1,5 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\js/engine/Controller.js" />
-/// <reference path="C:\Users\Sean\workspace\Brickvast\js/engine/Entity.js" />
+﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/Controller.js" />
+/// <reference path="C:\Users\Sean\workspace\Brickvast\src/Entity.js" />
 //************************************************************************************//
 // Test suite for Controller class
 //************************************************************************************//

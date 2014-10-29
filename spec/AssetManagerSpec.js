@@ -1,4 +1,4 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\js/engine/AssetManager.js" />
+﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/AssetManager.js" />
 //************************************************************************************//
 // Test suite for AssetManager class
 //************************************************************************************//

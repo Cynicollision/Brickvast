@@ -1,15 +1,15 @@
-﻿/// <reference path="../js/engine/MathUtil.js" />
-/// <reference path="../js/engine/CanvasManager.js" />
-/// <reference path="../js/engine/Controller.js" />
-/// <reference path="../js/engine/Entity.js" />
-/// <reference path="../js/engine/Game.js" />
+﻿/// <reference path="../src/MathUtil.js" />
+/// <reference path="../src/CanvasManager.js" />
+/// <reference path="../src/Controller.js" />
+/// <reference path="../src/Entity.js" />
+/// <reference path="../src/Game.js" />
 // set background color and load assets
 (function () {
-    Game.CanvasManager.setBackgroundImage('img/engine_demo/texture.jpg');
-    Game.Assets.Images.add('sun', 'img/engine_demo/sun.jpg');
-    Game.Assets.Images.add('flag', 'img/engine_demo/flag.png');
-    Game.Assets.Images.add('stone', 'img/engine_demo/stone.png');
-    Game.Assets.Images.add('badguy', 'img/engine_demo/badguy.png');
+    Game.CanvasManager.setBackgroundImage('images/texture.png');
+    Game.Assets.Images.add('sun', 'images/sun.jpg');
+    Game.Assets.Images.add('flag', 'images/flag.png');
+    Game.Assets.Images.add('stone', 'images/stone.png');
+    Game.Assets.Images.add('badguy', 'images/enemy.png');
     Game.Assets.Images.load();
 
     // for grid movement
