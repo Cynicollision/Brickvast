@@ -189,7 +189,7 @@
     // determine if the player ran into the enemy
     function checkForDead() {
         if (mainPlayer.checkCollision(badguy)) {
-            alert('Sooo dead!');
+            //alert('Sooo dead!');
             mainPlayer.setPosition(64, 64);
         }
     }

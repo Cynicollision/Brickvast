@@ -8,8 +8,23 @@
 // CanvasManager()
 //  Constructor - store a reference to the 2D drawing context.
 function CanvasManager() {
-    this.theDOM = new TheDOM();
-    this.context = this.theDOM.getCanvasContext().getContext('2d');
+    this.canvas = $('#theCanvas');
+
+    // forward the event to the Game's active controller
+    this.canvas.mousedown(function (e) {
+        if (Game.getActiveController() !== undefined) {
+            Game.getActiveController().mousedown(e);
+        }
+    });
+
+    // forward the event to the Game's active controller
+    this.canvas.mouseup(function (e) {
+        if (Game.getActiveController() !== undefined) {
+            Game.getActiveController().mouseup(e);
+        }
+    });
+
+    this.context = this.canvas[0].getContext('2d');
 }
 
 // TODO: test, document
@@ -20,42 +35,45 @@ CanvasManager.prototype.getDrawingContext = function () {
 // setBackgroundColor(newColor)
 //  Sets the background-color property of the main game canvas to newColor.
 CanvasManager.prototype.setBackgroundColor = function (color) {
-    this.theDOM.getCanvas().css('background', color);
+    this.canvas.css('background', color);
 }
 
 // setBackgroundImage(newImage, tiled)
 //  Sets the background-image property of the main canvas to the given image url amd tiled or not.
 CanvasManager.prototype.setBackgroundImage = function (url, tiled) {
-    this.theDOM.getCanvas().css('background-image', 'url(' + url + ')');
+    this.canvas.css('background-image', 'url(' + url + ')');
     if (!tiled) {
-        this.theDOM.getCanvas().css('background-repeat', 'no-repeat');
+        this.canvas.css('background-repeat', 'no-repeat');
     }
 }
 
+CanvasManager.prototype.setBackgroundPosition = function (x, y) {
+    this.canvas.css('background-position', x + 'px ' + y + 'px');
+}
+
 CanvasManager.prototype.getCanvasWidth = function () {
-    return this.theDOM.getCanvasContext().width;
+    return this.canvas[0].width;
 }
 
 CanvasManager.prototype.getCanvasHeight = function () {
-    return this.theDOM.getCanvasContext().height;
+    return this.canvas[0].height;
 }
 
 
 // draw()
 //  Clears the game canvas and draws the current controller (entities relative to viewport).
 CanvasManager.prototype.draw = function (controller) {
-    // clear
-    var contextArea = this.theDOM.getCanvasContext();
-    this.context.clearRect(0, 0, contextArea.width, contextArea.height);
+    // clear the entire canvas
+    this.context.clearRect(0, 0, this.canvas[0].width, this.canvas[0].height);
 
     // get relative (x,y) to the location of the controller's view
     var relativeX = this.getViewRelativeX(controller);
     var relativeY = this.getViewRelativeY(controller);
 
     // adjust the background position according to the relative (x, y)
-    this.theDOM.setBackgroundPosition(-relativeX, -relativeY);
+    this.setBackgroundPosition(-relativeX, -relativeY);
 
-    // draw entities (sorted in reverse order by depth): .draw() then Image
+    // draw entities (sorted in reverse order by depth): call each Entitiy's draw() then draw its Image
     controller.sortEntities();
     var entities = controller.getEntities();
     for (var i = 0; i < entities.length; i++) {
