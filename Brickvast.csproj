@@ -42,6 +42,8 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="demo\demo_sounds1.js" />
+    <Content Include="demo_sounds1.html" />
     <Content Include="demo_drawing1.html" />
     <Content Include="demo_mazegame1.html" />
     <Content Include="img\engine_demo\stone.png" />
@@ -57,6 +59,8 @@
     <Content Include="js\engine\Game.js" />
     <Content Include="js\engine\MathUtil.js" />
     <Content Include="js\engine\TheDOM.js" />
+    <Content Include="sounds\Loser.mp3" />
+    <Content Include="sounds\LOZ_Get_Rupee.wav" />
     <Content Include="tests\Content\jasmine\jasmine.css" />
     <Content Include="tests\Content\jasmine\jasmine_favicon.png" />
     <Content Include="img\player.png" />
@@ -70,6 +74,7 @@
     <Content Include="tests\spec\AssetManagerSpec.js" />
     <Content Include="tests\spec\CanvasManagerSpec.js" />
     <Content Include="tests\spec\ControllerSpec.js" />
+    <Content Include="tests\spec\EntitySpec.js" />
     <Content Include="tests\spec\GameSpec.js" />
     <Content Include="tests\spec\MathUtilSpec.js" />
     <Content Include="tests\spec\TheDOMSpec.js" />

@@ -27,6 +27,10 @@ Game.getActiveController = function () {
     return this.activeController;
 }
 
+Game.hasActiveControler = function () {
+    return this.activeController !== undefined;
+}
+
 // Game.getTimestamp()
 //  Returns the current timestamp (e.g. 87.134....)
 Game.getTimestamp = function () {
@@ -37,11 +41,6 @@ Game.getTimestamp = function () {
 //  The main game loop. Keeps the game running at a fixed FPS.
 //  Note: this will fail if there is no active Controller!
 Game.run = function () {
-    // make sure an active Controller has been defined
-    if (this.activeController === undefined) {
-        throw "No active controller set!";
-    }
-
     var stepSize = 1 / 60; // TODO: load from "global game settings" (whatever those end up being)
     var offset = 0;
     var previous = Game.getTimestamp()
@@ -52,12 +51,18 @@ Game.run = function () {
 
         // still step during the offset (time difference between frames)
         while (offset > stepSize) {
-            Game.getActiveController().step(stepSize);
+            if (Game.hasActiveControler()) {
+                Game.getActiveController().step(stepSize);
+            }
+            
             offset -= stepSize;
         }
 
         // draw
-        Game.CanvasManager.draw(Game.getActiveController());
+        if (Game.hasActiveControler()) {
+            Game.CanvasManager.draw(Game.getActiveController());
+        }
+        
         previous = current;
         requestAnimationFrame(stepAndDraw);
     }

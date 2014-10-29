@@ -28,7 +28,6 @@
     function buildAndRun() {
 
         // set up the "controller" with the test Entity object
-        
         ctrl.addEntity(mainPlayer);
         ctrl.addEntity(goal);
         ctrl.addEntity(badguy);
@@ -67,6 +66,9 @@
 
                 // see if we made it to the goal
                 checkForWin();
+            } else {
+                // check to see if we died
+                checkForDead();
             }
         }
 
@@ -91,6 +93,7 @@
         enemy.setSpeed(10);
         enemy.setDirection(180); // left
         enemy.step = function () {
+            // "bounce" left and right
             var toMyLeft = ctrl.getEntitiesAtPosition(enemy.getX() - 2, enemy.getY() + 2);
             var toMyRight = ctrl.getEntitiesAtPosition(enemy.getX() + enemy.width + 2, enemy.getY() + 2);
 
@@ -181,6 +184,14 @@
         }
 
         return true;
+    }
+
+    // determine if the player ran into the enemy
+    function checkForDead() {
+        if (mainPlayer.checkCollision(badguy)) {
+            alert('Sooo dead!');
+            mainPlayer.setPosition(64, 64);
+        }
     }
 
     // determine if the player made it to the goal

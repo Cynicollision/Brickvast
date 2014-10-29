@@ -54,7 +54,7 @@ CanvasManager.prototype.draw = function (controller) {
 
     // adjust the background position according to the relative (x, y)
     var val = -relativeX + 'px ' + -relativeY + 'px';
-    this.theDOM.getCanvas().css('background-position', val);
+    this.theDOM.getCanvas().css('background-position', val); // TODO: add setBackgroundPosition(x, y) to TheDOM
 
     // draw entities (sorted in reverse order by depth): .draw() then Image
     controller.sortEntities();

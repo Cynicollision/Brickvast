@@ -54,6 +54,13 @@ Entity.prototype.destroy = function () {
     this.isDestroyed = true;
 }
 
+// checkCollision(otherEntity)
+//  Returns true if this Entity object's bounding area intersects with that of the given Entity object to compare to/
+Entity.prototype.checkCollision = function (other) {
+    return !((this.x + this.width < other.x) || (other.x + other.width < this.x) || (this.y + this.height < other.y) || (other.y + other.height < this.y));
+}
+
+
 // getters and setters
 Entity.prototype.getImage = function () {
     return this.image;

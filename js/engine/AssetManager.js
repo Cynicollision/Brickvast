@@ -32,14 +32,17 @@ AssetManager.prototype.getById = function (id) {
     }
 }
 
-// TODO: test, document
+// load()
+//  Instantiates all managed assets from their sources at once.
+//  Relies on this AssetManager object being correctly instantiated with a valid type.
 AssetManager.prototype.load = function () {
     for (var i = 0; i < this.assets.length; i++) {
         if (this.type === 'image') {
             this.assets[i].asset = new Image();
-            this.assets[i].asset.src = this.assets[i].source;
         } else if (this.type === 'audio') {
-            // TODO: load sounds and stuff
+            this.assets[i].asset = new Audio(this.assets[i].source);
         }
+
+        this.assets[i].asset.src = this.assets[i].source;
     }
 }
