@@ -1,16 +1,8 @@
-﻿//************************************************************************************//
-// Entity
-//  Represents one (usually visible) "thing" to exist in the game.
-//
-// Properties
-//  x       - x coordinate relative to (0,0) for the controller
-//  y       - y coordinate relative to (0,0) for the controller
-//  depth   - Entity objects are drawn in reverse order by depth (i.e. -1 would be "over" 1)
-//  type    - The type of Entity. Can be used to retrieve all of a Controller's Entity objects of a given type
-//  id      - The ID of this Entity. Can be used to retrieve a specific Entity by ID from the Controller.
-//
-// Entity(type)
-//  Contructor - instantiates a Entity object with the given type and id values
+﻿/**
+ * Represents one (usually visible) "thing" to exist in the game.
+ * @param {string} type Used to group and retrieve similar Entity objects.
+ * @constructor
+ */
 function Entity(type, id) {
     this.x = 0;
     this.y = 0;
@@ -24,44 +16,66 @@ function Entity(type, id) {
     this.height = 0;
 }
 
-// step()
-//  Called by the managing Controller object's own step() function continuously.
+
+/** 
+ * Called during the managing Controller object's own step function continuously.
+ */
 Entity.prototype.step = function () {
     // to be overridden in instantiation to define step behavior
 }
 
-// mousedown()
-//  Called by the managing Controller object if e's coordinates are within this Entity's bounding area
+
+/**
+ * Called by the managing Controller object if e's coordinates are within this Entity's bounding area.
+ * @param {number} x X-coordinate of onmousedown event.
+ * @param {number} y Y-coordinate of onmousedown event.
+ */
 Entity.prototype.mousedown = function (x, y) {
-    // to be overridden in instantiation to define on-mousedown behavior
+    // to be overridden in instantiation to define mousedown behavior
 }
 
-// mouseup()
-//  Called by the managing Controller object if e's coordinates are within this Entity's bounding area
+
+/**
+ * Called by the managing Controller object if e's coordinates are within this Entity's bounding area.
+ * @param {number} x X-coordinate of onmouseup event.
+ * @param {number} y Y-coordinate of onmouseup event.
+ */
 Entity.prototype.mouseup = function (x, y) {
-    // to be overridden in instantiation to define on-mouseup behavior
+    // to be overridden in instantiation to define mouseup behavior
 }
 
-// draw()
-//  Called by the managing Controller object's own draw() function each frame.
+
+/** 
+ * Called by the managing Controller object's own draw() function each frame.
+ */
 Entity.prototype.draw = function () {
     // to be overridden in instantiation to perform special drawing functions
 }
 
-// destroy()
-//  Destroy this Entity (remove from managing Controller's collection)
+
+/**
+ * Destroy this Entity on the managing Controller's next step.
+ */
 Entity.prototype.destroy = function () {
     this.isDestroyed = true;
 }
 
-// checkCollision(otherEntity)
-//  Returns true if this Entity object's bounding area intersects with that of the given Entity object to compare to/
+
+/** 
+ * Determine if this Entity object's bounding area intersects with that of the given Entity object to compare to.
+ * @param {Entity} Other entity to check for a collision with.
+ * @return {boolean} True if the other Entity object's bounding area intersects with this one's.
+ */
 Entity.prototype.checkCollision = function (other) {
     return !((this.x + this.width < other.x) || (other.x + other.width < this.x) || (this.y + this.height < other.y) || (other.y + other.height < this.y));
 }
 
 
-// getters and setters
+
+
+/**************************************************************
+ * Getters and setters
+ **************************************************************/
 Entity.prototype.getImage = function () {
     return this.image;
 }

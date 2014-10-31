@@ -1,12 +1,12 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/CanvasManager.js" />
+﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/Canvas.js" />
 //************************************************************************************//
-// Test suite for CanvasManager class
+// Test suite for Canvas class
 //************************************************************************************//
-describe('CanvasManager', function () {
+describe('Canvas', function () {
     var canvasManager;
 
     beforeEach(function () {
-        canvasManager = new CanvasManager();
+        canvasManager = new Canvas();
     })
 
     it('Retrieves a valid drawing context (used for drawing primitives)', function () {

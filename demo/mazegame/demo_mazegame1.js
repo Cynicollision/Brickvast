@@ -1,21 +1,21 @@
 ﻿/// <reference path="../src/MathUtil.js" />
-/// <reference path="../src/CanvasManager.js" />
+/// <reference path="../src/Canvas.js" />
 /// <reference path="../src/Controller.js" />
 /// <reference path="../src/Entity.js" />
 /// <reference path="../src/Game.js" />
 // set background color and load assets
 (function () {
-    Game.CanvasManager.setBackgroundImage('images/texture.png');
-    Game.Assets.Images.add('sun', 'images/sun.jpg');
-    Game.Assets.Images.add('flag', 'images/flag.png');
-    Game.Assets.Images.add('stone', 'images/stone.png');
-    Game.Assets.Images.add('badguy', 'images/enemy.png');
-    Game.Assets.Images.load();
+    Game.Canvas.setBackgroundImage('../images/texture.png');
+    Game.Images.add('sun', '../images/sun.jpg');
+    Game.Images.add('flag', '../images/flag.png');
+    Game.Images.add('stone', '../images/stone.png');
+    Game.Images.add('badguy', '../images/enemy.png');
+    Game.Images.load();
 
     // for grid movement
     var tileSize = 64;
-    var width = Game.CanvasManager.getCanvasWidth();
-    var height = Game.CanvasManager.getCanvasHeight();
+    var width = Game.Canvas.getCanvasWidth();
+    var height = Game.Canvas.getCanvasHeight();
 
     var ctrl = new Controller();
 
@@ -51,7 +51,7 @@
     function buildPlayerEntity() {
         var player = new Entity(null, 'player');
         player.setSize(64, 64);
-        player.setImage(Game.Assets.Images.getById('sun'));
+        player.setImage(Game.Images.getById('sun'));
         player.setPosition(64, 64);
         player.depth = -100; // make sure player stays on top
 
@@ -78,17 +78,17 @@
     // builds and returns the goal Entity object
     function buildGoalEntity() {
         var goal = new Entity(null, 'goal');
-        goal.setImage(Game.Assets.Images.getById('flag'));
-        goal.setX(Game.CanvasManager.getCanvasWidth() - 128);
-        goal.setY(Game.CanvasManager.getCanvasHeight() - 128);
+        goal.setImage(Game.Images.getById('flag'));
+        goal.setX(Game.Canvas.getCanvasWidth() - 128);
+        goal.setY(Game.Canvas.getCanvasHeight() - 128);
         return goal;
     }
 
     // builds and returns an enemy
     function buildEnemyEntity() {
         var enemy = new Entity(null, 'enemy');
-        enemy.setImage(Game.Assets.Images.getById('badguy'));
-        enemy.setPosition(Game.CanvasManager.getCanvasWidth() - 256, Game.CanvasManager.getCanvasHeight() - 128);
+        enemy.setImage(Game.Images.getById('badguy'));
+        enemy.setPosition(Game.Canvas.getCanvasWidth() - 256, Game.Canvas.getCanvasHeight() - 128);
         enemy.setSize(64, 64);
         enemy.setSpeed(10);
         enemy.setDirection(180); // left
@@ -129,7 +129,7 @@
             for (var j = 0; j < row.length; j++) {
                 if (row.charAt(j) === '#') {
                     var wall = new Entity('wall', 0);
-                    wall.setImage(Game.Assets.Images.getById('stone'));
+                    wall.setImage(Game.Images.getById('stone'));
                     wall.setPosition(j * tileSize, i * tileSize);
                     wall.setSize(64, 64);
                     ctrl.addEntity(wall);

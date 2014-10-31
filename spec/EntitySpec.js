@@ -10,7 +10,7 @@ describe('Entity', function () {
         testEntity = new Entity();
         testEntity.setPosition(50, 50);
         testEntity.setSize(50, 50);
-    })
+    });
 
     it('Can detect a collision with another Entity by comparing their bounding areas', function () {
         var otherEntity = new Entity();
@@ -22,5 +22,5 @@ describe('Entity', function () {
         otherEntity.setPosition(101, 101);
 
         expect(testEntity.checkCollision(otherEntity)).toBeFalsy();
-    })
+    });
 });

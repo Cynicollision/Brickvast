@@ -21,7 +21,7 @@ describe('MathUtil', function () {
 
         d = MathUtil.getPointDistance(x1, y1, x2, y2);
         expect(d).toEqual(13);
-    })
+    });
 
     it('Calculates the direction from two points (x1, y1) to (x2, y2)', function () {
         var d, x1, y1, x2, y2;
@@ -65,5 +65,5 @@ describe('MathUtil', function () {
         x1 = 0; y1 = 0; x2 = 50; y2 = -50;
         d = MathUtil.getPointDirection(x1, y1, x2, y2);
         expect(d).toEqual(315);
-    })
+    });
 });

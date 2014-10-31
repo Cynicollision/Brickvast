@@ -42,21 +42,20 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="demo\demo_sounds1.js" />
-    <Content Include="demo\demo_sounds1.html" />
-    <Content Include="demo\demo_drawing1.html" />
-    <Content Include="demo\demo_mazegame1.html" />
+    <Content Include="demo\sounds1\demo_sounds1.js" />
+    <Content Include="demo\sounds1\demo_sounds1.html" />
+    <Content Include="demo\drawing1\demo_drawing1.html" />
+    <Content Include="demo\mazegame\demo_mazegame1.html" />
     <Content Include="demo\images\enemy.png" />
     <Content Include="demo\images\flag.png" />
     <Content Include="demo\images\stone.png" />
     <Content Include="demo\images\sun.jpg" />
     <Content Include="demo\images\texture.png" />
     <Content Include="demo\images\tile.png" />
-    <Content Include="src\AssetManager.js" />
-    <Content Include="src\CanvasManager.js" />
+    <Content Include="src\Canvas.js" />
     <Content Include="src\Controller.js" />
-    <Content Include="demo\demo_drawing1.js" />
-    <Content Include="demo\demo_mazegame1.js" />
+    <Content Include="demo\drawing1\demo_drawing1.js" />
+    <Content Include="demo\mazegame\demo_mazegame1.js" />
     <Content Include="src\Entity.js" />
     <Content Include="src\Game.js" />
     <Content Include="src\MathUtil.js" />
@@ -68,8 +67,7 @@
     <Content Include="spec\Scripts\jasmine\console.js" />
     <Content Include="spec\Scripts\jasmine\jasmine-html.js" />
     <Content Include="spec\Scripts\jasmine\jasmine.js" />
-    <Content Include="spec\AssetManagerSpec.js" />
-    <Content Include="spec\CanvasManagerSpec.js" />
+    <Content Include="spec\CanvasSpec.js" />
     <Content Include="spec\ControllerSpec.js" />
     <Content Include="spec\EntitySpec.js" />
     <Content Include="spec\GameSpec.js" />
