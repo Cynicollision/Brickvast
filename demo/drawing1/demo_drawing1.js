@@ -1,25 +1,25 @@
 ﻿function buildAndRun() {
     // loading assets should be done before calling Game.run
-    Game.Images.add('tile', '../_images/tile.png');
-    Game.Images.load();
+    $vast.Game.Images.add('tile', '../_images/tile.png');
+    $vast.Game.Images.load();
 
     // set up the "controller" with the two test Entity objects
-    var ctrl = new Controller();
+    var ctrl = new $vast.Controller();
     ctrl.addEntity(buildEntityOne());
     ctrl.addEntity(buildEntityTwo());
-    Game.setActiveController(ctrl);
+    $vast.Game.setActiveController(ctrl);
 
     // set the background color
-    Game.Canvas.setBackgroundColor('#cce');
+    $vast.Game.Canvas.setBackgroundColor('#cce');
 
     // run the game
-    Game.run();
+    $vast.Game.run();
 }
 
 function buildEntityOne() {
     // set up an Entity with an image and position
-    var testEntOne = new Entity(null, 1);
-    testEntOne.setImage(Game.Images.getById('tile'));
+    var testEntOne = new $vast.Entity(null, 1);
+    testEntOne.setImage($vast.Game.Images.getById('tile'));
     testEntOne.setPosition(100, 100);
 
     return testEntOne;
@@ -27,11 +27,11 @@ function buildEntityOne() {
 
 function buildEntityTwo() {
     // set up an Entity with no image
-    var testEntTwo = new Entity(null, 2);
+    var testEntTwo = new $vast.Entity(null, 2);
 
     // draw some text by overridding the draw() method
     testEntTwo.draw = function () {
-        var drawingContext = Game.Canvas.getDrawingContext();
+        var drawingContext = $vast.Game.Canvas.getDrawingContext();
         drawingContext.font = '48px "Courier New"';
         drawingContext.fillText('Hello World!', 250, 100);
     }

@@ -5,19 +5,19 @@
 /// <reference path="../src/Game.js" />
 // set background color and load assets
 (function () {
-    Game.Canvas.setBackgroundImage('../_images/texture.png');
-    Game.Images.add('sun', '../_images/sun.jpg');
-    Game.Images.add('flag', '../_images/flag.png');
-    Game.Images.add('stone', '../_images/stone.png');
-    Game.Images.add('badguy', '../_images/enemy.png');
-    Game.Images.load();
+    $vast.Game.Canvas.setBackgroundImage('../_images/texture.png');
+    $vast.Game.Images.add('sun', '../_images/sun.jpg');
+    $vast.Game.Images.add('flag', '../_images/flag.png');
+    $vast.Game.Images.add('stone', '../_images/stone.png');
+    $vast.Game.Images.add('badguy', '../_images/enemy.png');
+    $vast.Game.Images.load();
 
     // for grid movement
     var tileSize = 64;
-    var width = Game.Canvas.getCanvasWidth();
-    var height = Game.Canvas.getCanvasHeight();
+    var width = $vast.Game.Canvas.getCanvasWidth();
+    var height = $vast.Game.Canvas.getCanvasHeight();
 
-    var ctrl = new Controller();
+    var ctrl = new $vast.Controller();
 
     // our hero
     var mainPlayer = buildPlayerEntity();
@@ -40,18 +40,18 @@
         }
 
         buildWallMap(ctrl);
-        Game.setActiveController(ctrl);
+        $vast.Game.setActiveController(ctrl);
 
         // run the game
-        Game.run();
+        $vast.Game.run();
     }
 
 
     // builds and returns the player Entity object
     function buildPlayerEntity() {
-        var player = new Entity(null, 'player');
+        var player = new $vast.Entity(null, 'player');
         player.setSize(64, 64);
-        player.setImage(Game.Images.getById('sun'));
+        player.setImage($vast.Game.Images.getById('sun'));
         player.setPosition(192, 64);
         player.depth = -100; // make sure player stays on top
 
@@ -77,17 +77,17 @@
 
     // builds and returns the goal Entity object
     function buildGoalEntity() {
-        var goal = new Entity(null, 'goal');
-        goal.setImage(Game.Images.getById('flag'));
-        goal.setX(Game.Canvas.getCanvasWidth() - 128);
-        goal.setY(Game.Canvas.getCanvasHeight() - 128);
+        var goal = new $vast.Entity(null, 'goal');
+        goal.setImage($vast.Game.Images.getById('flag'));
+        goal.setX($vast.Game.Canvas.getCanvasWidth() - 128);
+        goal.setY($vast.Game.Canvas.getCanvasHeight() - 128);
         return goal;
     }
 
     // builds and returns an enemy
     function buildEnemyEntity() {
-        var enemy = new Entity(null, 'enemy');
-        enemy.setImage(Game.Images.getById('badguy'));
+        var enemy = new $vast.Entity(null, 'enemy');
+        enemy.setImage($vast.Game.Images.getById('badguy'));
         enemy.setPosition(64, 64);
         enemy.setSize(64, 64);
         enemy.setSpeed(10);
@@ -128,8 +128,8 @@
             var row = levelMap[i];
             for (var j = 0; j < row.length; j++) {
                 if (row.charAt(j) === '#') {
-                    var wall = new Entity('wall', 0);
-                    wall.setImage(Game.Images.getById('stone'));
+                    var wall = new $vast.Entity('wall', 0);
+                    wall.setImage($vast.Game.Images.getById('stone'));
                     wall.setPosition(j * tileSize, i * tileSize);
                     wall.setSize(64, 64);
                     ctrl.addEntity(wall);
@@ -176,7 +176,7 @@
     function placeFree(tileX, tileY) {
         tileX *= tileSize;
         tileY *= tileSize;
-        var entities = Game.getActiveController().getEntities();
+        var entities = $vast.Game.getActiveController().getEntities();
         for (var i = 0; i < entities.length; i++) {
             if ((entities[i].type === 'wall') && (entities[i].getX() === tileX) && (entities[i].getY() === tileY)) {
                 return false;
@@ -202,7 +202,7 @@
         var goalX = goal.getX();
         var goalY = goal.getY();
 
-        var d = MathUtil.getPointDistance(playerX, playerY, goalX, goalY);
+        var d = $vast.MathUtil.getPointDistance(playerX, playerY, goalX, goalY);
         if (d <= 1) {
             alert('Goal!!!1');
             mainPlayer.setPosition(64, 64);

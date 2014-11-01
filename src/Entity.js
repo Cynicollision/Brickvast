@@ -1,9 +1,11 @@
-﻿/**
+﻿var vastengine = vastengine || {};
+
+/**
  * Represents one (usually visible) "thing" to exist in the game.
  * @param {string} type Used to group and retrieve similar Entity objects.
  * @constructor
  */
-function Entity(type, id) {
+vastengine.Entity = function (type, id) {
     this.x = 0;
     this.y = 0;
     this.depth = 0;
@@ -20,7 +22,7 @@ function Entity(type, id) {
 /** 
  * Called during the managing Controller object's own step function continuously.
  */
-Entity.prototype.step = function () {
+vastengine.Entity.prototype.step = function () {
     // to be overridden in instantiation to define step behavior
 }
 
@@ -30,7 +32,7 @@ Entity.prototype.step = function () {
  * @param {number} x X-coordinate of onmousedown event.
  * @param {number} y Y-coordinate of onmousedown event.
  */
-Entity.prototype.mousedown = function (x, y) {
+vastengine.Entity.prototype.mousedown = function (x, y) {
     // to be overridden in instantiation to define mousedown behavior
 }
 
@@ -40,7 +42,7 @@ Entity.prototype.mousedown = function (x, y) {
  * @param {number} x X-coordinate of onmouseup event.
  * @param {number} y Y-coordinate of onmouseup event.
  */
-Entity.prototype.mouseup = function (x, y) {
+vastengine.Entity.prototype.mouseup = function (x, y) {
     // to be overridden in instantiation to define mouseup behavior
 }
 
@@ -48,7 +50,7 @@ Entity.prototype.mouseup = function (x, y) {
 /** 
  * Called by the managing Controller object's own draw() function each frame.
  */
-Entity.prototype.draw = function () {
+vastengine.Entity.prototype.draw = function () {
     // to be overridden in instantiation to perform special drawing functions
 }
 
@@ -56,7 +58,7 @@ Entity.prototype.draw = function () {
 /**
  * Destroy this Entity on the managing Controller's next step.
  */
-Entity.prototype.destroy = function () {
+vastengine.Entity.prototype.destroy = function () {
     this.isDestroyed = true;
 }
 
@@ -66,7 +68,7 @@ Entity.prototype.destroy = function () {
  * @param {Entity} Other entity to check for a collision with.
  * @return {boolean} True if the other Entity object's bounding area intersects with this one's.
  */
-Entity.prototype.checkCollision = function (other) {
+vastengine.Entity.prototype.checkCollision = function (other) {
     return !((this.x + this.width < other.x + 1) || (other.x + other.width - 1 < this.x) || (this.y + this.height < other.y + 1) || (other.y + other.height - 1 < this.y));
 }
 
@@ -76,52 +78,52 @@ Entity.prototype.checkCollision = function (other) {
 /**************************************************************
  * Getters and setters
  **************************************************************/
-Entity.prototype.getImage = function () {
+vastengine.Entity.prototype.getImage = function () {
     return this.image;
 }
 
-Entity.prototype.setImage = function (newImage) {
+vastengine.Entity.prototype.setImage = function (newImage) {
     this.image = newImage;
 }
 
-Entity.prototype.setPosition = function (newX, newY) {
+vastengine.Entity.prototype.setPosition = function (newX, newY) {
     this.x = newX;
     this.y = newY;
 }
 
-Entity.prototype.getX = function () {
+vastengine.Entity.prototype.getX = function () {
     return this.x;
 }
 
-Entity.prototype.setX = function (newX) {
+vastengine.Entity.prototype.setX = function (newX) {
     this.x = newX;
 }
 
-Entity.prototype.getY = function () {
+vastengine.Entity.prototype.getY = function () {
     return this.y;
 }
 
-Entity.prototype.setY = function (newY) {
+vastengine.Entity.prototype.setY = function (newY) {
     this.y = newY;
 }
 
-Entity.prototype.getSpeed = function () {
+vastengine.Entity.prototype.getSpeed = function () {
     return this.speed;
 }
 
-Entity.prototype.setSpeed = function (newSpeed) {
+vastengine.Entity.prototype.setSpeed = function (newSpeed) {
     this.speed = newSpeed;
 }
 
-Entity.prototype.getDirection = function () {
+vastengine.Entity.prototype.getDirection = function () {
     return this.direction;
 }
 
-Entity.prototype.setDirection = function (newDir) {
+vastengine.Entity.prototype.setDirection = function (newDir) {
     this.direction = newDir;
 }
 
-Entity.prototype.setSize = function (newWidth, newHeight) {
+vastengine.Entity.prototype.setSize = function (newWidth, newHeight) {
     this.width = newWidth;
     this.height = newHeight;
 }

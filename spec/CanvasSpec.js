@@ -6,7 +6,7 @@ describe('Canvas', function () {
     var canvasManager;
 
     beforeEach(function () {
-        canvasManager = new Canvas();
+        canvasManager = new $vast.Canvas();
     })
 
     it('Retrieves a valid drawing context (used for drawing primitives)', function () {
@@ -16,7 +16,7 @@ describe('Canvas', function () {
     it('Finds the correct relative (x,y) of the View of the given Controller', function () {
         var testX = 25, testY = 50;
 
-        var ctrl = new Controller();
+        var ctrl = new $vast.Controller();
         ctrl.view.x = testX;
         ctrl.view.y = testY;
 

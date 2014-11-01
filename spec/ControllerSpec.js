@@ -7,7 +7,7 @@ describe('Controller', function () {
     var testController;
 
     beforeEach(function () {
-        testController = new Controller();
+        testController = new $vast.Controller();
     });
 
     it('Has a defined View property upon instantiation.', function () {
@@ -22,7 +22,7 @@ describe('Controller', function () {
 
     // TODO: enhance test to check for clicking on multiple entities
     it('Passes on-click coordinates to the clicked-on entity/entities.', function () {
-        var ent1 = new Entity(null, 'ent1');
+        var ent1 = new $vast.Entity(null, 'ent1');
         ent1.setSize(100, 100);
         ent1.setPosition(50, 50);
         testController.addEntity(ent1);
@@ -39,7 +39,7 @@ describe('Controller', function () {
     });
 
     it('Adds an entity to the managed collection that can be retrieved by Entity ID.', function () {
-        var entity1 = new Entity(null, 'entId1');
+        var entity1 = new $vast.Entity(null, 'entId1');
         entity1.type = "testEntity";
 
         testController.addEntity(entity1);
@@ -50,10 +50,10 @@ describe('Controller', function () {
     });
 
     it('Retrieves all managed Entity objects with a particular type.', function () {
-        testController.addEntity(new Entity('blue', 100));
-        testController.addEntity(new Entity('blue', 101));
-        testController.addEntity(new Entity('red', 102));
-        testController.addEntity(new Entity('green', 103));
+        testController.addEntity(new $vast.Entity('blue', 100));
+        testController.addEntity(new $vast.Entity('blue', 101));
+        testController.addEntity(new $vast.Entity('red', 102));
+        testController.addEntity(new $vast.Entity('green', 103));
 
         var redOnes = testController.getEntitiesByType('red');
         var blueOnes = testController.getEntitiesByType('blue');
@@ -64,16 +64,16 @@ describe('Controller', function () {
     });
 
     it('Sorts the managed collection of Entity objects in descending order by depth (largest = deepest first).', function () {
-        var ent1 = new Entity(null, 'e1');
+        var ent1 = new $vast.Entity(null, 'e1');
         testController.addEntity(ent1);
         ent1.depth = 50;
-        var ent2 = new Entity(null, 'e2');
+        var ent2 = new $vast.Entity(null, 'e2');
         ent2.depth = 100;
         testController.addEntity(ent2);
-        var ent3 = new Entity(null, 'e3');
+        var ent3 = new $vast.Entity(null, 'e3');
         ent3.depth = -10;
         testController.addEntity(ent3);
-        var ent4 = new Entity(null, 'e4');
+        var ent4 = new $vast.Entity(null, 'e4');
         ent4.depth = 20;
         testController.addEntity(ent4);
 
@@ -89,11 +89,11 @@ describe('Controller', function () {
 
     it('Removes destroyed Entity objects from the managed collection.', function () {
         // start with five
-        testController.addEntity(new Entity(null, 'ent1'));
-        testController.addEntity(new Entity(null, 'ent2'));
-        testController.addEntity(new Entity(null, 'ent3'));
-        testController.addEntity(new Entity(null, 'ent4'));
-        testController.addEntity(new Entity(null, 'ent5'));
+        testController.addEntity(new $vast.Entity(null, 'ent1'));
+        testController.addEntity(new $vast.Entity(null, 'ent2'));
+        testController.addEntity(new $vast.Entity(null, 'ent3'));
+        testController.addEntity(new $vast.Entity(null, 'ent4'));
+        testController.addEntity(new $vast.Entity(null, 'ent5'));
 
         // destroy two
         testController.getEntityById('ent2').destroy();
@@ -106,12 +106,12 @@ describe('Controller', function () {
     });
 
     it('Finds a collection of all Entity objects at a given (x, y) position.', function () {
-        var ent1 = new Entity(null, 'ent1');
+        var ent1 = new $vast.Entity(null, 'ent1');
         ent1.setSize(50, 50);
         ent1.setPosition(50, 50);
         testController.addEntity(ent1);
 
-        var ent2 = new Entity(null, 'ent2');
+        var ent2 = new $vast.Entity(null, 'ent2');
         ent2.setSize(50, 50);
         ent2.setPosition(75, 75);
         testController.addEntity(ent2);
@@ -127,17 +127,17 @@ describe('Controller', function () {
     });
 
     it('Finds a collection of Entity objects with a given type and (x, y) position.', function () {
-        var ent1 = new Entity('ent', 'ent1');
+        var ent1 = new $vast.Entity('ent', 'ent1');
         ent1.setSize(50, 50);
         ent1.setPosition(50, 50);
         testController.addEntity(ent1);
 
-        var ent2 = new Entity('ent', 'ent2');
+        var ent2 = new $vast.Entity('ent', 'ent2');
         ent2.setSize(50, 50);
         ent2.setPosition(75, 75);
         testController.addEntity(ent2);
 
-        var ent3 = new Entity('bit', 'bit1');
+        var ent3 = new $vast.Entity('bit', 'bit1');
         ent3.setSize(50, 50);
         ent3.setPosition(110, 110);
         testController.addEntity(ent3);

@@ -7,13 +7,13 @@ describe('Entity', function () {
     var testEntity;
 
     beforeEach(function () {
-        testEntity = new Entity();
+        testEntity = new $vast.Entity();
         testEntity.setPosition(50, 50);
         testEntity.setSize(50, 50);
     });
 
     it('Can detect a collision with another Entity by comparing their bounding areas', function () {
-        var otherEntity = new Entity();
+        var otherEntity = new $vast.Entity();
         otherEntity.setPosition(75, 75)
         otherEntity.setSize(60, 60);
 

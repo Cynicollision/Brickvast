@@ -1,22 +1,24 @@
-﻿/**
+﻿var vastengine = vastengine || {};
+
+/**
  * Used specifically for manipulating directly the main game canvas, i.e. drawing on it.
  * @constructor
  */
-function Canvas() {
+vastengine.Canvas = function() {
     this.canvas = $('#theCanvas');
     this.context = this.canvas[0].getContext('2d');
 
     // forward the event to the Game's active controller
     this.canvas.mousedown(function (e) {
-        if (Game.getActiveController() !== undefined) {
-            Game.getActiveController().mousedown(e);
+        if (vastengine.Game.getActiveController() !== undefined) {
+            vastengine.Game.getActiveController().mousedown(e);
         }
     });
 
     // forward the event to the Game's active controller
     this.canvas.mouseup(function (e) {
-        if (Game.getActiveController() !== undefined) {
-            Game.getActiveController().mouseup(e);
+        if (vastengine.Game.getActiveController() !== undefined) {
+            vastengine.Game.getActiveController().mouseup(e);
         }
     });
 }
@@ -26,7 +28,7 @@ function Canvas() {
  * Retrieves a reference of the 2D drawing context.
  * @return {object} 2D drawing context of the game's canvas.
  */
-Canvas.prototype.getDrawingContext = function () {
+vastengine.Canvas.prototype.getDrawingContext = function () {
     return this.context;
 }
 
@@ -35,7 +37,7 @@ Canvas.prototype.getDrawingContext = function () {
  * Sets the background-color property of the game canvas.
  * @param {string} color CSS color value.
  */
-Canvas.prototype.setBackgroundColor = function (color) {
+vastengine.Canvas.prototype.setBackgroundColor = function (color) {
     this.canvas.css('background', color);
 }
 
@@ -45,7 +47,7 @@ Canvas.prototype.setBackgroundColor = function (color) {
  * @param {string} url URL to image resource to use as background image.
  * @param {boolean} Whether to tile the background image or not.
  */
-Canvas.prototype.setBackgroundImage = function (url, tiled) {
+vastengine.Canvas.prototype.setBackgroundImage = function (url, tiled) {
     this.canvas.css('background-image', 'url(' + url + ')');
     if (!tiled) {
         this.canvas.css('background-repeat', 'no-repeat');
@@ -58,7 +60,7 @@ Canvas.prototype.setBackgroundImage = function (url, tiled) {
  * @param {number} x New X-offset from origin.
  * @param {number} y New Y-offset from origin.
  */
-Canvas.prototype.setBackgroundPosition = function (x, y) {
+vastengine.Canvas.prototype.setBackgroundPosition = function (x, y) {
     this.canvas.css('background-position', x + 'px ' + y + 'px');
 }
 
@@ -67,7 +69,7 @@ Canvas.prototype.setBackgroundPosition = function (x, y) {
  * Retrieves the width of the game canvas.
  * @return {number} Width of the game canvas.
  */
-Canvas.prototype.getCanvasWidth = function () {
+vastengine.Canvas.prototype.getCanvasWidth = function () {
     return this.canvas[0].width;
 }
 
@@ -76,7 +78,7 @@ Canvas.prototype.getCanvasWidth = function () {
  * Retrieve the height of the game canvas.
  * @return {number} Height of the game canvas.
  */
-Canvas.prototype.getCanvasHeight = function () {
+vastengine.Canvas.prototype.getCanvasHeight = function () {
     return this.canvas[0].height;
 }
 
@@ -85,7 +87,7 @@ Canvas.prototype.getCanvasHeight = function () {
  * Retrieve the horizontal position of the view.
  * @return {number} X-coordinate of the given Controller object's view property.
  */
-Canvas.prototype.getViewRelativeX = function (controller) {
+vastengine.Canvas.prototype.getViewRelativeX = function (controller) {
     if (controller.view !== undefined) {
         return controller.view.x;
     } else {
@@ -98,7 +100,7 @@ Canvas.prototype.getViewRelativeX = function (controller) {
  * Retrieve the vertical position of the view.
  * @return {number} Y-coordinate of the given Controller object's view property.
  */
-Canvas.prototype.getViewRelativeY = function (controller) {
+vastengine.Canvas.prototype.getViewRelativeY = function (controller) {
     if (controller.view !== undefined) {
         return controller.view.y;
     } else {
@@ -111,7 +113,7 @@ Canvas.prototype.getViewRelativeY = function (controller) {
  * Clears the game canvas and draws the given Controller object. Draws the given controller's managed entities relative to its view.
  * @param {Controller} controller Controller object to draw.
  */
-Canvas.prototype.draw = function (controller) {
+vastengine.Canvas.prototype.draw = function (controller) {
     // clear the entire canvas
     this.context.clearRect(0, 0, this.canvas[0].width, this.canvas[0].height);
 

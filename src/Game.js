@@ -1,4 +1,6 @@
-﻿/**
+﻿var $vast = vastengine = vastengine || {};
+
+/**
  * This file contains defintions for both the Game and AssetManager classes.
  * @author Sean Normoyle
  */
@@ -8,7 +10,8 @@
  * @param {string} type The type of asset to manage, either "image" or "audio".
  * @constructor
  */
-function AssetManager(type) {
+
+vastengine.AssetManager = function (type) {
     this.assets = [];
     this.type = type;
     if (type != 'image' && type != 'audio') {
@@ -22,7 +25,7 @@ function AssetManager(type) {
  * @param {string} newId ID value to assign to the new asset.
  * @param {string} src Path to the asset's image or audio resource, including the file name.
  */
-AssetManager.prototype.add = function (newId, src) {
+vastengine.AssetManager.prototype.add = function (newId, src) {
     this.assets.push({ id: newId, source: src, asset: undefined });
 }
 
@@ -32,7 +35,7 @@ AssetManager.prototype.add = function (newId, src) {
  * @param {string} id ID value to look up asset with.
  * @return {object} Image or Audio object assigned to the given ID.
  */
-AssetManager.prototype.getById = function (id) {
+vastengine.AssetManager.prototype.getById = function (id) {
     for (var i = 0; i < this.assets.length; i++) {
         if (this.assets[i].id === id) {
             return this.assets[i].asset;
@@ -44,7 +47,7 @@ AssetManager.prototype.getById = function (id) {
 /**
  * Instantiates all managed assets from their sources at once. Relies on this AssetManager object being correctly instantiated with a valid type.
  */
-AssetManager.prototype.load = function () {
+vastengine.AssetManager.prototype.load = function () {
     for (var i = 0; i < this.assets.length; i++) {
         if (this.type === 'image') {
             this.assets[i].asset = new Image();
@@ -61,20 +64,20 @@ AssetManager.prototype.load = function () {
  * Manages game-level components such as the currently running Controller object, routing input, and accessing assets through AssetManager instances.
  * @constructor
  */
-function Game() {
+vastengine.Game = function() {
     this.activeController;
 }
 
-Game = function () { }
-Game.Images = new AssetManager('image');
-Game.Audio = new AssetManager('audio');
-Game.Canvas = new Canvas();
+vastengine.Game = function () { }
+vastengine.Game.Images = new vastengine.AssetManager('image');
+vastengine.Game.Audio = new vastengine.AssetManager('audio');
+vastengine.Game.Canvas = new vastengine.Canvas();
 
 
 /** 
  * Sets the running Controller to the given Controller object.
  */
-Game.setActiveController = function (newActiveController) {
+vastengine.Game.setActiveController = function (newActiveController) {
     this.activeController = newActiveController;
 }
 
@@ -82,7 +85,7 @@ Game.setActiveController = function (newActiveController) {
 /** 
  * Returns the running Controller
  */
-Game.getActiveController = function () {
+vastengine.Game.getActiveController = function () {
     return this.activeController;
 }
 
@@ -91,7 +94,7 @@ Game.getActiveController = function () {
  * Determines whether a Controller object has been assigned as the active controller.
  * @return {boolean} True if an active controller exists.
  */
-Game.hasActiveControler = function () {
+vastengine.Game.hasActiveControler = function () {
     if (this.activeController) {
         return this.activeController.view !== undefined;
     }
@@ -103,7 +106,7 @@ Game.hasActiveControler = function () {
  * Get the current timestamp (e.g. 87.134....)
  * @return {number} The current timestamp
  */
-Game.getTimestamp = function () {
+vastengine.Game.getTimestamp = function () {
     return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
 }
 
@@ -111,27 +114,27 @@ Game.getTimestamp = function () {
 /**
  * The main game loop. Keeps the game running at a fixed FPS.
  */
-Game.run = function () {
+vastengine.Game.run = function () {
     var stepSize = 1 / 60; // TODO: load from "global game settings" (whatever those end up being)
     var offset = 0;
-    var previous = Game.getTimestamp()
+    var previous = vastengine.Game.getTimestamp()
 
     function stepAndDraw() {
-        var current = Game.getTimestamp();
+        var current = vastengine.Game.getTimestamp();
         offset += (Math.min(1, (current - previous) / 1000));
 
         // still step during the offset (time difference between frames)
         while (offset > stepSize) {
-            if (Game.hasActiveControler()) {
-                Game.getActiveController().step(stepSize);
+            if (vastengine.Game.hasActiveControler()) {
+                vastengine.Game.getActiveController().step(stepSize);
             }
             
             offset -= stepSize;
         }
 
         // draw
-        if (Game.hasActiveControler()) {
-            Game.Canvas.draw(Game.getActiveController());
+        if (vastengine.Game.hasActiveControler()) {
+            vastengine.Game.Canvas.draw(vastengine.Game.getActiveController());
         }
         
         previous = current;

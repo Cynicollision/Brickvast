@@ -1,8 +1,10 @@
-﻿/**
+﻿var vastengine = vastengine || {};
+
+/**
  * Manages a collection of Entity objects and adjusts the visible view area.
  * @constructor
  */
-function Controller() {
+vastengine.Controller = function() {
     this.entities = [];
     this.view = { x: 0, y: 0 }
 }
@@ -10,7 +12,7 @@ function Controller() {
 
 // setViewPosition(x, y)
 //  Sets the view position to the given coordinates.
-Controller.prototype.setViewPosition = function (newX, newY) {
+vastengine.Controller.prototype.setViewPosition = function (newX, newY) {
     this.view.x = newX;
     this.view.y = newY;
 }
@@ -19,15 +21,15 @@ Controller.prototype.setViewPosition = function (newX, newY) {
 /** 
  * Called by the controller continuously while the game loop is running. Calls all managed entities' own step() functions, then its own postStep() function.
  */
-Controller.prototype.step = function () {
+vastengine.Controller.prototype.step = function () {
     this.removeDestroyedEntities();
 
     for (var i = 0; i < this.entities.length; i++) {
 
         // apply Entity motion
         if (this.entities[i].speed !== 0) {
-            this.entities[i].x += Math.round((MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
-            this.entities[i].y += Math.round((MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
+            this.entities[i].x += Math.round(($vast.MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
+            this.entities[i].y += Math.round(($vast.MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
         }
 
         this.entities[i].step();
@@ -40,7 +42,7 @@ Controller.prototype.step = function () {
 /** 
  * Called at the end of this object's step() call. Intended to be overridden if needed at instantiation.
  */
-Controller.prototype.postStep = function () {
+vastengine.Controller.prototype.postStep = function () {
     // to be overridden in instantiation
 }
 
@@ -49,7 +51,7 @@ Controller.prototype.postStep = function () {
  * Forwards the mouse event coordinates to any managed Entity objects that were clicked on.
  * @param {onmousedown event} e The actual onmousedown event received from the mouse click.
  */
-Controller.prototype.mousedown = function (e) {
+vastengine.Controller.prototype.mousedown = function (e) {
     // adjust for the view's coordinates
     var clickX = e.pageX + this.view.x;
     var clickY = e.pageY + this.view.y;
@@ -69,7 +71,7 @@ Controller.prototype.mousedown = function (e) {
  * Forwards the mouse event coordinates to any managed Entity objects that were un-clicked on.
  * @param {event:onmouseup} e The actual onmouseup event received from the mouse click release.
  */
-Controller.prototype.mouseup = function (e) {
+vastengine.Controller.prototype.mouseup = function (e) {
     // need to adjust for view's coordinates
     var clickX = e.pageX + this.view.x;
     var clickY = e.pageY + this.view.y;
@@ -91,7 +93,7 @@ Controller.prototype.mouseup = function (e) {
   * @param {number} x X-coordinate of mouse click relative to game canvas.
   * @param {number} x X-coordinate of mouse click relative to game canvas.
   */
-Controller.prototype.postmousedown = function (x, y) {
+vastengine.Controller.prototype.postmousedown = function (x, y) {
     // to be overridden
 }
 
@@ -100,7 +102,7 @@ Controller.prototype.postmousedown = function (x, y) {
  * Adds an Entity object to the collection of entities managed by this controller.
  * @param 
  */
-Controller.prototype.addEntity = function (newEnt) {
+vastengine.Controller.prototype.addEntity = function (newEnt) {
     this.entities.push(newEnt);
 }
 
@@ -109,7 +111,7 @@ Controller.prototype.addEntity = function (newEnt) {
  * Retrieve the collection of entities managed by this controller.
  * @return {Array.<Entity>} 
  */
-Controller.prototype.getEntities = function () {
+vastengine.Controller.prototype.getEntities = function () {
     return this.entities;
 }
 
@@ -118,7 +120,7 @@ Controller.prototype.getEntities = function () {
  * Returns a single managed Entity with the given ID value if it exists (ID values are not enforced to be unique).
  * @return {Entity} The Entity with the given id value, if one exists within the managed collection.
  */
-Controller.prototype.getEntityById = function (id) {
+vastengine.Controller.prototype.getEntityById = function (id) {
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].id === id) {
             return this.entities[i];
@@ -132,7 +134,7 @@ Controller.prototype.getEntityById = function (id) {
  * @param {string} type Find Entity objects with type property that matches.
  * @return {Array.<Entity>} Array of Entities with the given type.
  */
-Controller.prototype.getEntitiesByType = function (type) {
+vastengine.Controller.prototype.getEntitiesByType = function (type) {
     var hits = [];
     for (var i = 0; i < this.entities.length; i++) {
         if (this.entities[i].type === type) {
@@ -150,7 +152,7 @@ Controller.prototype.getEntitiesByType = function (type) {
  * @param {string} Optional type to check for. If specified, only Entity objects with this type will be returned.
  * @return {Array.<Entity>} Cllection of Entity objects for which (x, y) falls within its width and height bounds.
  */
-Controller.prototype.getEntitiesAtPosition = function (x, y, type) {
+vastengine.Controller.prototype.getEntitiesAtPosition = function (x, y, type) {
     var hits = [];
     for (var i = 0; i < this.entities.length; i++) {
         if (x > this.entities[i].x && y > this.entities[i].y && x < this.entities[i].x + this.entities[i].width && y < this.entities[i].y + this.entities[i].height) {
@@ -168,7 +170,7 @@ Controller.prototype.getEntitiesAtPosition = function (x, y, type) {
 /**
  * Sorts managed entities in descending order by depth.
  */
-Controller.prototype.sortEntities = function () {
+vastengine.Controller.prototype.sortEntities = function () {
     this.entities.sort(function (a, b) {
         return -(a.depth - b.depth);
     })
@@ -178,7 +180,7 @@ Controller.prototype.sortEntities = function () {
 /** 
  * Removes all managed Entity object where property isDestroyed is true.
  */ 
-Controller.prototype.removeDestroyedEntities = function () {
+vastengine.Controller.prototype.removeDestroyedEntities = function () {
     if (this.entities !== undefined && this.entities.length > 0) {
         this.entities = this.entities.filter(function (entity) {
             try {

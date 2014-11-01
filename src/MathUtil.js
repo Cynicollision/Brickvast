@@ -1,8 +1,10 @@
-﻿/**
+﻿var vastengine = vastengine || {};
+
+/**
  * For performing various mathematical calculations, trig etc.
  * @constructor
  */
-function MathUtil() { }
+vastengine.MathUtil = function () { }
 
 
 /**
@@ -13,7 +15,7 @@ function MathUtil() { }
  * @param {number} y2 Y-coordinate of point 2.
  * @return {number} Distance between the two given points.
  */
-MathUtil.getPointDistance = function (x1, y1, x2, y2) {
+vastengine.MathUtil.getPointDistance = function (x1, y1, x2, y2) {
     return Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
 }
 
@@ -26,7 +28,7 @@ MathUtil.getPointDistance = function (x1, y1, x2, y2) {
  * @param {number} y2 Y-coordinate of point 2.
  * @return {number} Direction from point 1 to point 2.
  */
-MathUtil.getPointDirection = function (x1, y1, x2, y2) {
+vastengine.MathUtil.getPointDirection = function (x1, y1, x2, y2) {
     var direction = ((180 / Math.PI) * Math.atan2(y2 - y1, x2 - x1));
     if (direction > 360) {
         direction -= 360;
@@ -43,7 +45,7 @@ MathUtil.getPointDirection = function (x1, y1, x2, y2) {
   * @param {number} dir Direction to point
   * @return {number} X-coorindate of the point in the length and direction.
   */
-MathUtil.getLengthDirectionX = function (len, dir) {
+vastengine.MathUtil.getLengthDirectionX = function (len, dir) {
     return Math.floor(len * Math.cos(dir * (Math.PI / 180)));
 }
 
@@ -54,6 +56,6 @@ MathUtil.getLengthDirectionX = function (len, dir) {
   * @param {number} dir Direction to point
   * @return {number} Y-coorindate of the point in the length and direction.
   */
-MathUtil.getLengthDirectionY = function (len, dir) {
+vastengine.MathUtil.getLengthDirectionY = function (len, dir) {
     return Math.floor(len * Math.sin(dir * (Math.PI / 180)));
 }
