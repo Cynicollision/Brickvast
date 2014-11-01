@@ -5,11 +5,11 @@
 /// <reference path="../src/Game.js" />
 // set background color and load assets
 (function () {
-    Game.Canvas.setBackgroundImage('../images/texture.png');
-    Game.Images.add('sun', '../images/sun.jpg');
-    Game.Images.add('flag', '../images/flag.png');
-    Game.Images.add('stone', '../images/stone.png');
-    Game.Images.add('badguy', '../images/enemy.png');
+    Game.Canvas.setBackgroundImage('../_images/texture.png');
+    Game.Images.add('sun', '../_images/sun.jpg');
+    Game.Images.add('flag', '../_images/flag.png');
+    Game.Images.add('stone', '../_images/stone.png');
+    Game.Images.add('badguy', '../_images/enemy.png');
     Game.Images.load();
 
     // for grid movement
@@ -52,7 +52,7 @@
         var player = new Entity(null, 'player');
         player.setSize(64, 64);
         player.setImage(Game.Images.getById('sun'));
-        player.setPosition(64, 64);
+        player.setPosition(192, 64);
         player.depth = -100; // make sure player stays on top
 
         // define a step function
@@ -88,14 +88,14 @@
     function buildEnemyEntity() {
         var enemy = new Entity(null, 'enemy');
         enemy.setImage(Game.Images.getById('badguy'));
-        enemy.setPosition(Game.Canvas.getCanvasWidth() - 256, Game.Canvas.getCanvasHeight() - 128);
+        enemy.setPosition(64, 64);
         enemy.setSize(64, 64);
         enemy.setSpeed(10);
         enemy.setDirection(180); // left
         enemy.step = function () {
             // "bounce" left and right
-            var toMyLeft = ctrl.getEntitiesAtPosition(enemy.getX() - 2, enemy.getY() + 2);
-            var toMyRight = ctrl.getEntitiesAtPosition(enemy.getX() + enemy.width + 2, enemy.getY() + 2);
+            var toMyLeft = ctrl.getEntitiesAtPosition(enemy.getX() - 2, enemy.getY() + 2, 'wall');
+            var toMyRight = ctrl.getEntitiesAtPosition(enemy.getX() + enemy.width + 2, enemy.getY() + 2, 'wall');
 
             if (enemy.getDirection() === 180 && toMyLeft.length > 0) {
                 enemy.setDirection(0);
@@ -191,6 +191,7 @@
         if (mainPlayer.checkCollision(badguy)) {
             //alert('Sooo dead!');
             mainPlayer.setPosition(64, 64);
+            mainPlayer.setSpeed(0);
         }
     }
 

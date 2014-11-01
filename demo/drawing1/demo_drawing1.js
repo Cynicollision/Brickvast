@@ -1,6 +1,6 @@
 ﻿function buildAndRun() {
     // loading assets should be done before calling Game.run
-    Game.Images.add('tile', '../images/tile.png');
+    Game.Images.add('tile', '../_images/tile.png');
     Game.Images.load();
 
     // set up the "controller" with the two test Entity objects

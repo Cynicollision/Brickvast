@@ -10,7 +10,7 @@ describe('Controller', function () {
         testController = new Controller();
     });
 
-    it('Has a defined View property upon instantiation', function () {
+    it('Has a defined View property upon instantiation.', function () {
         expect(testController.view).toBeDefined();
     });
 
@@ -21,7 +21,7 @@ describe('Controller', function () {
     });
 
     // TODO: enhance test to check for clicking on multiple entities
-    it('Passes on-click coordinates to the clicked-on entity/entities', function () {
+    it('Passes on-click coordinates to the clicked-on entity/entities.', function () {
         var ent1 = new Entity(null, 'ent1');
         ent1.setSize(100, 100);
         ent1.setPosition(50, 50);
@@ -38,7 +38,7 @@ describe('Controller', function () {
         expect(ent1.mousedown).toHaveBeenCalled();
     });
 
-    it('Adds an entity to the managed collection that can be retrieved by Entity ID', function () {
+    it('Adds an entity to the managed collection that can be retrieved by Entity ID.', function () {
         var entity1 = new Entity(null, 'entId1');
         entity1.type = "testEntity";
 
@@ -63,7 +63,7 @@ describe('Controller', function () {
         expect(blueOnes[0].type).toEqual(blueOnes[1].type);
     });
 
-    it('Sorts the managed collection of Entity objects in descending order by depth (largest = deepest first)', function () {
+    it('Sorts the managed collection of Entity objects in descending order by depth (largest = deepest first).', function () {
         var ent1 = new Entity(null, 'e1');
         testController.addEntity(ent1);
         ent1.depth = 50;
@@ -87,7 +87,7 @@ describe('Controller', function () {
         expect(sortedEntities[3].id).toEqual("e3");
     });
 
-    it('Removes destroyed Entity objects from the managed collection', function () {
+    it('Removes destroyed Entity objects from the managed collection.', function () {
         // start with five
         testController.addEntity(new Entity(null, 'ent1'));
         testController.addEntity(new Entity(null, 'ent2'));
@@ -105,9 +105,7 @@ describe('Controller', function () {
         expect(testController.entities.length).toEqual(3);
     });
 
-
-
-    it('Finds a collection of Entity objects at a given (x, y) position', function () {
+    it('Finds a collection of all Entity objects at a given (x, y) position.', function () {
         var ent1 = new Entity(null, 'ent1');
         ent1.setSize(50, 50);
         ent1.setPosition(50, 50);
@@ -126,5 +124,28 @@ describe('Controller', function () {
 
         var entsAtPos3 = testController.getEntitiesAtPosition(30, 30);
         expect(entsAtPos3.length).toEqual(0);
+    });
+
+    it('Finds a collection of Entity objects with a given type and (x, y) position.', function () {
+        var ent1 = new Entity('ent', 'ent1');
+        ent1.setSize(50, 50);
+        ent1.setPosition(50, 50);
+        testController.addEntity(ent1);
+
+        var ent2 = new Entity('ent', 'ent2');
+        ent2.setSize(50, 50);
+        ent2.setPosition(75, 75);
+        testController.addEntity(ent2);
+
+        var ent3 = new Entity('bit', 'bit1');
+        ent3.setSize(50, 50);
+        ent3.setPosition(110, 110);
+        testController.addEntity(ent3);
+
+        var entsAtPos1 = testController.getEntitiesAtPosition(80, 80, 'ent');
+        expect(entsAtPos1.length).toEqual(2);
+
+        var entsAtPos2 = testController.getEntitiesAtPosition(90, 90, 'bit');
+        expect(entsAtPos2.length).toEqual(0);
     });
 });

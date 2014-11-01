@@ -147,13 +147,18 @@ Controller.prototype.getEntitiesByType = function (type) {
  * Retrieve all Entity objects at the given position.
  * @param {number} x X-coordinate to check.
  * @param {number} y Y-coordinate to check.
+ * @param {string} Optional type to check for. If specified, only Entity objects with this type will be returned.
  * @return {Array.<Entity>} Cllection of Entity objects for which (x, y) falls within its width and height bounds.
  */
-Controller.prototype.getEntitiesAtPosition = function (x, y) {
+Controller.prototype.getEntitiesAtPosition = function (x, y, type) {
     var hits = [];
     for (var i = 0; i < this.entities.length; i++) {
         if (x > this.entities[i].x && y > this.entities[i].y && x < this.entities[i].x + this.entities[i].width && y < this.entities[i].y + this.entities[i].height) {
-            hits.push(this.entities[i]);
+            if (type === undefined) {
+                hits.push(this.entities[i]);
+            } else if (this.entities[i].type === type) {
+                hits.push(this.entities[i]);
+            }
         }
     }
     return hits;

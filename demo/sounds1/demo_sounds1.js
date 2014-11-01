@@ -1,7 +1,7 @@
 ﻿
 // add a test sound to the the asset manager
 var testSound1 = 'zelda_rupee';
-Game.Audio.add(testSound1, '../sounds/LOZ_Get_Rupee.wav');
+Game.Audio.add(testSound1, '../_sounds/LOZ_Get_Rupee.wav');
 Game.Audio.load();
 
 // also works with mp3!

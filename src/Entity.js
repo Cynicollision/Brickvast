@@ -67,7 +67,7 @@ Entity.prototype.destroy = function () {
  * @return {boolean} True if the other Entity object's bounding area intersects with this one's.
  */
 Entity.prototype.checkCollision = function (other) {
-    return !((this.x + this.width < other.x) || (other.x + other.width < this.x) || (this.y + this.height < other.y) || (other.y + other.height < this.y));
+    return !((this.x + this.width < other.x + 1) || (other.x + other.width - 1 < this.x) || (this.y + this.height < other.y + 1) || (other.y + other.height - 1 < this.y));
 }
 
 

@@ -46,12 +46,12 @@
     <Content Include="demo\sounds1\demo_sounds1.html" />
     <Content Include="demo\drawing1\demo_drawing1.html" />
     <Content Include="demo\mazegame\demo_mazegame1.html" />
-    <Content Include="demo\images\enemy.png" />
-    <Content Include="demo\images\flag.png" />
-    <Content Include="demo\images\stone.png" />
-    <Content Include="demo\images\sun.jpg" />
-    <Content Include="demo\images\texture.png" />
-    <Content Include="demo\images\tile.png" />
+    <Content Include="demo\_images\enemy.png" />
+    <Content Include="demo\_images\flag.png" />
+    <Content Include="demo\_images\stone.png" />
+    <Content Include="demo\_images\sun.jpg" />
+    <Content Include="demo\_images\texture.png" />
+    <Content Include="demo\_images\tile.png" />
     <Content Include="src\Canvas.js" />
     <Content Include="src\Controller.js" />
     <Content Include="demo\drawing1\demo_drawing1.js" />
@@ -59,7 +59,7 @@
     <Content Include="src\Entity.js" />
     <Content Include="src\Game.js" />
     <Content Include="src\MathUtil.js" />
-    <Content Include="demo\sounds\LOZ_Get_Rupee.wav" />
+    <Content Include="demo\_sounds\LOZ_Get_Rupee.wav" />
     <Content Include="spec\Content\jasmine\jasmine.css" />
     <Content Include="spec\Content\jasmine\jasmine_favicon.png" />
     <Content Include="vendor\jquery-2.1.1.min.js" />
