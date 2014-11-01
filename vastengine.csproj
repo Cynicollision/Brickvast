@@ -41,7 +41,11 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
+    <Content Include="build\vastengine.js" />
     <Content Include="demo\sounds1\demo_sounds1.js" />
     <Content Include="demo\sounds1\demo_sounds1.html" />
     <Content Include="demo\drawing1\demo_drawing1.html" />
@@ -52,6 +56,7 @@
     <Content Include="demo\_images\sun.jpg" />
     <Content Include="demo\_images\texture.png" />
     <Content Include="demo\_images\tile.png" />
+    <Content Include="Gruntfile.js" />
     <Content Include="src\Canvas.js" />
     <Content Include="src\Controller.js" />
     <Content Include="demo\drawing1\demo_drawing1.js" />
@@ -62,7 +67,6 @@
     <Content Include="demo\_sounds\LOZ_Get_Rupee.wav" />
     <Content Include="spec\Content\jasmine\jasmine.css" />
     <Content Include="spec\Content\jasmine\jasmine_favicon.png" />
-    <Content Include="vendor\jquery-2.1.1.min.js" />
     <Content Include="spec\Scripts\jasmine\boot.js" />
     <Content Include="spec\Scripts\jasmine\console.js" />
     <Content Include="spec\Scripts\jasmine\jasmine-html.js" />
@@ -77,11 +81,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="build\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="spec\Views\Jasmine\SpecRunner.cshtml" />
+    <Content Include=".gitignore" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -126,6 +130,10 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>CD $(ProjectDir)
+grunt</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

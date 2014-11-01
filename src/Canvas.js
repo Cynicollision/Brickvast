@@ -5,22 +5,27 @@
  * @constructor
  */
 vastengine.Canvas = function() {
-    this.canvas = $('#theCanvas');
-    this.context = this.canvas[0].getContext('2d');
+    this.canvas = document.createElement('canvas');
+    this.canvas.id = 'theCanvas'; // TODO: load id, width, height from game settings
+    this.canvas.width = 640;
+    this.canvas.height = 512;
+    document.body.appendChild(this.canvas);
+
+    this.context = this.canvas.getContext('2d');
 
     // forward the event to the Game's active controller
-    this.canvas.mousedown(function (e) {
+    this.canvas.onmousedown = function (e) {
         if (vastengine.Game.getActiveController() !== undefined) {
             vastengine.Game.getActiveController().mousedown(e);
         }
-    });
+    }
 
     // forward the event to the Game's active controller
-    this.canvas.mouseup(function (e) {
+    this.canvas.onmouseup = function (e) {
         if (vastengine.Game.getActiveController() !== undefined) {
             vastengine.Game.getActiveController().mouseup(e);
         }
-    });
+    }
 }
 
 
@@ -38,7 +43,8 @@ vastengine.Canvas.prototype.getDrawingContext = function () {
  * @param {string} color CSS color value.
  */
 vastengine.Canvas.prototype.setBackgroundColor = function (color) {
-    this.canvas.css('background', color);
+    //this.canvas.css('background', color);
+    this.canvas.style.background = color;
 }
 
 
@@ -48,9 +54,9 @@ vastengine.Canvas.prototype.setBackgroundColor = function (color) {
  * @param {boolean} Whether to tile the background image or not.
  */
 vastengine.Canvas.prototype.setBackgroundImage = function (url, tiled) {
-    this.canvas.css('background-image', 'url(' + url + ')');
+    this.canvas.style.backgroundImage = 'url(' + url + ')';
     if (!tiled) {
-        this.canvas.css('background-repeat', 'no-repeat');
+        this.canvas.style.backgroundRepeat = 'no-repeat';
     }
 }
 
@@ -61,7 +67,7 @@ vastengine.Canvas.prototype.setBackgroundImage = function (url, tiled) {
  * @param {number} y New Y-offset from origin.
  */
 vastengine.Canvas.prototype.setBackgroundPosition = function (x, y) {
-    this.canvas.css('background-position', x + 'px ' + y + 'px');
+    this.canvas.style.backgroundPosition = x + 'px ' + y + 'px';
 }
 
 
@@ -70,7 +76,7 @@ vastengine.Canvas.prototype.setBackgroundPosition = function (x, y) {
  * @return {number} Width of the game canvas.
  */
 vastengine.Canvas.prototype.getCanvasWidth = function () {
-    return this.canvas[0].width;
+    return this.canvas.width;
 }
 
 
@@ -79,7 +85,7 @@ vastengine.Canvas.prototype.getCanvasWidth = function () {
  * @return {number} Height of the game canvas.
  */
 vastengine.Canvas.prototype.getCanvasHeight = function () {
-    return this.canvas[0].height;
+    return this.canvas.height;
 }
 
 
@@ -115,7 +121,7 @@ vastengine.Canvas.prototype.getViewRelativeY = function (controller) {
  */
 vastengine.Canvas.prototype.draw = function (controller) {
     // clear the entire canvas
-    this.context.clearRect(0, 0, this.canvas[0].width, this.canvas[0].height);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // get relative (x,y) to the location of the controller's view
     var relativeX = this.getViewRelativeX(controller);

@@ -28,8 +28,9 @@ $RECYCLE.BIN/
 [Rr]eleases/
 x64/
 x86/
-build/
 bld/
+build/*.jar
+build/*.txt
 [Bb]in/
 [Oo]bj/
 
@@ -59,3 +60,7 @@ Icon
 .Spotlight-V100
 .Trashes
 
+# Node/grunt stuff
+node_modules
+*npm-debug.log
+tmp

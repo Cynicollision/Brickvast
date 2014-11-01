@@ -28,24 +28,20 @@ describe('Canvas', function () {
     });
 
     it('Can return the width and height of the game canvas', function () {
-        canvasManager.canvas[0].width = 500;
-        canvasManager.canvas[0].height = 300;
+        canvasManager.canvas.width = 500;
+        canvasManager.canvas.height = 300;
 
         expect(canvasManager.getCanvasWidth()).toEqual(500);
         expect(canvasManager.getCanvasHeight()).toEqual(300);
 
         // reset back to zero to not screw up jasimine's UI
-        canvasManager.canvas[0].width = 0;
-        canvasManager.canvas[0].height = 0;
-    });
-
-    it('Uses jQuery to retrieve a valid Canvas element and calling getContext(\'2d\')', function () {
-        expect(canvasManager.canvas[0].getContext('2d')).toBeDefined();
+        canvasManager.canvas.width = 0;
+        canvasManager.canvas.height = 0;
     });
 
     it('Can set the background position of the Canvas element in pixels', function () {
         canvasManager.setBackgroundPosition(25, 50);
-        var css = canvasManager.canvas.css('background-position');
-        expect(canvasManager.canvas.css('background-position')).toEqual('25px 50px');
+        var css = canvasManager.canvas.style.backgroundPosition;
+        expect(canvasManager.canvas.style.backgroundPosition).toEqual('25px 50px');
     });
 });
