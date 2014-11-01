@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="build\vastengine.js" />
+    <Content Include="demo\reset.css" />
     <Content Include="demo\sounds1\demo_sounds1.js" />
     <Content Include="demo\sounds1\demo_sounds1.html" />
     <Content Include="demo\drawing1\demo_drawing1.html" />
