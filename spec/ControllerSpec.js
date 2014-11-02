@@ -27,13 +27,11 @@ describe('Controller', function () {
         ent1.setPosition(50, 50);
         testController.addEntity(ent1);
 
-        var mockClickEvent = { pageX: 60, pageY: 80 };
-
         // the spy
         spyOn(ent1, 'mousedown')
 
         // force a call to click()
-        testController.mousedown(mockClickEvent);
+        testController.mousedown(60, 80);
 
         expect(ent1.mousedown).toHaveBeenCalled();
     });

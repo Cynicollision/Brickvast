@@ -15,9 +15,10 @@
     // optional: config game settings... just one so far
     //$vast.Game.Config.fps = 60;
 
-    
-    // for grid movement
-    var tileSize = 64;
+    // used for grid movement
+    var TILE_SIZE = 64;
+
+    // set canvas size
     var gameWidth = 640;
     var gameHeight = 512;
     $vast.Game.Canvas.setCanvasSize(gameWidth, gameHeight);
@@ -55,7 +56,7 @@
     // builds and returns the player Entity object
     function buildPlayerEntity() {
         var player = new $vast.Entity(null, 'player');
-        player.setSize(64, 64);
+        player.setSize(TILE_SIZE, TILE_SIZE);
         player.setImage($vast.Game.Images.getById('sun'));
         player.setPosition(192, 64);
         player.depth = -100; // make sure player stays on top
@@ -64,10 +65,10 @@
         player.step = function () {
             var x = Math.floor(mainPlayer.getX());
             var y = Math.floor(mainPlayer.getY());
-            if ((x % tileSize < 5) && (y % tileSize < 5) && (mainPlayer.getSpeed() > 0)) {
+            if ((x % TILE_SIZE < 5) && (y % TILE_SIZE < 5) && (mainPlayer.getSpeed() > 0)) {
                 // "snap" to the grid
                 mainPlayer.setSpeed(0);
-                mainPlayer.setPosition(tileSize * Math.floor(x / tileSize), tileSize * Math.floor(y / tileSize));
+                mainPlayer.setPosition(TILE_SIZE * Math.floor(x / TILE_SIZE), TILE_SIZE * Math.floor(y / TILE_SIZE));
 
                 // see if we made it to the goal
                 checkForWin();
@@ -94,7 +95,7 @@
         var enemy = new $vast.Entity(null, 'enemy');
         enemy.setImage($vast.Game.Images.getById('badguy'));
         enemy.setPosition(64, 64);
-        enemy.setSize(64, 64);
+        enemy.setSize(TILE_SIZE, TILE_SIZE);
         enemy.setSpeed(10);
         enemy.setDirection(180); // left
         enemy.step = function () {
@@ -135,8 +136,8 @@
                 if (row.charAt(j) === '#') {
                     var wall = new $vast.Entity('wall', 0);
                     wall.setImage($vast.Game.Images.getById('stone'));
-                    wall.setPosition(j * tileSize, i * tileSize);
-                    wall.setSize(64, 64);
+                    wall.setPosition(j * TILE_SIZE, i * TILE_SIZE);
+                    wall.setSize(TILE_SIZE, TILE_SIZE);
                     ctrl.addEntity(wall);
                 }
             }
@@ -146,10 +147,10 @@
     // called when the user clicks on the screen
     function gameClick(x, y) {
         var speed = 50;
-        var clickedTileX = Math.floor(x / tileSize);
-        var clickedTileY = Math.floor(y / tileSize);
-        var playerTileX = Math.floor(mainPlayer.x / tileSize);
-        var playerTileY = Math.floor(mainPlayer.y / tileSize);
+        var clickedTileX = Math.floor(x / TILE_SIZE);
+        var clickedTileY = Math.floor(y / TILE_SIZE);
+        var playerTileX = Math.floor(mainPlayer.x / TILE_SIZE);
+        var playerTileY = Math.floor(mainPlayer.y / TILE_SIZE);
 
         if (placeFree(clickedTileX, clickedTileY)) {
             // determine which way to move
@@ -179,8 +180,8 @@
 
     // assumes the Entity's (x,y) is exactly the same - only check for type === 'wall'
     function placeFree(tileX, tileY) {
-        tileX *= tileSize;
-        tileY *= tileSize;
+        tileX *= TILE_SIZE;
+        tileY *= TILE_SIZE;
         var entities = $vast.Game.getActiveController().getEntities();
         for (var i = 0; i < entities.length; i++) {
             if ((entities[i].type === 'wall') && (entities[i].getX() === tileX) && (entities[i].getY() === tileY)) {

@@ -1,4 +1,6 @@
-﻿var vastengine = vastengine || {};
+﻿/// <reference path="../../src/Canvas.js" />
+
+var vastengine = vastengine || {};
 
 /**
  * Manages a collection of Entity objects and adjusts the visible view area.
@@ -54,10 +56,13 @@ vastengine.Controller.prototype.postStep = function () {
  * Forwards the mouse event coordinates to any managed Entity objects that were clicked on.
  * @param {onmousedown event} e The actual onmousedown event received from the mouse click.
  */
-vastengine.Controller.prototype.mousedown = function (e) {
-    // adjust for the view's coordinates
-    var clickX = e.pageX + this.view.x;
-    var clickY = e.pageY + this.view.y;
+vastengine.Controller.prototype.mousedown = function (x, y) {
+    var scale = $vast.Game.Canvas.getScale();
+
+    // adjust for scale and the view's coordinates
+    var clickX = (x / scale) + this.view.x;
+    var clickY = (y / scale) + this.view.y;
+
 
     for (var i = 0; i < this.entities.length; i++) {
         var ent = this.entities[i];
@@ -74,10 +79,10 @@ vastengine.Controller.prototype.mousedown = function (e) {
  * Forwards the mouse event coordinates to any managed Entity objects that were un-clicked on.
  * @param {event:onmouseup} e The actual onmouseup event received from the mouse click release.
  */
-vastengine.Controller.prototype.mouseup = function (e) {
+vastengine.Controller.prototype.mouseup = function (x, y) {
     // need to adjust for view's coordinates
-    var clickX = e.pageX + this.view.x;
-    var clickY = e.pageY + this.view.y;
+    var clickX = x + this.view.x;
+    var clickY = y + this.view.y;
 
     for (var i = 0; i < this.entities.length; i++) {
         var ent = this.entities[i];

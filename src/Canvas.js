@@ -1,10 +1,18 @@
 ﻿var vastengine = vastengine || {};
 
+var CanvasScaleMode = {
+    TO_FIT: 0,
+    COVER: 1
+}
+
 /**
  * Used specifically for manipulating directly the main game canvas, i.e. drawing on it.
  * @constructor
  */
-vastengine.Canvas = function() {
+vastengine.Canvas = function () {
+    this.scaleX = 1;
+    this.scaleY = 1;
+
     // build the HTML canvas and insert into the DOM.
     this.canvas = document.createElement('canvas');
     this.canvas.id = 'vastCanvas';
@@ -15,14 +23,14 @@ vastengine.Canvas = function() {
     // forward the mousedown event to the Game's active controller.
     this.canvas.onmousedown = function (e) {
         if (vastengine.Game.getActiveController() !== undefined) {
-            vastengine.Game.getActiveController().mousedown(e);
+            vastengine.Game.getActiveController().mousedown(e.pageX, e.pageY);
         }
     }
 
     // forward the mouseup event to the Game's active controller.
     this.canvas.onmouseup = function (e) {
         if (vastengine.Game.getActiveController() !== undefined) {
-            vastengine.Game.getActiveController().mouseup(e);
+            vastengine.Game.getActiveController().mouseup(e.pageX, e.pageY);
         }
     }
 }
@@ -87,9 +95,64 @@ vastengine.Canvas.prototype.getCanvasHeight = function () {
     return this.canvas.height;
 }
 
+
+/**
+ * Sets the width and height of the HTML canvas.
+ * @param {number} w New width for the canvas.
+ * @param {number} h New height for the canvas.
+ */
 vastengine.Canvas.prototype.setCanvasSize = function (w, h) {
     this.canvas.width = w;
     this.canvas.height = h;
+}
+
+
+/**
+ * Sets the scaling mode of the canvas.
+ * @param {CanvasScaleMode} scaleMode New scale mode.
+ */
+vastengine.Canvas.prototype.setScaleMode = function (scaleMode) {
+    this.scaleMode = scaleMode;
+}
+
+
+/**
+ * Scales the canvas to fill the available visible area.
+ * Default is to scale to fill the window.
+ * @param {number} scaleX Specific horizontal scale ratio.
+ * @param {number} scaleY Specific vertical scale ratio.
+ */
+vastengine.Canvas.prototype.setCanvasScale = function (scaleX, scaleY) {
+    if (!scaleX) {
+        var scaleX = window.innerWidth / this.canvas.width;
+    }
+    
+    if (!scaleY) {
+        var scaleY = window.innerHeight / this.canvas.height;
+    }
+
+    this.scaleX = scaleX;
+    this.scaleY = scaleY;
+
+    var scale = this.getScale();
+    this.canvas.style.transformOrigin = "0 0";
+    this.canvas.style.transform = "scale(" + scale + ")";
+}
+
+
+/**
+ * Gets a single scaling ratio depending on the current CanvasScaleMode.
+ */
+vastengine.Canvas.prototype.getScale = function () {
+    switch (this.scaleMode) {
+        case CanvasScaleMode.COVER:
+            return Math.max(this.scaleX, this.scaleY);
+            break;
+        case CanvasScaleMode.TO_FIT:
+        default:
+            return Math.min(this.scaleX, this.scaleY);
+            break;
+    }
 }
 
 
@@ -145,4 +208,7 @@ vastengine.Canvas.prototype.draw = function (controller) {
             this.context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
         }
     }
+
+    // do scaling
+    this.setCanvasScale();
 }

@@ -135,8 +135,6 @@ vastengine.Game.getTimestamp = function () {
  * The main game loop. Keeps the game running at a fixed FPS.
  */
 vastengine.Game.run = function () {
-    //
-
     var fps = vastengine.Game.Config.fps;
     var stepSize = 1 / fps;
     var offset = 0;
