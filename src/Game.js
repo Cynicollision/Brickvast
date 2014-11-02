@@ -5,16 +5,20 @@
  * @author Sean Normoyle
  */
 
+var AssetType = {
+    IMAGE: 'image',
+    AUDIO: 'audio'
+}
+
 /**
  * Dictionary-style class used to store, pre-load, and retrieve game assets (images and audio).
  * @param {string} type The type of asset to manage, either "image" or "audio".
  * @constructor
  */
-
 vastengine.AssetManager = function (type) {
     this.assets = [];
     this.type = type;
-    if (type != 'image' && type != 'audio') {
+    if (type != AssetType.IMAGE && type != AssetType.AUDIO) {
         throw 'Invalid asset type "' + type + '"';
     }
 }
@@ -49,9 +53,9 @@ vastengine.AssetManager.prototype.getById = function (id) {
  */
 vastengine.AssetManager.prototype.load = function () {
     for (var i = 0; i < this.assets.length; i++) {
-        if (this.type === 'image') {
+        if (this.type === AssetType.IMAGE) {
             this.assets[i].asset = new Image();
-        } else if (this.type === 'audio') {
+        } else if (this.type === AssetType.AUDIO) {
             this.assets[i].asset = new Audio(this.assets[i].source);
         }
 
@@ -86,8 +90,8 @@ vastengine.Game.Canvas = new vastengine.Canvas();
 /**
  * AssetManager utility classes for managing game resources.
  */
-vastengine.Game.Images = new vastengine.AssetManager('image');
-vastengine.Game.Audio = new vastengine.AssetManager('audio');
+vastengine.Game.Images = new vastengine.AssetManager(AssetType.IMAGE);
+vastengine.Game.Audio = new vastengine.AssetManager(AssetType.AUDIO);
 
 
 /** 
