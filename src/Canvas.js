@@ -5,22 +5,21 @@
  * @constructor
  */
 vastengine.Canvas = function() {
+    // build the HTML canvas and insert into the DOM.
     this.canvas = document.createElement('canvas');
-    this.canvas.id = 'theCanvas'; // TODO: load id, width, height from game settings
-    this.canvas.width = 640;
-    this.canvas.height = 512;
+    this.canvas.id = 'vastCanvas';
+    this.setCanvasSize(640, 512);
+    this.context = this.canvas.getContext('2d');
     document.body.appendChild(this.canvas);
 
-    this.context = this.canvas.getContext('2d');
-
-    // forward the event to the Game's active controller
+    // forward the mousedown event to the Game's active controller.
     this.canvas.onmousedown = function (e) {
         if (vastengine.Game.getActiveController() !== undefined) {
             vastengine.Game.getActiveController().mousedown(e);
         }
     }
 
-    // forward the event to the Game's active controller
+    // forward the mouseup event to the Game's active controller.
     this.canvas.onmouseup = function (e) {
         if (vastengine.Game.getActiveController() !== undefined) {
             vastengine.Game.getActiveController().mouseup(e);
@@ -86,6 +85,11 @@ vastengine.Canvas.prototype.getCanvasWidth = function () {
  */
 vastengine.Canvas.prototype.getCanvasHeight = function () {
     return this.canvas.height;
+}
+
+vastengine.Canvas.prototype.setCanvasSize = function (w, h) {
+    this.canvas.width = w;
+    this.canvas.height = h;
 }
 
 

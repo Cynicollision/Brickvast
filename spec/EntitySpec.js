@@ -1,4 +1,4 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/Entity.js" />
+﻿/// <reference path="../src/Entity.js" />
 
 //************************************************************************************//
 // Test suite for Entity class

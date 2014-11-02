@@ -1,8 +1,8 @@
-﻿/// <reference path="../src/MathUtil.js" />
-/// <reference path="../src/Canvas.js" />
-/// <reference path="../src/Controller.js" />
-/// <reference path="../src/Entity.js" />
-/// <reference path="../src/Game.js" />
+﻿/// <reference path="../../src/MathUtil.js" />
+/// <reference path="../../src/Canvas.js" />
+/// <reference path="../../src/Controller.js" />
+/// <reference path="../../src/Entity.js" />
+/// <reference path="../../src/Game.js" />
 // set background color and load assets
 (function () {
     $vast.Game.Canvas.setBackgroundImage('../_images/texture.png');
@@ -12,14 +12,19 @@
     $vast.Game.Images.add('badguy', '../_images/enemy.png');
     $vast.Game.Images.load();
 
+    // optional: config game settings... just one so far
+    //$vast.Game.Config.fps = 60;
+
+    
     // for grid movement
     var tileSize = 64;
-    var width = $vast.Game.Canvas.getCanvasWidth();
-    var height = $vast.Game.Canvas.getCanvasHeight();
+    var gameWidth = 640;
+    var gameHeight = 512;
+    $vast.Game.Canvas.setCanvasSize(gameWidth, gameHeight);
 
     var ctrl = new $vast.Controller();
 
-    // our hero
+    // some maze objects
     var mainPlayer = buildPlayerEntity();
     var goal = buildGoalEntity();
     var badguy = buildEnemyEntity();
@@ -34,8 +39,8 @@
         ctrl.postmousedown = gameClick;
         ctrl.postStep = function () {
             // adjust the view's coordinates to follow the player Entity
-            var x = (mainPlayer.getX() + (mainPlayer.width / 2)) - (width / 2);
-            var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - (height / 2);
+            var x = (mainPlayer.getX() + (mainPlayer.width / 2)) - (gameWidth / 2);
+            var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - (gameHeight / 2);
             ctrl.setViewPosition(x, y);
         }
 

@@ -68,10 +68,26 @@ vastengine.Game = function() {
     this.activeController;
 }
 
-vastengine.Game = function () { }
+
+/**
+ * Game-level constants. Intended to be overridden as the first step of game setup (or use these defaults).
+ */
+vastengine.Game.Config = {
+    fps: 60
+}
+
+
+/**
+ * For accessing the actual HTML canvas, used to draw things.
+ */
+vastengine.Game.Canvas = new vastengine.Canvas();
+
+
+/**
+ * AssetManager utility classes for managing game resources.
+ */
 vastengine.Game.Images = new vastengine.AssetManager('image');
 vastengine.Game.Audio = new vastengine.AssetManager('audio');
-vastengine.Game.Canvas = new vastengine.Canvas();
 
 
 /** 
@@ -115,9 +131,12 @@ vastengine.Game.getTimestamp = function () {
  * The main game loop. Keeps the game running at a fixed FPS.
  */
 vastengine.Game.run = function () {
-    var stepSize = 1 / 60; // TODO: load from "global game settings" (whatever those end up being)
+    //
+
+    var fps = vastengine.Game.Config.fps;
+    var stepSize = 1 / fps;
     var offset = 0;
-    var previous = vastengine.Game.getTimestamp()
+    var previous = vastengine.Game.getTimestamp();
 
     function stepAndDraw() {
         var current = vastengine.Game.getTimestamp();

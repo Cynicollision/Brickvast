@@ -10,8 +10,11 @@ vastengine.Controller = function() {
 }
 
 
-// setViewPosition(x, y)
-//  Sets the view position to the given coordinates.
+/**
+ * Sets the view position to the given coordinates.
+ * @param {number} newX New X-coordinate for the view position (horizontal offset).
+ * @param {number} newY New Y-coordinate for the view position (vertical offset)
+ */
 vastengine.Controller.prototype.setViewPosition = function (newX, newY) {
     this.view.x = newX;
     this.view.y = newY;
