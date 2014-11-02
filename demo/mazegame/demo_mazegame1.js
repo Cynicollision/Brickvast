@@ -18,10 +18,11 @@
     // used for grid movement
     var TILE_SIZE = 64;
 
-    // set canvas size
+    // set canvas size and scale mode
     var gameWidth = 640;
     var gameHeight = 512;
     $vast.Game.Canvas.setCanvasSize(gameWidth, gameHeight);
+    $vast.Game.Canvas.setScaleMode(CanvasScaleMode.TO_FIT);
 
     var ctrl = new $vast.Controller();
 

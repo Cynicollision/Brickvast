@@ -1,8 +1,9 @@
 ﻿var vastengine = vastengine || {};
 
 var CanvasScaleMode = {
-    TO_FIT: 0,
-    COVER: 1
+    NONE: 0,
+    TO_FIT: 1,
+    COVER: 2
 }
 
 /**
@@ -149,8 +150,11 @@ vastengine.Canvas.prototype.getScale = function () {
             return Math.max(this.scaleX, this.scaleY);
             break;
         case CanvasScaleMode.TO_FIT:
-        default:
             return Math.min(this.scaleX, this.scaleY);
+            break;
+        case CanvasScaleMode.NONE:
+        default:
+            return 1;
             break;
     }
 }

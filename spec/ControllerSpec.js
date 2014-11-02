@@ -146,4 +146,6 @@ describe('Controller', function () {
         var entsAtPos2 = testController.getEntitiesAtPosition(90, 90, 'bit');
         expect(entsAtPos2.length).toEqual(0);
     });
+
+    // TODO: test for scaling and translating coordinates
 });
