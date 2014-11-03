@@ -1,5 +1,3 @@
-﻿/// <reference path="../../src/Canvas.js" />
-
 var vastengine = vastengine || {};
 
 /**
@@ -8,8 +6,8 @@ var vastengine = vastengine || {};
  */
 vastengine.Controller = function() {
     this.entities = [];
-    this.view = { x: 0, y: 0 }
-}
+    this.view = { x: 0, y: 0 };
+};
 
 
 /**
@@ -20,7 +18,7 @@ vastengine.Controller = function() {
 vastengine.Controller.prototype.setViewPosition = function (newX, newY) {
     this.view.x = newX;
     this.view.y = newY;
-}
+};
 
 
 /** 
@@ -33,15 +31,15 @@ vastengine.Controller.prototype.step = function () {
 
         // apply Entity motion
         if (this.entities[i].speed !== 0) {
-            this.entities[i].x += Math.round(($vast.MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
-            this.entities[i].y += Math.round(($vast.MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
+            this.entities[i].x += Math.round((vastengine.MathUtil.getLengthDirectionX(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
+            this.entities[i].y += Math.round((vastengine.MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
         }
 
         this.entities[i].step();
     }
 
     this.postStep();
-}
+};
 
 
 /** 
@@ -49,7 +47,7 @@ vastengine.Controller.prototype.step = function () {
  */
 vastengine.Controller.prototype.postStep = function () {
     // to be overridden in instantiation
-}
+};
 
 
 /** 
@@ -57,7 +55,7 @@ vastengine.Controller.prototype.postStep = function () {
  * @param {onmousedown event} e The actual onmousedown event received from the mouse click.
  */
 vastengine.Controller.prototype.mousedown = function (x, y) {
-    var scale = $vast.Game.Canvas.getScale();
+    var scale = vastengine.Game.Canvas.getScale();
 
     // adjust for scale and the view's coordinates
     var clickX = (x / scale) + this.view.x;
@@ -72,7 +70,7 @@ vastengine.Controller.prototype.mousedown = function (x, y) {
     }
 
     this.postmousedown(clickX, clickY);
-}
+};
 
 
 /** 
@@ -93,7 +91,7 @@ vastengine.Controller.prototype.mouseup = function (x, y) {
 
     // TODO: implement this.postmousedown?
     // TODO: refactor some of this code and call from mousedown also.
-}
+};
 
 
 /** 
@@ -103,7 +101,7 @@ vastengine.Controller.prototype.mouseup = function (x, y) {
   */
 vastengine.Controller.prototype.postmousedown = function (x, y) {
     // to be overridden
-}
+};
 
 
 /**
@@ -112,7 +110,7 @@ vastengine.Controller.prototype.postmousedown = function (x, y) {
  */
 vastengine.Controller.prototype.addEntity = function (newEnt) {
     this.entities.push(newEnt);
-}
+};
 
 
 /**
@@ -121,7 +119,7 @@ vastengine.Controller.prototype.addEntity = function (newEnt) {
  */
 vastengine.Controller.prototype.getEntities = function () {
     return this.entities;
-}
+};
 
 
 /** 
@@ -134,7 +132,7 @@ vastengine.Controller.prototype.getEntityById = function (id) {
             return this.entities[i];
         }
     }
-}
+};
 
 
 /**
@@ -150,7 +148,7 @@ vastengine.Controller.prototype.getEntitiesByType = function (type) {
         }
     }
     return hits;
-}
+};
 
 
 /**
@@ -172,7 +170,7 @@ vastengine.Controller.prototype.getEntitiesAtPosition = function (x, y, type) {
         }
     }
     return hits;
-}
+};
 
 
 /**
@@ -181,8 +179,8 @@ vastengine.Controller.prototype.getEntitiesAtPosition = function (x, y, type) {
 vastengine.Controller.prototype.sortEntities = function () {
     this.entities.sort(function (a, b) {
         return -(a.depth - b.depth);
-    })
-}
+    });
+};
 
 
 /** 
@@ -199,4 +197,4 @@ vastengine.Controller.prototype.removeDestroyedEntities = function () {
             }
         });
     }
-}
+};
