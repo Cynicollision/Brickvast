@@ -1,4 +1,4 @@
-﻿var vastengine = vastengine || {};
+var vastengine = vastengine || {};
 
 /**
  * Represents one (usually visible) "thing" to exist in the game.
@@ -16,7 +16,7 @@ vastengine.Entity = function (type, id) {
     this.direction = 0;
     this.width = 0;
     this.height = 0;
-}
+};
 
 
 /** 
@@ -24,7 +24,7 @@ vastengine.Entity = function (type, id) {
  */
 vastengine.Entity.prototype.step = function () {
     // to be overridden in instantiation to define step behavior
-}
+};
 
 
 /**
@@ -34,7 +34,7 @@ vastengine.Entity.prototype.step = function () {
  */
 vastengine.Entity.prototype.mousedown = function (x, y) {
     // to be overridden in instantiation to define mousedown behavior
-}
+};
 
 
 /**
@@ -44,7 +44,7 @@ vastengine.Entity.prototype.mousedown = function (x, y) {
  */
 vastengine.Entity.prototype.mouseup = function (x, y) {
     // to be overridden in instantiation to define mouseup behavior
-}
+};
 
 
 /** 
@@ -52,7 +52,7 @@ vastengine.Entity.prototype.mouseup = function (x, y) {
  */
 vastengine.Entity.prototype.draw = function () {
     // to be overridden in instantiation to perform special drawing functions
-}
+};
 
 
 /**
@@ -60,7 +60,7 @@ vastengine.Entity.prototype.draw = function () {
  */
 vastengine.Entity.prototype.destroy = function () {
     this.isDestroyed = true;
-}
+};
 
 
 /** 
@@ -70,7 +70,7 @@ vastengine.Entity.prototype.destroy = function () {
  */
 vastengine.Entity.prototype.checkCollision = function (other) {
     return !((this.x + this.width < other.x + 1) || (other.x + other.width - 1 < this.x) || (this.y + this.height < other.y + 1) || (other.y + other.height - 1 < this.y));
-}
+};
 
 
 
@@ -80,50 +80,50 @@ vastengine.Entity.prototype.checkCollision = function (other) {
  **************************************************************/
 vastengine.Entity.prototype.getImage = function () {
     return this.image;
-}
+};
 
 vastengine.Entity.prototype.setImage = function (newImage) {
     this.image = newImage;
-}
+};
 
 vastengine.Entity.prototype.setPosition = function (newX, newY) {
     this.x = newX;
     this.y = newY;
-}
+};
 
 vastengine.Entity.prototype.getX = function () {
     return this.x;
-}
+};
 
 vastengine.Entity.prototype.setX = function (newX) {
     this.x = newX;
-}
+};
 
 vastengine.Entity.prototype.getY = function () {
     return this.y;
-}
+};
 
 vastengine.Entity.prototype.setY = function (newY) {
     this.y = newY;
-}
+};
 
 vastengine.Entity.prototype.getSpeed = function () {
     return this.speed;
-}
+};
 
 vastengine.Entity.prototype.setSpeed = function (newSpeed) {
     this.speed = newSpeed;
-}
+};
 
 vastengine.Entity.prototype.getDirection = function () {
     return this.direction;
-}
+};
 
 vastengine.Entity.prototype.setDirection = function (newDir) {
     this.direction = newDir;
-}
+};
 
 vastengine.Entity.prototype.setSize = function (newWidth, newHeight) {
     this.width = newWidth;
     this.height = newHeight;
-}
+};
