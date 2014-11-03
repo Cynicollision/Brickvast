@@ -1,4 +1,5 @@
-﻿var $vast = vastengine = vastengine || {};
+var vastengine = vastengine || {};
+var $vast = vastengine;
 
 /**
  * This file contains defintions for both the Game and AssetManager classes.
@@ -8,7 +9,7 @@
 var AssetType = {
     IMAGE: 'image',
     AUDIO: 'audio'
-}
+};
 
 /**
  * Dictionary-style class used to store, pre-load, and retrieve game assets (images and audio).
@@ -21,7 +22,7 @@ vastengine.AssetManager = function (type) {
     if (type != AssetType.IMAGE && type != AssetType.AUDIO) {
         throw 'Invalid asset type "' + type + '"';
     }
-}
+};
 
 
 /**
@@ -31,7 +32,7 @@ vastengine.AssetManager = function (type) {
  */
 vastengine.AssetManager.prototype.add = function (newId, src) {
     this.assets.push({ id: newId, source: src, asset: undefined });
-}
+};
 
 
 /**
@@ -45,7 +46,7 @@ vastengine.AssetManager.prototype.getById = function (id) {
             return this.assets[i].asset;
         }
     }
-}
+};
 
 
 /**
@@ -61,7 +62,7 @@ vastengine.AssetManager.prototype.load = function () {
 
         this.assets[i].asset.src = this.assets[i].source;
     }
-}
+};
 
 
 /**
@@ -69,8 +70,8 @@ vastengine.AssetManager.prototype.load = function () {
  * @constructor
  */
 vastengine.Game = function() {
-    this.activeController;
-}
+    this.activeController = null;
+};
 
 
 /**
@@ -78,7 +79,7 @@ vastengine.Game = function() {
  */
 vastengine.Game.Config = {
     fps: 60
-}
+};
 
 
 /**
@@ -99,7 +100,7 @@ vastengine.Game.Audio = new vastengine.AssetManager(AssetType.AUDIO);
  */
 vastengine.Game.setActiveController = function (newActiveController) {
     this.activeController = newActiveController;
-}
+};
 
 
 /** 
@@ -107,7 +108,7 @@ vastengine.Game.setActiveController = function (newActiveController) {
  */
 vastengine.Game.getActiveController = function () {
     return this.activeController;
-}
+};
 
 
 /**
@@ -119,7 +120,7 @@ vastengine.Game.hasActiveControler = function () {
         return this.activeController.view !== undefined;
     }
     return false;
-}
+};
 
 
 /**
@@ -128,7 +129,7 @@ vastengine.Game.hasActiveControler = function () {
  */
 vastengine.Game.getTimestamp = function () {
     return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
-}
+};
 
 
 /**
@@ -163,4 +164,4 @@ vastengine.Game.run = function () {
     }
 
     requestAnimationFrame(stepAndDraw);
-}
+};
