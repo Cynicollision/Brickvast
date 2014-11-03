@@ -4,7 +4,7 @@
  * For performing various mathematical calculations, trig etc.
  * @constructor
  */
-vastengine.MathUtil = function () { }
+vastengine.MathUtil = function () { } // TODO: can we eliminate "function ()" ?
 
 
 /**
@@ -17,7 +17,7 @@ vastengine.MathUtil = function () { }
  */
 vastengine.MathUtil.getPointDistance = function (x1, y1, x2, y2) {
     return Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
-}
+};
 
 
 /**
@@ -36,7 +36,7 @@ vastengine.MathUtil.getPointDirection = function (x1, y1, x2, y2) {
         direction += 360;
     }
     return direction;
-}
+};
 
 
 /**
@@ -47,7 +47,7 @@ vastengine.MathUtil.getPointDirection = function (x1, y1, x2, y2) {
   */
 vastengine.MathUtil.getLengthDirectionX = function (len, dir) {
     return Math.floor(len * Math.cos(dir * (Math.PI / 180)));
-}
+};
 
 
 /**
@@ -58,4 +58,4 @@ vastengine.MathUtil.getLengthDirectionX = function (len, dir) {
   */
 vastengine.MathUtil.getLengthDirectionY = function (len, dir) {
     return Math.floor(len * Math.sin(dir * (Math.PI / 180)));
-}
+};
