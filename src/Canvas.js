@@ -1,10 +1,10 @@
-﻿var vastengine = vastengine || {};
+var vastengine = vastengine || {};
 
 var CanvasScaleMode = {
     NONE: 0,
     TO_FIT: 1,
     COVER: 2
-}
+};
 
 /**
  * Used specifically for manipulating directly the main game canvas, i.e. drawing on it.
@@ -26,15 +26,15 @@ vastengine.Canvas = function () {
         if (vastengine.Game.getActiveController() !== undefined) {
             vastengine.Game.getActiveController().mousedown(e.pageX, e.pageY);
         }
-    }
+    };
 
     // forward the mouseup event to the Game's active controller.
     this.canvas.onmouseup = function (e) {
         if (vastengine.Game.getActiveController() !== undefined) {
             vastengine.Game.getActiveController().mouseup(e.pageX, e.pageY);
         }
-    }
-}
+    };
+};
 
 
 /**
@@ -43,7 +43,7 @@ vastengine.Canvas = function () {
  */
 vastengine.Canvas.prototype.getDrawingContext = function () {
     return this.context;
-}
+};
 
 
 /**
@@ -53,7 +53,7 @@ vastengine.Canvas.prototype.getDrawingContext = function () {
 vastengine.Canvas.prototype.setBackgroundColor = function (color) {
     //this.canvas.css('background', color);
     this.canvas.style.background = color;
-}
+};
 
 
 /**
@@ -66,7 +66,7 @@ vastengine.Canvas.prototype.setBackgroundImage = function (url, tiled) {
     if (!tiled) {
         this.canvas.style.backgroundRepeat = 'no-repeat';
     }
-}
+};
 
 
 /**
@@ -76,7 +76,7 @@ vastengine.Canvas.prototype.setBackgroundImage = function (url, tiled) {
  */
 vastengine.Canvas.prototype.setBackgroundPosition = function (x, y) {
     this.canvas.style.backgroundPosition = x + 'px ' + y + 'px';
-}
+};
 
 
 /**
@@ -85,7 +85,7 @@ vastengine.Canvas.prototype.setBackgroundPosition = function (x, y) {
  */
 vastengine.Canvas.prototype.getCanvasWidth = function () {
     return this.canvas.width;
-}
+};
 
 
 /**
@@ -94,7 +94,7 @@ vastengine.Canvas.prototype.getCanvasWidth = function () {
  */
 vastengine.Canvas.prototype.getCanvasHeight = function () {
     return this.canvas.height;
-}
+};
 
 
 /**
@@ -105,7 +105,7 @@ vastengine.Canvas.prototype.getCanvasHeight = function () {
 vastengine.Canvas.prototype.setCanvasSize = function (w, h) {
     this.canvas.width = w;
     this.canvas.height = h;
-}
+};
 
 
 /**
@@ -114,7 +114,7 @@ vastengine.Canvas.prototype.setCanvasSize = function (w, h) {
  */
 vastengine.Canvas.prototype.setScaleMode = function (scaleMode) {
     this.scaleMode = scaleMode;
-}
+};
 
 
 /**
@@ -125,11 +125,11 @@ vastengine.Canvas.prototype.setScaleMode = function (scaleMode) {
  */
 vastengine.Canvas.prototype.setCanvasScale = function (scaleX, scaleY) {
     if (!scaleX) {
-        var scaleX = window.innerWidth / this.canvas.width;
+        scaleX = window.innerWidth / this.canvas.width;
     }
     
     if (!scaleY) {
-        var scaleY = window.innerHeight / this.canvas.height;
+        scaleY = window.innerHeight / this.canvas.height;
     }
 
     this.scaleX = scaleX;
@@ -138,7 +138,7 @@ vastengine.Canvas.prototype.setCanvasScale = function (scaleX, scaleY) {
     var scale = this.getScale();
     this.canvas.style.transformOrigin = "0 0";
     this.canvas.style.transform = "scale(" + scale + ")";
-}
+};
 
 
 /**
@@ -148,16 +148,14 @@ vastengine.Canvas.prototype.getScale = function () {
     switch (this.scaleMode) {
         case CanvasScaleMode.COVER:
             return Math.max(this.scaleX, this.scaleY);
-            break;
+
         case CanvasScaleMode.TO_FIT:
             return Math.min(this.scaleX, this.scaleY);
-            break;
-        case CanvasScaleMode.NONE:
+
         default:
             return 1;
-            break;
     }
-}
+};
 
 
 /**
@@ -170,7 +168,7 @@ vastengine.Canvas.prototype.getViewRelativeX = function (controller) {
     } else {
         return 0;
     }
-}
+};
 
 
 /**
@@ -183,7 +181,7 @@ vastengine.Canvas.prototype.getViewRelativeY = function (controller) {
     } else {
         return 0;
     }
-}
+};
 
 
 /**
@@ -215,4 +213,4 @@ vastengine.Canvas.prototype.draw = function (controller) {
 
     // do scaling
     this.setCanvasScale();
-}
+};
