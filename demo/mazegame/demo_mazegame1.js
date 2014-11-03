@@ -22,7 +22,7 @@
     var gameWidth = 640;
     var gameHeight = 512;
     $vast.Game.Canvas.setCanvasSize(gameWidth, gameHeight);
-    $vast.Game.Canvas.setScaleMode(CanvasScaleMode.TO_FIT);
+    $vast.Game.Canvas.setScaleMode(CanvasScaleMode.FIT);
 
     var ctrl = new $vast.Controller();
 

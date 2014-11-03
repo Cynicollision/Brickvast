@@ -87,6 +87,7 @@
   <ItemGroup>
     <Content Include="spec\Views\Jasmine\SpecRunner.cshtml" />
     <Content Include=".gitignore" />
+    <Content Include="README.md" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

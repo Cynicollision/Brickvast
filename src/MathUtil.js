@@ -4,7 +4,7 @@
  * For performing various mathematical calculations, trig etc.
  * @constructor
  */
-vastengine.MathUtil = function () { } // TODO: can we eliminate "function ()" ?
+vastengine.MathUtil = {};
 
 
 /**
