@@ -16,25 +16,30 @@ vastengine.Entity = function (type, id) {
     this.direction = 0;
     this.width = 0;
     this.height = 0;
+    this.step;
+    this.onTouch;
+    this.onTouchEnd;
 };
 
 
 /** 
- * Called during the managing Controller object's own step function continuously.
+ * Sets the function this Entity object calls on each game step.
+ * @param {function} step() function to be called.
  */
-vastengine.Entity.prototype.step = function () {
-    // to be overridden in instantiation to define step behavior
+vastengine.Entity.prototype.setStep = function (stepFn) {
+    this.step = stepFn;
 };
 
 
-/**
- * Called by the managing Controller object if e's coordinates are within this Entity's bounding area.
- * @param {number} x X-coordinate of onmousedown event.
- * @param {number} y Y-coordinate of onmousedown event.
- */
-vastengine.Entity.prototype.mousedown = function (x, y) {
-    // to be overridden in instantiation to define mousedown behavior
+// TODO: document.
+vastengine.Entity.prototype.setOnTouch = function (onTouchFn) {
+    this.onTouch = onTouchFn;
 };
+
+// TODO: document.
+vastengine.Entity.prototype.setOnTouchEnd = function (onTouchEndFn) {
+    this.onTouchEnd = onTouchEndFn;
+}
 
 
 /**

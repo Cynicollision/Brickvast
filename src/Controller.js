@@ -1,4 +1,4 @@
-var vastengine = vastengine || {};
+﻿var vastengine = vastengine || {};
 
 /**
  * Manages a collection of Entity objects and adjusts the visible view area.
@@ -7,6 +7,9 @@ var vastengine = vastengine || {};
 vastengine.Controller = function() {
     this.entities = [];
     this.view = { x: 0, y: 0 };
+
+    this.postStep;
+    this.onTouch;
 };
 
 
@@ -35,18 +38,23 @@ vastengine.Controller.prototype.step = function () {
             this.entities[i].y += Math.round((vastengine.MathUtil.getLengthDirectionY(this.entities[i].getSpeed(), this.entities[i].getDirection()) / 10));
         }
 
-        this.entities[i].step();
+        if (this.entities[i].step) {
+            this.entities[i].step();
+        }
     }
 
-    this.postStep();
+    if (this.postStep) {
+        this.postStep();
+    }
 };
 
 
 /** 
- * Called at the end of this object's step() call. Intended to be overridden if needed at instantiation.
+ * Sets the function to call at the end of each game step.
+ * @param {function} step() function to be called.
  */
-vastengine.Controller.prototype.postStep = function () {
-    // to be overridden in instantiation
+vastengine.Controller.prototype.setPostStep = function (postStepFn) {
+    this.postStep = postStepFn;
 };
 
 
@@ -54,22 +62,8 @@ vastengine.Controller.prototype.postStep = function () {
  * Forwards the mouse event coordinates to any managed Entity objects that were clicked on.
  * @param {onmousedown event} e The actual onmousedown event received from the mouse click.
  */
-vastengine.Controller.prototype.mousedown = function (x, y) {
-    var scale = vastengine.Game.Canvas.getScale();
-
-    // adjust for scale and the view's coordinates
-    var clickX = (x / scale) + this.view.x;
-    var clickY = (y / scale) + this.view.y;
-
-
-    for (var i = 0; i < this.entities.length; i++) {
-        var ent = this.entities[i];
-        if ((clickX > ent.x) && (clickY > ent.y) && (clickX < ent.x + ent.width) && (clickY < ent.y + ent.height)) {
-            ent.mousedown(clickX, clickY);
-        }
-    }
-
-    this.postmousedown(clickX, clickY);
+vastengine.Controller.prototype.setOnTouch = function (onTouchFn) {
+    this.onTouch = onTouchFn;
 };
 
 
@@ -89,8 +83,9 @@ vastengine.Controller.prototype.mouseup = function (x, y) {
         }
     }
 
-    // TODO: implement this.postmousedown?
-    // TODO: refactor some of this code and call from mousedown also.
+    // TODO: eliminate mousedown, mouseup: change to onTouch, implement postTouch.
+    // Make class for handling touch input (scaling down to 1:1 coordinates, touch or release, etc.) and use it in Canvas to pass values to onTouch, postTouch.
+    // above class can also store the currently clicked (x, y).
 };
 
 
