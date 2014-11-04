@@ -1,4 +1,5 @@
-﻿var vastengine = vastengine || {};
+﻿/// <reference path="Entity.js" />
+var vastengine = vastengine || {};
 
 /**
  * Manages a collection of Entity objects and adjusts the visible view area.
@@ -119,16 +120,14 @@ vastengine.Controller.prototype.getEntitiesByType = function (type) {
  * Retrieve all Entity objects at the given position.
  * @param {number} x X-coordinate to check.
  * @param {number} y Y-coordinate to check.
- * @param {string} Optional type to check for. If specified, only Entity objects with this type will be returned.
+ * @param {string} Optional type to check/filter for. If specified, only Entity objects with this type will be returned.
  * @return {Array.<Entity>} Cllection of Entity objects for which (x, y) falls within its width and height bounds.
  */
 vastengine.Controller.prototype.getEntitiesAtPosition = function (x, y, type) {
     var hits = [];
     for (var i = 0; i < this.entities.length; i++) {
-        if (x > this.entities[i].x && y > this.entities[i].y && x < this.entities[i].x + this.entities[i].width && y < this.entities[i].y + this.entities[i].height) {
-            if (type === undefined) {
-                hits.push(this.entities[i]);
-            } else if (this.entities[i].type === type) {
+        if (this.entities[i].onPosition(x, y)) {
+            if (!type || this.entities[i].type === type) {
                 hits.push(this.entities[i]);
             }
         }
@@ -136,6 +135,24 @@ vastengine.Controller.prototype.getEntitiesAtPosition = function (x, y, type) {
     return hits;
 };
 
+
+/**
+ * Determines if the given position is free of all managed Entity objects. If the given (x, y) 
+ * falls within the (x, y) and (x+w, y+h) of any Entity objects
+ * @param {number} x X-coordinate to check.
+ * @param {number} y Y-coordinate to check.
+ * @param {string} Optional type to check/filter for. If specified, only check for Entity objects with this type.
+ */
+vastengine.Controller.prototype.isPositionFree = function (x, y, type) {
+    for (var i = 0; i < this.entities.length; i++) {
+        if (this.entities[i].onPosition(x, y)) {
+            if (!type || type === this.entities[i].type) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
 
 /**
  * Sorts managed entities in descending order by depth.

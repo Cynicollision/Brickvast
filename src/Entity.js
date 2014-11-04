@@ -90,6 +90,16 @@ vastengine.Entity.prototype.checkCollision = function (other) {
 };
 
 
+/**
+ * Determine if the given coordinates fall within the bounds of this Entity object.
+ * @param {number} onX X-coordinate to check.
+ * @param {number} onY Y-coordinate to check.
+ * @return Whether the given coordinates fall within the bounds of this Entity object.
+ */
+vastengine.Entity.prototype.onPosition = function (onX, onY) {
+    return (onX > this.x && onY > this.y && onX < this.x + this.width && onY < this.y + this.height);
+};
+
 
 
 /**************************************************************

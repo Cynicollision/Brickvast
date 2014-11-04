@@ -155,7 +155,7 @@
         var playerTileX = Math.floor(mainPlayer.x / TILE_SIZE);
         var playerTileY = Math.floor(mainPlayer.y / TILE_SIZE);
 
-        if (placeFree(clickedTileX, clickedTileY)) {
+        if (ctrl.isPositionFree(x, y, 'wall')) {
             // determine which way to move
             if (clickedTileX === playerTileX) {
                 if (clickedTileY === playerTileY + 1) {
@@ -179,20 +179,6 @@
                 }
             }
         }
-    }
-
-    // assumes the Entity's (x,y) is exactly the same - only check for type === 'wall'
-    function placeFree(tileX, tileY) {
-        tileX *= TILE_SIZE;
-        tileY *= TILE_SIZE;
-        var entities = $vast.Game.getActiveController().getEntities();
-        for (var i = 0; i < entities.length; i++) {
-            if ((entities[i].type === 'wall') && (entities[i].getX() === tileX) && (entities[i].getY() === tileY)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     // determine if the player ran into the enemy

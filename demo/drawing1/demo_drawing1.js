@@ -32,11 +32,11 @@ function buildEntityTwo() {
     var testEntTwo = new $vast.Entity(null, 2);
 
     // draw some text by overridding the draw() method
-    testEntTwo.draw = function () {
-        var drawingContext = $vast.Game.Canvas.getDrawingContext();
-        drawingContext.font = '48px "Courier New"';
-        drawingContext.fillText('Hello World!', 250, 100);
-    }
+    testEntTwo.setDraw(function () {
+        var context = $vast.Game.Canvas.getDrawingContext();
+        context.font = '48px "Courier New"';
+        context.fillText('Hello World!', 250, 100);
+    });
 
     return testEntTwo;
 }

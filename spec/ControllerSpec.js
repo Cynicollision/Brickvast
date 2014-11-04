@@ -136,4 +136,28 @@ describe('Controller', function () {
     });
 
     // TODO: test for scaling and translating coordinates
+
+    it('Can determine whether a given position is free of any Entity objects.', function () {
+        var ent1 = new $vast.Entity('ent', 'ent1');
+        ent1.setSize(50, 50);
+        ent1.setPosition(50, 50);
+        testController.addEntity(ent1);
+
+        expect(testController.isPositionFree(60, 70)).toBeFalsy();
+    });
+
+    if ('Can determine whether a given position is free of Entity objects of a given type.', function () {
+        var ent1 = new $vast.Entity('orange', 0x1);
+        ent1.setSize(50, 50);
+        ent1.setPosition(100, 100);
+        testController.addEntity(ent1);
+
+        var ent2 = new $vast.Entity('notorange', 0x2);
+        ent2.setSize(50, 50);
+        ent2.setPosition(100, 150);
+        testController.addEntity(ent2);
+
+        expect(testController.isPositionFree(120, 120)).toBeFalsy();
+        expect(testController.isPositionFree(120, 120, 'orange')).toBeTruthy();
+    });
 });
