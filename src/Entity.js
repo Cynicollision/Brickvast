@@ -16,30 +16,50 @@ vastengine.Entity = function (type, id) {
     this.direction = 0;
     this.width = 0;
     this.height = 0;
-    this.step;
+
+    // methods.
     this.onTouch;
     this.onTouchEnd;
+    this.step;
+    this.draw;
+};
+
+
+/**
+ * Set the function to be called when this Entity is "clicked on". The means the coordinates 
+ * of the touch event fall within this Entity object's bounds (width x height at x, y).
+ * @param {function} onTouchFn function to call when clicked on.
+ */
+vastengine.Entity.prototype.setOnTouch = function (onTouchFn) {
+    this.onTouch = onTouchFn;
+};
+
+
+/**
+ * Set the function to be called when a click is released within this Entity object's bounds.
+ * @param {function} onTouchEndFn function to call when a click is released.
+ */
+vastengine.Entity.prototype.setOnTouchEnd = function (onTouchEndFn) {
+    this.onTouchEnd = onTouchEndFn;
 };
 
 
 /** 
- * Sets the function this Entity object calls on each game step.
- * @param {function} step() function to be called.
+ * Set the function this Entity object calls each game step.
+ * @param {function} step function to call each game step.
  */
 vastengine.Entity.prototype.setStep = function (stepFn) {
     this.step = stepFn;
 };
 
 
-// TODO: document.
-vastengine.Entity.prototype.setOnTouch = function (onTouchFn) {
-    this.onTouch = onTouchFn;
+/**
+ * Set the function this Entity object calls when each frame is drawn.
+ * @param {function} drawFn draw function to call each frame.
+ */
+vastengine.Entity.prototype.setDraw = function (drawFn) {
+    this.draw = drawFn;
 };
-
-// TODO: document.
-vastengine.Entity.prototype.setOnTouchEnd = function (onTouchEndFn) {
-    this.onTouchEnd = onTouchEndFn;
-}
 
 
 /**
@@ -49,14 +69,6 @@ vastengine.Entity.prototype.setOnTouchEnd = function (onTouchEndFn) {
  */
 vastengine.Entity.prototype.mouseup = function (x, y) {
     // to be overridden in instantiation to define mouseup behavior
-};
-
-
-/** 
- * Called by the managing Controller object's own draw() function each frame.
- */
-vastengine.Entity.prototype.draw = function () {
-    // to be overridden in instantiation to perform special drawing functions
 };
 
 

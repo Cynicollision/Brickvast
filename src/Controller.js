@@ -8,6 +8,7 @@ vastengine.Controller = function() {
     this.entities = [];
     this.view = { x: 0, y: 0 };
 
+    // methods.
     this.postStep;
     this.onTouch;
 };

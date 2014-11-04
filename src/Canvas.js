@@ -209,14 +209,18 @@ vastengine.Canvas.prototype.draw = function (controller) {
     // adjust the background position according to the relative (x, y)
     this.setBackgroundPosition(-relativeX, -relativeY);
 
-    // draw entities (sorted in reverse order by depth): call each Entitiy's draw() then draw its Image
+    // draw entities (sorted in reverse order by depth).
     controller.sortEntities();
     var entities = controller.getEntities();
     for (var i = 0; i < entities.length; i++) {
-        entities[i].draw();
+        // first call each Entitiy's draw() 
+        if (entities[i].draw) {
+            entities[i].draw();
+        }
 
+        // then draw its Image.
         var img = entities[i].getImage();
-        if (img !== undefined) {
+        if (img) {
             this.context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
         }
     }
