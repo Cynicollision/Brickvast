@@ -67,38 +67,6 @@ vastengine.Controller.prototype.setOnTouch = function (onTouchFn) {
 };
 
 
-/** 
- * Forwards the mouse event coordinates to any managed Entity objects that were un-clicked on.
- * @param {event:onmouseup} e The actual onmouseup event received from the mouse click release.
- */
-vastengine.Controller.prototype.mouseup = function (x, y) {
-    // need to adjust for view's coordinates
-    var clickX = x + this.view.x;
-    var clickY = y + this.view.y;
-
-    for (var i = 0; i < this.entities.length; i++) {
-        var ent = this.entities[i];
-        if ((clickX > ent.x) && (clickY > ent.y) && (clickX < ent.x + ent.width) && (clickY < ent.y + ent.height)) {
-            ent.mouseup(clickX, clickY);
-        }
-    }
-
-    // TODO: eliminate mousedown, mouseup: change to onTouch, implement postTouch.
-    // Make class for handling touch input (scaling down to 1:1 coordinates, touch or release, etc.) and use it in Canvas to pass values to onTouch, postTouch.
-    // above class can also store the currently clicked (x, y).
-};
-
-
-/** 
- * Called after forwarding mouse event to each managed Entity object.
-  * @param {number} x X-coordinate of mouse click relative to game canvas.
-  * @param {number} x X-coordinate of mouse click relative to game canvas.
-  */
-vastengine.Controller.prototype.postmousedown = function (x, y) {
-    // to be overridden
-};
-
-
 /**
  * Adds an Entity object to the collection of entities managed by this controller.
  * @param 
