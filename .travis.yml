@@ -4,4 +4,5 @@ node_js:
   - "0.10"
   - "0.8"
   - "0.6"
-script: grunt test
+before_install:
+  - npm install -g grunt-cli
