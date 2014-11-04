@@ -4,7 +4,8 @@
 //************************************************************************************//
 describe('Game', function () {
     beforeEach(function () {
-        // reset the active controller.
+        // reset the active controller and call init().
+        $vast.Game.init();
         $vast.Game.setActiveController(new $vast.Controller());
     });
 

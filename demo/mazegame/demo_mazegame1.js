@@ -5,6 +5,8 @@
 /// <reference path="../../src/Game.js" />
 // set background color and load assets
 (function () {
+    $vast.Game.init();
+
     $vast.Game.Canvas.setBackgroundImage('../_images/texture.png');
     $vast.Game.Images.add('sun', '../_images/sun.jpg');
     $vast.Game.Images.add('flag', '../_images/flag.png');
@@ -38,13 +40,13 @@
         ctrl.addEntity(mainPlayer);
         ctrl.addEntity(goal);
         ctrl.addEntity(badguy);
-        ctrl.postmousedown = gameClick;
-        ctrl.postStep = function () {
+        ctrl.setOnTouch(gameClick);
+        ctrl.setPostStep(function () {
             // adjust the view's coordinates to follow the player Entity
             var x = (mainPlayer.getX() + (mainPlayer.width / 2)) - (gameWidth / 2);
             var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - (gameHeight / 2);
             ctrl.setViewPosition(x, y);
-        }
+        });
 
         buildWallMap(ctrl);
         $vast.Game.setActiveController(ctrl);
@@ -63,7 +65,7 @@
         player.depth = -100; // make sure player stays on top
 
         // define a step function
-        player.step = function () {
+        player.setStep(function () {
             var x = Math.floor(mainPlayer.getX());
             var y = Math.floor(mainPlayer.getY());
             if ((x % TILE_SIZE < 5) && (y % TILE_SIZE < 5) && (mainPlayer.getSpeed() > 0)) {
@@ -77,7 +79,7 @@
                 // check to see if we died
                 checkForDead();
             }
-        }
+        });
 
         return player;
     }
@@ -99,7 +101,7 @@
         enemy.setSize(TILE_SIZE, TILE_SIZE);
         enemy.setSpeed(10);
         enemy.setDirection(180); // left
-        enemy.step = function () {
+        enemy.setStep(function () {
             // "bounce" left and right
             var toMyLeft = ctrl.getEntitiesAtPosition(enemy.getX() - 2, enemy.getY() + 2, 'wall');
             var toMyRight = ctrl.getEntitiesAtPosition(enemy.getX() + enemy.width + 2, enemy.getY() + 2, 'wall');
@@ -109,7 +111,7 @@
             } else if (enemy.getDirection() === 0 && toMyRight.length > 0) {
                 enemy.setDirection(180);
             }
-        }
+        });
         return enemy;
     }
 

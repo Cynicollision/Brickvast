@@ -1,69 +1,6 @@
+
 var vastengine = vastengine || {};
 var $vast = vastengine;
-
-/**
- * This file contains defintions for both the Game and AssetManager classes.
- * @author Sean Normoyle
- */
-
-var AssetType = {
-    IMAGE: 'image',
-    AUDIO: 'audio'
-};
-
-/**
- * Dictionary-style class used to store, pre-load, and retrieve game assets (images and audio).
- * @param {string} type The type of asset to manage, either "image" or "audio".
- * @constructor
- */
-vastengine.AssetManager = function (type) {
-    this.assets = [];
-    this.type = type;
-    if (type != AssetType.IMAGE && type != AssetType.AUDIO) {
-        throw 'Invalid asset type "' + type + '"';
-    }
-};
-
-
-/**
- * Adds a new asset with the given ID (used for retrieval) and relative source file location.
- * @param {string} newId ID value to assign to the new asset.
- * @param {string} src Path to the asset's image or audio resource, including the file name.
- */
-vastengine.AssetManager.prototype.add = function (newId, src) {
-    this.assets.push({ id: newId, source: src, asset: undefined });
-};
-
-
-/**
- * Retrieves the asset (actual Image or Audio object) with the given ID.
- * @param {string} id ID value to look up asset with.
- * @return {object} Image or Audio object assigned to the given ID.
- */
-vastengine.AssetManager.prototype.getById = function (id) {
-    for (var i = 0; i < this.assets.length; i++) {
-        if (this.assets[i].id === id) {
-            return this.assets[i].asset;
-        }
-    }
-};
-
-
-/**
- * Instantiates all managed assets from their sources at once. Relies on this AssetManager object being correctly instantiated with a valid type.
- */
-vastengine.AssetManager.prototype.load = function () {
-    for (var i = 0; i < this.assets.length; i++) {
-        if (this.type === AssetType.IMAGE) {
-            this.assets[i].asset = new Image();
-        } else if (this.type === AssetType.AUDIO) {
-            this.assets[i].asset = new Audio(this.assets[i].source);
-        }
-
-        this.assets[i].asset.src = this.assets[i].source;
-    }
-};
-
 
 /**
  * Manages game-level components such as the currently running Controller object, routing input, and accessing assets through AssetManager instances.
@@ -80,19 +17,6 @@ vastengine.Game = function() {
 vastengine.Game.Config = {
     fps: 60
 };
-
-
-/**
- * For accessing the actual HTML canvas, used to draw things.
- */
-vastengine.Game.Canvas = new vastengine.Canvas();
-
-
-/**
- * AssetManager utility classes for managing game resources.
- */
-vastengine.Game.Images = new vastengine.AssetManager(AssetType.IMAGE);
-vastengine.Game.Audio = new vastengine.AssetManager(AssetType.AUDIO);
 
 
 /** 
@@ -133,9 +57,22 @@ vastengine.Game.getTimestamp = function () {
 
 
 /**
+ * Initializes all game-level resources. Must be called first when setting up the game.
+ */
+vastengine.Game.init = function () {
+    vastengine.Game.Input = new vastengine.Input();
+    vastengine.Game.Images = new vastengine.AssetManager(vastengine.AssetType.IMAGE);
+    vastengine.Game.Audio = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
+    vastengine.Game.Canvas = new vastengine.Canvas();
+}
+
+
+/**
  * The main game loop. Keeps the game running at a fixed FPS.
  */
 vastengine.Game.run = function () {
+    
+
     var fps = vastengine.Game.Config.fps;
     var stepSize = 1 / fps;
     var offset = 0;

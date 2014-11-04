@@ -1,4 +1,6 @@
 ﻿function buildAndRun() {
+    $vast.Game.init();
+
     // loading assets should be done before calling Game.run
     $vast.Game.Images.add('tile', '../_images/tile.png');
     $vast.Game.Images.load();

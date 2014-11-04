@@ -1,4 +1,4 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/Controller.js" />
+﻿/// <reference path="../..//Controller.js" />
 /// <reference path="C:\Users\Sean\workspace\Brickvast\src/Entity.js" />
 //************************************************************************************//
 // Test suite for Controller class
@@ -8,6 +8,10 @@ describe('Controller', function () {
 
     beforeEach(function () {
         testController = new $vast.Controller();
+        testController.setPostStep(doNothing);
+        testController.setOnTouch(doNothing);
+
+        function doNothing() { }
     });
 
     it('Has a defined View property upon instantiation.', function () {
@@ -18,22 +22,6 @@ describe('Controller', function () {
         spyOn(testController, 'postStep');
         testController.step();
         expect(testController.postStep).toHaveBeenCalled();
-    });
-
-    // TODO: enhance test to check for clicking on multiple entities
-    it('Passes on-click coordinates to the clicked-on entity/entities.', function () {
-        var ent1 = new $vast.Entity(null, 'ent1');
-        ent1.setSize(100, 100);
-        ent1.setPosition(50, 50);
-        testController.addEntity(ent1);
-
-        // the spy
-        spyOn(ent1, 'mousedown')
-
-        // force a call to click()
-        testController.mousedown(60, 80);
-
-        expect(ent1.mousedown).toHaveBeenCalled();
     });
 
     it('Adds an entity to the managed collection that can be retrieved by Entity ID.', function () {

@@ -1,5 +1,7 @@
 ﻿var vastengine = vastengine || {};
 
+
+// TODO: move to vastengine.ScaleMode
 var CanvasScaleMode = {
     NONE: 0,
     FIT: 1,
@@ -11,29 +13,37 @@ var CanvasScaleMode = {
  * @constructor
  */
 vastengine.Canvas = function () {
+    this.buildCanvas();
     this.scaleX = 1;
     this.scaleY = 1;
 
-    // build the HTML canvas and insert into the DOM.
+    // forward the mousedown event to the Game's active controller.
+    this.canvas.onmousedown = function (e) {
+        //if (vastengine.Game.getActiveController() !== undefined) {
+        //    vastengine.Game.getActiveController().onTouch(e.pageX, e.pageY);
+        //}
+        vastengine.Game.Input.onTouch(e);
+    };
+
+    // forward the mouseup event to the Game's active controller.
+    this.canvas.onmouseup = function (e) {
+        //if (vastengine.Game.getActiveController() !== undefined) {
+        //    vastengine.Game.getActiveController().mouseup(e.pageX, e.pageY);
+        //}
+        vastengine.Game.Input.onTouchEnd(e);
+    };
+};
+
+
+/** 
+ * build the HTML canvas and insert into the DOM.
+ */
+vastengine.Canvas.prototype.buildCanvas = function () {
     this.canvas = document.createElement('canvas');
     this.canvas.id = 'vastCanvas';
     this.setCanvasSize(640, 512);
     this.context = this.canvas.getContext('2d');
     document.body.appendChild(this.canvas);
-
-    // forward the mousedown event to the Game's active controller.
-    this.canvas.onmousedown = function (e) {
-        if (vastengine.Game.getActiveController() !== undefined) {
-            vastengine.Game.getActiveController().mousedown(e.pageX, e.pageY);
-        }
-    };
-
-    // forward the mouseup event to the Game's active controller.
-    this.canvas.onmouseup = function (e) {
-        if (vastengine.Game.getActiveController() !== undefined) {
-            vastengine.Game.getActiveController().mouseup(e.pageX, e.pageY);
-        }
-    };
 };
 
 
