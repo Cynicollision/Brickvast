@@ -1,7 +1,5 @@
-vastengine
+vastengine [![Build Status](https://travis-ci.org/Cynicollision/vastengine.svg?branch=master)](https://travis-ci.org/Cynicollision/vastengine)
 ==========
-
-[![Build Status](https://travis-ci.org/Cynicollision/vastengine.svg?branch=master)](https://travis-ci.org/Cynicollision/vastengine)
 
 vastengine is a 2D game engine written in JavaScript. It is currently in very early stages of development. It is used to create video games that run in the web browser, particularly on mobile devices. Desktop browsers are of course to be supported, but for the time being there are no plans to support keyboard input. 
 
