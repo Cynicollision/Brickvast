@@ -24,7 +24,7 @@
     var gameWidth = 640;
     var gameHeight = 512;
     $vast.Game.Canvas.setCanvasSize(gameWidth, gameHeight);
-    $vast.Game.Canvas.setScaleMode(CanvasScaleMode.FIT);
+    $vast.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.TO_FIT);
 
     var ctrl = new $vast.Controller();
 
@@ -47,7 +47,7 @@
             var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - (gameHeight / 2);
             ctrl.setViewPosition(x, y);
         });
-
+        
         buildWallMap(ctrl);
         $vast.Game.setActiveController(ctrl);
 
@@ -149,33 +149,35 @@
 
     // called when the user clicks on the screen
     function gameClick(x, y) {
-        var speed = 50;
-        var clickedTileX = Math.floor(x / TILE_SIZE);
-        var clickedTileY = Math.floor(y / TILE_SIZE);
-        var playerTileX = Math.floor(mainPlayer.x / TILE_SIZE);
-        var playerTileY = Math.floor(mainPlayer.y / TILE_SIZE);
+        if (mainPlayer.getSpeed() === 0) {
+            var speed = 50;
+            var clickedTileX = Math.floor(x / TILE_SIZE);
+            var clickedTileY = Math.floor(y / TILE_SIZE);
+            var playerTileX = Math.floor(mainPlayer.x / TILE_SIZE);
+            var playerTileY = Math.floor(mainPlayer.y / TILE_SIZE);
 
-        if (ctrl.isPositionFree(x, y, 'wall')) {
-            // determine which way to move
-            if (clickedTileX === playerTileX) {
-                if (clickedTileY === playerTileY + 1) {
-                    // move down
-                    mainPlayer.setSpeed(speed);
-                    mainPlayer.setDirection(90);
-                } else if (clickedTileY === playerTileY - 1) {
-                    // move up
-                    mainPlayer.setSpeed(speed);
-                    mainPlayer.setDirection(270);
-                }
-            } else if (clickedTileY === playerTileY) {
-                if (clickedTileX === playerTileX + 1) {
-                    // move right
-                    mainPlayer.setSpeed(speed);
-                    mainPlayer.setDirection(0);
-                } else if (clickedTileX === playerTileX - 1) {
-                    //move left
-                    mainPlayer.setSpeed(speed);
-                    mainPlayer.setDirection(180);
+            if (ctrl.isPositionFree(x, y, 'wall')) {
+                // determine which way to move
+                if (clickedTileX === playerTileX) {
+                    if (clickedTileY === playerTileY + 1) {
+                        // move down
+                        mainPlayer.setSpeed(speed);
+                        mainPlayer.setDirection(90);
+                    } else if (clickedTileY === playerTileY - 1) {
+                        // move up
+                        mainPlayer.setSpeed(speed);
+                        mainPlayer.setDirection(270);
+                    }
+                } else if (clickedTileY === playerTileY) {
+                    if (clickedTileX === playerTileX + 1) {
+                        // move right
+                        mainPlayer.setSpeed(speed);
+                        mainPlayer.setDirection(0);
+                    } else if (clickedTileX === playerTileX - 1) {
+                        //move left
+                        mainPlayer.setSpeed(speed);
+                        mainPlayer.setDirection(180);
+                    }
                 }
             }
         }

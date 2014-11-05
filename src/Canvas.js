@@ -1,39 +1,33 @@
 ﻿var vastengine = vastengine || {};
 
 
-// TODO: move to vastengine.ScaleMode
-var CanvasScaleMode = {
-    NONE: 0,
-    FIT: 1,
-    COVER: 2
-};
-
 /**
  * Used specifically for manipulating directly the main game canvas, i.e. drawing on it.
  * @constructor
  */
 vastengine.Canvas = function () {
     this.buildCanvas();
-    this.scaleX = 1;
-    this.scaleY = 1;
 
     // forward the mousedown event to the Game's active controller.
     this.canvas.onmousedown = function (e) {
-        //if (vastengine.Game.getActiveController() !== undefined) {
-        //    vastengine.Game.getActiveController().onTouch(e.pageX, e.pageY);
-        //}
         vastengine.Game.Input.onTouch(e);
     };
 
     // forward the mouseup event to the Game's active controller.
     this.canvas.onmouseup = function (e) {
-        //if (vastengine.Game.getActiveController() !== undefined) {
-        //    vastengine.Game.getActiveController().mouseup(e.pageX, e.pageY);
-        //}
         vastengine.Game.Input.onTouchEnd(e);
     };
 };
 
+
+/**
+ * Enumeration of ways to scale the canvas.
+ */
+vastengine.CanvasScaleMode = {
+    NONE: 0,
+    FIT: 1,
+    COVER: 2
+};
 
 /** 
  * build the HTML canvas and insert into the DOM.
@@ -61,7 +55,6 @@ vastengine.Canvas.prototype.getDrawingContext = function () {
  * @param {string} color CSS color value.
  */
 vastengine.Canvas.prototype.setBackgroundColor = function (color) {
-    //this.canvas.css('background', color);
     this.canvas.style.background = color;
 };
 
@@ -128,23 +121,9 @@ vastengine.Canvas.prototype.setScaleMode = function (scaleMode) {
 
 
 /**
- * Scales the canvas to fill the available visible area.
- * Default is to scale to fill the window.
- * @param {number} scaleX Specific horizontal scale ratio.
- * @param {number} scaleY Specific vertical scale ratio.
+ * Scales the canvas depending on the current CanvasScaleMode.
  */
-vastengine.Canvas.prototype.setCanvasScale = function (scaleX, scaleY) {
-    if (!scaleX) {
-        scaleX = window.innerWidth / this.canvas.width;
-    }
-    
-    if (!scaleY) {
-        scaleY = window.innerHeight / this.canvas.height;
-    }
-
-    this.scaleX = scaleX;
-    this.scaleY = scaleY;
-
+vastengine.Canvas.prototype.scaleCanvas = function () {
     var scale = this.getScale();
     this.canvas.style.transformOrigin = "0 0";
     this.canvas.style.transform = "scale(" + scale + ")";
@@ -156,11 +135,11 @@ vastengine.Canvas.prototype.setCanvasScale = function (scaleX, scaleY) {
  */
 vastengine.Canvas.prototype.getScale = function () {
     switch (this.scaleMode) {
-        case CanvasScaleMode.COVER:
-            return Math.max(this.scaleX, this.scaleY);
+        case vastengine.CanvasScaleMode.COVER:
+            return Math.max(window.innerWidth / this.canvas.width, window.innerHeight / this.canvas.height);
 
-        case CanvasScaleMode.FIT:
-            return Math.min(this.scaleX, this.scaleY);
+        case vastengine.CanvasScaleMode.FIT:
+            return Math.min(window.innerWidth / this.canvas.width, window.innerHeight / this.canvas.height);
 
         default:
             return 1;
@@ -226,5 +205,5 @@ vastengine.Canvas.prototype.draw = function (controller) {
     }
 
     // do scaling
-    this.setCanvasScale();
+    this.scaleCanvas();
 };

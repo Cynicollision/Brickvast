@@ -135,8 +135,6 @@ describe('Controller', function () {
         expect(entsAtPos2.length).toEqual(0);
     });
 
-    // TODO: test for scaling and translating coordinates
-
     it('Can determine whether a given position is free of any Entity objects.', function () {
         var ent1 = new $vast.Entity('ent', 'ent1');
         ent1.setSize(50, 50);
@@ -146,7 +144,7 @@ describe('Controller', function () {
         expect(testController.isPositionFree(60, 70)).toBeFalsy();
     });
 
-    if ('Can determine whether a given position is free of Entity objects of a given type.', function () {
+    it ('Can determine whether a given position is free of Entity objects of a given type.', function () {
         var ent1 = new $vast.Entity('orange', 0x1);
         ent1.setSize(50, 50);
         ent1.setPosition(100, 100);
@@ -158,6 +156,6 @@ describe('Controller', function () {
         testController.addEntity(ent2);
 
         expect(testController.isPositionFree(120, 120)).toBeFalsy();
-        expect(testController.isPositionFree(120, 120, 'orange')).toBeTruthy();
+        expect(testController.isPositionFree(120, 170, 'orange')).toBeTruthy();
     });
 });
