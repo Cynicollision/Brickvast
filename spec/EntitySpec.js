@@ -14,7 +14,7 @@ describe('Entity', function () {
 
     it('Can detect a collision with another Entity by comparing their bounding areas.', function () {
         var otherEntity = new $vast.Entity();
-        otherEntity.setPosition(75, 75)
+        otherEntity.setPosition(75, 75);
         otherEntity.setSize(60, 60);
 
         expect(testEntity.checkCollision(otherEntity)).toBeTruthy();

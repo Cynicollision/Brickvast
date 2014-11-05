@@ -6,15 +6,15 @@ var vastengine = vastengine || {};
  * @constructor
  */
 vastengine.Input = function () {
-    this.currentTouchX;
-    this.currentTouchY;
+    this.currentTouchX = -1; // TODO: implement these.
+    this.currentTouchY = -1;
 };
 
 // TODO: document rest of file
 vastengine.InputEventType = {
     touchStart: 0,
     touchEnd: 1
-}
+};
 
 
 vastengine.Input.prototype.onTouch = function (e) {

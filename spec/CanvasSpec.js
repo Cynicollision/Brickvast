@@ -7,7 +7,7 @@ describe('Canvas', function () {
 
     beforeEach(function () {
         canvasManager = new $vast.Canvas();
-    })
+    });
 
     it('Retrieves a valid drawing context (used for drawing primitives)', function () {
         expect(canvasManager.getDrawingContext()).toBeDefined();

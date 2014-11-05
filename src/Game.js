@@ -64,7 +64,7 @@ vastengine.Game.init = function () {
     vastengine.Game.Images = new vastengine.AssetManager(vastengine.AssetType.IMAGE);
     vastengine.Game.Audio = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
     vastengine.Game.Canvas = new vastengine.Canvas();
-}
+};
 
 
 /**

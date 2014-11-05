@@ -88,9 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="spec\Views\Jasmine\SpecRunner.cshtml" />
-    <Content Include=".gitignore" />
     <Content Include="README.md" />
-    <Content Include=".travis.yml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -137,7 +135,7 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>CD $(ProjectDir)
-grunt</PostBuildEvent>
+grunt build</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

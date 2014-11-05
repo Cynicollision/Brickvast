@@ -18,10 +18,10 @@ vastengine.Entity = function (type, id) {
     this.height = 0;
 
     // methods.
-    this.onTouch;
-    this.onTouchEnd;
-    this.step;
-    this.draw;
+    this.onTouch = null;
+    this.onTouchEnd = null;
+    this.step = null;
+    this.draw = null;
 };
 
 

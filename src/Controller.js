@@ -10,8 +10,8 @@ vastengine.Controller = function() {
     this.view = { x: 0, y: 0 };
 
     // methods.
-    this.postStep;
-    this.onTouch;
+    this.postStep = null;
+    this.onTouch = null;
 };
 
 

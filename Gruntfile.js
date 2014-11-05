@@ -1,4 +1,5 @@
 ﻿module.exports = function (grunt) {
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-closure-compiler');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -6,6 +7,10 @@
     // init
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
+        jshint: {
+            all: ['Gruntfile.js', 'src/*.js', 'spec/*.js']
+        },
 
         jasmine: {
             pivotal: {
@@ -38,8 +43,12 @@
     });
 
     // register the tasks
+    grunt.registerTask('travis', ['jshint', 'jasmine']);
     grunt.registerTask('test', 'jasmine');
     grunt.registerTask('compile', 'closure-compiler');
     grunt.registerTask('copy_to_demo', ['copy']);
-    grunt.registerTask('default', ['closure-compiler', 'copy_to_demo']);
+    grunt.registerTask('build', ['closure-compiler', 'copy_to_demo']);
+    grunt.registerTask('default', function () {
+        grunt.log.write('So vast!').ok();
+    });
 };
