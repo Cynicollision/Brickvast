@@ -8,6 +8,7 @@ var $vast = vastengine;
  */
 vastengine.Game = function() {
     this.activeController = null;
+    this.activeDialog = null;
 };
 
 
@@ -46,6 +47,13 @@ vastengine.Game.hasActiveControler = function () {
     return false;
 };
 
+vastengine.Game.setDialog = function (dialog) {
+    this.activeDialog = dialog;
+    dialog.show();
+};
+
+vastengine.Game.running = true;
+
 
 /**
  * Get the current timestamp (e.g. 87.134....)
@@ -82,10 +90,12 @@ vastengine.Game.run = function () {
         var current = vastengine.Game.getTimestamp();
         offset += (Math.min(1, (current - previous) / 1000));
 
-        // still step during the offset (time difference between frames)
+        // still step during the offset (time difference between frames).
         while (offset > stepSize) {
-            if (vastengine.Game.hasActiveControler()) {
-                vastengine.Game.getActiveController().step(stepSize);
+            if (vastengine.Game.running) {
+                if (vastengine.Game.hasActiveControler()) {
+                    vastengine.Game.getActiveController().step(stepSize);
+                }
             }
             
             offset -= stepSize;
@@ -94,6 +104,9 @@ vastengine.Game.run = function () {
         // draw
         if (vastengine.Game.hasActiveControler()) {
             vastengine.Game.Canvas.draw(vastengine.Game.getActiveController());
+        }
+        if (vastengine.Game.activeDialog) {
+            vastengine.Game.activeDialog.draw();
         }
         
         previous = current;

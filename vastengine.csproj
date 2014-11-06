@@ -46,10 +46,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="build\vastengine.js" />
+    <Content Include="demo\drawing1\demo_drawing1.js" />
+    <Content Include="demo\drawing1\demo_drawing1.html" />
     <Content Include="demo\reset.css" />
     <Content Include="demo\sounds1\demo_sounds1.js" />
     <Content Include="demo\sounds1\demo_sounds1.html" />
-    <Content Include="demo\drawing1\demo_drawing1.html" />
+    <Content Include="demo\dialog_test\dialogs.html" />
     <Content Include="demo\mazegame\demo_mazegame1.html" />
     <Content Include="demo\_images\enemy.png" />
     <Content Include="demo\_images\flag.png" />
@@ -57,11 +59,12 @@
     <Content Include="demo\_images\sun.jpg" />
     <Content Include="demo\_images\texture.png" />
     <Content Include="demo\_images\tile.png" />
+    <Content Include="src\Dialog.js" />
     <Content Include="Gruntfile.js" />
     <Content Include="src\AssetManager.js" />
     <Content Include="src\Canvas.js" />
     <Content Include="src\Controller.js" />
-    <Content Include="demo\drawing1\demo_drawing1.js" />
+    <Content Include="demo\dialog_test\dialogs.js" />
     <Content Include="demo\mazegame\demo_mazegame1.js" />
     <Content Include="src\Entity.js" />
     <Content Include="src\Game.js" />

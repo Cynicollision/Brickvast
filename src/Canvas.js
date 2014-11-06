@@ -178,7 +178,6 @@ vastengine.Canvas.prototype.getViewRelativeY = function (controller) {
  * @param {Controller} controller Controller object to draw.
  */
 vastengine.Canvas.prototype.draw = function (controller) {
-    // clear the entire canvas
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // get relative (x,y) to the location of the controller's view
@@ -198,12 +197,37 @@ vastengine.Canvas.prototype.draw = function (controller) {
         }
 
         // then draw its Image.
-        var img = entities[i].getImage();
-        if (img) {
-            this.context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
+        if (entities[i]) {
+            var img = entities[i].getImage();
+            if (img) {
+                this.context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
+            }
         }
     }
 
     // do scaling
     this.scaleCanvas();
+};
+
+
+/**
+ * TODO
+ * @param {string} id The id for the new HTML tag.
+ * @param {string} tag The type (HTML tag) of element to create.
+ * @returns {element} The element that is created.
+ */
+vastengine.Canvas.prototype.createElement = function (id, tag) {
+    var newElement = document.createElement(tag);
+    newElement.id = id;
+    document.body.appendChild(newElement);
+    return newElement;
+};
+
+
+vastengine.Canvas.prototype.setElementVisible = function (id, visible) {
+    if (visible) {
+        document.getElementById(id).style.display = 'block';
+    } else {
+        document.getElementById(id).style.display = 'none';
+    }
 };

@@ -62,7 +62,7 @@ vastengine.Controller.prototype.setPostStep = function (postStepFn) {
 
 /** 
  * Forwards the mouse event coordinates to any managed Entity objects that were clicked on.
- * @param {onmousedown event} e The actual onmousedown event received from the mouse click.
+ * @param {function} onTouchFn The actual onmousedown event received from the mouse click.
  */
 vastengine.Controller.prototype.setOnTouch = function (onTouchFn) {
     this.onTouch = onTouchFn;
