@@ -170,12 +170,7 @@ vastengine.Controller.prototype.sortEntities = function () {
 vastengine.Controller.prototype.removeDestroyedEntities = function () {
     if (this.entities !== undefined && this.entities.length > 0) {
         this.entities = this.entities.filter(function (entity) {
-            try {
-                return !entity.isDestroyed;
-            }
-            catch (e) {
-                throw "Can't call step() on undefined managed Entity!";
-            }
+            return (!entity || !entity.isDestroyed);
         });
     }
 };

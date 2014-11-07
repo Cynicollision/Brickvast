@@ -115,3 +115,12 @@ vastengine.Game.run = function () {
 
     requestAnimationFrame(stepAndDraw);
 };
+
+
+/**
+ * For throwing exceptions by errors noted by vastengine itself.
+ * @param {string} Error message.
+ */
+vastengine.Game.setError = function (error) {
+    throw "vastengine error: " + error;
+};
