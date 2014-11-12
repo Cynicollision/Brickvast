@@ -21,9 +21,9 @@
     var TILE_SIZE = 64;
 
     // set canvas size and scale mode
-    var gameWidth = 640;
-    var gameHeight = 512;
-    $vast.Game.Canvas.setCanvasSize(gameWidth, gameHeight);
+     $vast.Game.Config.canvasWidth = 640;
+     $vast.Game.Config.canvasHeight = 512;
+    //$vast.Game.Canvas.setCanvasSize($vast.Game.Config.canvasWidth, $vast.Game.Config.canvasHeight);
     $vast.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
 
     var ctrl = new $vast.Controller();
@@ -43,8 +43,8 @@
         ctrl.setOnTouch(gameClick);
         ctrl.setPostStep(function () {
             // adjust the view's coordinates to follow the player Entity
-            var x = (mainPlayer.getX() + (mainPlayer.width / 2)) - (gameWidth / 2);
-            var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - (gameHeight / 2);
+            var x = (mainPlayer.getX() + (mainPlayer.width / 2)) - ($vast.Game.Config.canvasWidth / 2);
+            var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - ($vast.Game.Config.canvasHeight / 2);
             ctrl.setViewPosition(x, y);
         });
         

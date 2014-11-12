@@ -32,15 +32,22 @@ vastengine.Input.prototype.onTouchEvent = function (eventType, actualX, actualY)
     var ctrl = vastengine.Game.getActiveController();
     var scale = vastengine.Game.Canvas.getScale();
     
-
     // adjust for scale and the view's coordinates.
     var clickX = (actualX / scale) + ctrl.view.x;
     var clickY = (actualY / scale) + ctrl.view.y;
 
-    // call the active Controller's onTouch
-    if (ctrl.onTouch) {
-        ctrl.onTouch(clickX, clickY);
+    if (vastengine.Game.activeDialog) {
+        if (eventType === vastengine.InputEventType.touchStart) {
+            vastengine.Game.activeDialog.onTouch(clickX, clickY);
+        }
+    } else {
+        if (eventType === vastengine.InputEventType.touchStart && ctrl.onTouch) {
+            ctrl.onTouch(clickX, clickY);
+        } else if (ctrl.onTouchEnd) {
+            ctrl.onTouchEnd(clickX, clickY);
+        }
     }
+
 
     if (vastengine.Game.running) {
         // call onTouch for each of the active Controller's Entity collection.
@@ -49,14 +56,13 @@ vastengine.Input.prototype.onTouchEvent = function (eventType, actualX, actualY)
             var ent = entities[i];
             if (ent.width > 0 && ent.height > 0) {
                 if ((clickX > ent.x) && (clickY > ent.y) && (clickX < ent.x + ent.width) && (clickY < ent.y + ent.height)) {
-                    if (ent.onTouch) {
+                    if (eventType === vastengine.InputEventType.touchStart && ent.onTouch) {
                         ent.onTouch(clickX, clickY);
+                    } else if (ent.onTouchEnd) {
+                        ent.onTouchEnd(clickX, clickY);
                     }
                 }
             }
         }
-    } else if (vastengine.Game.activeDialog) {
-        vastengine.Game.activeDialog.onTouch(clickX, clickY);
     }
-    
 };

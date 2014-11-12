@@ -1,4 +1,5 @@
-﻿var vastengine = vastengine || {};
+﻿/// <reference path="Game.js" />
+var vastengine = vastengine || {};
 
 
 /**
@@ -35,7 +36,7 @@ vastengine.CanvasScaleMode = {
 vastengine.Canvas.prototype.buildCanvas = function () {
     this.canvas = document.createElement('canvas');
     this.canvas.id = 'vastCanvas';
-    this.setCanvasSize(640, 512);
+    this.setCanvasSize(vastengine.Game.Config.canvasWidth, vastengine.Game.Config.canvasHeight);
     this.context = this.canvas.getContext('2d');
     document.body.appendChild(this.canvas);
 };

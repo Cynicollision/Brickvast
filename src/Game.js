@@ -16,7 +16,9 @@ vastengine.Game = function() {
  * Game-level constants. Intended to be overridden as the first step of game setup (or use these defaults).
  */
 vastengine.Game.Config = {
-    fps: 60
+    fps: 60,
+    canvasWidth: 640,
+    canvasHeight: 512
 };
 
 
@@ -48,8 +50,16 @@ vastengine.Game.hasActiveControler = function () {
 };
 
 vastengine.Game.setDialog = function (dialog) {
-    this.activeDialog = dialog;
-    dialog.show();
+    if (dialog) {
+        this.activeDialog = dialog;
+        this.activeDialog.show();
+        vastengine.Game.running = false;
+    } else {
+        this.activeDialog.hide();
+        this.activeDialog = undefined;
+        vastengine.Game.running = true;
+    }
+    
 };
 
 vastengine.Game.running = true;
@@ -79,8 +89,6 @@ vastengine.Game.init = function () {
  * The main game loop. Keeps the game running at a fixed FPS.
  */
 vastengine.Game.run = function () {
-    
-
     var fps = vastengine.Game.Config.fps;
     var stepSize = 1 / fps;
     var offset = 0;
@@ -119,8 +127,12 @@ vastengine.Game.run = function () {
 
 /**
  * For throwing exceptions by errors noted by vastengine itself.
- * @param {string} Error message.
+ * @param {string} message Error message.
  */
-vastengine.Game.setError = function (error) {
-    throw "vastengine error: " + error;
+vastengine.Game.setError = function (message) {
+    var error = "vastengine error: ";
+    if (message) {
+        error += message;
+    }
+    throw error;
 };

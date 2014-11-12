@@ -1,4 +1,5 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/Game.js" />
+﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Game.js" />
+
 //************************************************************************************//
 // Test suite for Game class
 //************************************************************************************//
