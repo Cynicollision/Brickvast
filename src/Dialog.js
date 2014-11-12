@@ -49,7 +49,7 @@ vastengine.Dialog.prototype.buildButtons = function () {
         }
     }
     return buttons;
-}
+};
 
 
 /**
@@ -121,7 +121,7 @@ vastengine.Dialog.prototype.draw = function () {
 
         // dialog background
         context.globalAlpha = 1;
-        context.fillStyle = '#FFF';;
+        context.fillStyle = '#FFF';
         context.fillRect(this.x + ((this.width - this.width * this.scale) / 2), this.y + ((this.height - this.height * this.scale) / 2), this.width * this.scale, this.height * this.scale);
 
         if (this.scale === 1) {
@@ -151,8 +151,8 @@ vastengine.Dialog.prototype.draw = function () {
             context.font = '20pt Calibri';
             context.textAlign = 'center';
             context.textBaseline = 'middle';
-            for (var i = 0; i < this.buttons.length; i++) {
-                context.fillText(this.buttons[i].text, this.buttons[i].x + (this.buttons[i].w / 2), this.buttons[i].y + (this.buttons[i].h / 2));
+            for (var n = 0; n < this.buttons.length; n++) {
+                context.fillText(this.buttons[n].text, this.buttons[n].x + (this.buttons[n].w / 2), this.buttons[n].y + (this.buttons[n].h / 2));
             }
         }
 
