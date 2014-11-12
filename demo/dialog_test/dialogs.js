@@ -1,6 +1,7 @@
 ﻿function buildAndRun() {
     $vast.Game.init();
 
+    var DIALOG_TEXT = 'Hello, world! Here is a whole bunch of text that hopefully fits in this dialog.';
     var text = 'Click to be PROMPTED!!!';
 
     // set the background color
@@ -10,13 +11,14 @@
     var ctrl = new $vast.Controller();
     $vast.Game.setActiveController(ctrl);
     ctrl.setOnTouch(function () {
-        var dialog = new $vast.Dialog('Hello, world! Here is a whole bunch of text that hopefully fits in this dialog.', 250, 350, ['vast1', 'vast2'], choiceMade);
+        var dialog = new $vast.Dialog(DIALOG_TEXT, 250, 350, ['vast1', 'vast2'], function (choice) {
+            //var d2 = new $vast.Dialog('you', 250, 350, ['OK']);
+            //$vast.Game.setDialog(d2);
+            text = 'You picked ' + choice + '!';
+        });
         $vast.Game.setDialog(dialog);
     });
 
-    function choiceMade(index) {
-        text = 'You picked ' + index + '!';
-    }
 
     // show some text
     var ent = new $vast.Entity();

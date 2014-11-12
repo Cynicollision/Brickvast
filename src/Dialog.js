@@ -35,6 +35,7 @@ vastengine.Dialog = function (text, width, height, options, callback) {
     }(); 
 };
 
+
 vastengine.Dialog.prototype.buildButtons = function () {
     var buttons = [];
     if (this.options.length === 1) {
@@ -49,14 +50,6 @@ vastengine.Dialog.prototype.buildButtons = function () {
     }
     return buttons;
 }
- 
-vastengine.Dialog.prototype.getState = function () {
-    return this.state.get();
-};
-
-vastengine.Dialog.prototype.setState = function (dialogState) {
-    this.state.set(dialogState);
-};
 
 
 /**
@@ -69,33 +62,35 @@ vastengine.DialogState = {
 
 
 vastengine.Dialog.prototype.show = function () {
-    if (this.getState() === vastengine.DialogState.closed) {
+    if (this.state.get() === vastengine.DialogState.closed) {
         this.visible = true;
         this.scale = 0;
-        this.setState(vastengine.DialogState.open);
+        this.state.set(vastengine.DialogState.open);
     }
 };
 
 vastengine.Dialog.prototype.hide = function () {
-    if (this.getState() === vastengine.DialogState.open) {
+    if (this.state.get() === vastengine.DialogState.open) {
         this.visible = false;
-        this.setState(vastengine.DialogState.open);
+        this.state.set(vastengine.DialogState.open);
     }
 };
 
 vastengine.Dialog.prototype.onTouch = function (x, y) {
     var selection = -1;
-    if (this.getState() === vastengine.DialogState.open) {
+    if (this.state.get() === vastengine.DialogState.open) {
         for (var i = 0; i < this.buttons.length; i++) {
             if (x > this.buttons[i].x && x < (this.buttons[i].x + this.buttons[i].w) && y > this.buttons[i].y && (y < this.buttons[i].y + this.buttons[i].h)) {
                 selection = i;
             }
         }
 
-        // destroy the dialog if a button was clicked
+        // destroy the dialog if a button was clicked and call the callback.
         if (selection > -1) {
             vastengine.Game.setDialog(undefined);
-            this.callback(selection);
+            if (this.callback) {
+                this.callback(selection);
+            }
         }
     }
 };

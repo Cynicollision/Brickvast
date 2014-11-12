@@ -55,13 +55,13 @@ vastengine.Game.setDialog = function (dialog) {
         this.activeDialog.show();
         vastengine.Game.running = false;
     } else {
-        this.activeDialog.hide();
-        this.activeDialog = undefined;
         vastengine.Game.running = true;
+        this.activeDialog.hide();
+        this.activeDialog = undefined;  
     }
-    
 };
 
+// TODO: replace with GameState enum?
 vastengine.Game.running = true;
 
 
