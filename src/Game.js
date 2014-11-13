@@ -52,12 +52,12 @@ vastengine.Game.hasActiveControler = function () {
 vastengine.Game.setDialog = function (dialog) {
     if (dialog) {
         this.activeDialog = dialog;
-        this.activeDialog.show();
+        this.activeDialog.setVisible(true);
         vastengine.Game.running = false;
     } else {
         vastengine.Game.running = true;
-        this.activeDialog.hide();
-        this.activeDialog = undefined;  
+        this.activeDialog.setVisible(false);
+        this.activeDialog = null;
     }
 };
 
@@ -114,7 +114,10 @@ vastengine.Game.run = function () {
             vastengine.Game.Canvas.draw(vastengine.Game.getActiveController());
         }
         if (vastengine.Game.activeDialog) {
-            vastengine.Game.activeDialog.draw();
+            if (vastengine.Game.activeDialog.isVisible()) {
+                vastengine.Game.activeDialog.draw();
+            }
+            
         }
         
         previous = current;

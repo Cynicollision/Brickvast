@@ -8,161 +8,181 @@ var vastengine = vastengine || {};
  * @constructor
  * @param {string} text The text to show in the dialog message (prompt).
  * @param {number} width The width of the dialog box.
- * @param {number} height The height of the dialog box.
+ * @param {number} height Optional height of the dialog box. Use 0 to auto-size to the given text and options.
  * @param {Array.<string>} options List of options to choose from.
- * @returns {number} Selection made, based on index in options array.
+ * @param {function} callback Function to call when an option is selected, passing selected index.
  */
 vastengine.Dialog = function (text, width, height, options, callback) {
-    this.text = text;
     this.width = width;
     this.height = height;
-    this.options = options;
     this.callback = callback;
-    this.scale = 1;
 
+    // TODO: better place to get these from?
+    this.buttonHeight = 80;
+    this.lineSpacing = 50;
+    this.textFont = (this.lineSpacing - 10) + 'pt Calibri';
+    this.textPadding = 10;
+    
+
+    this.textLines = this.buildTextLines(text, this.width - this.textPadding, this.textFont);
+
+    // auto-height if not given a height.
+    if (height <= 0) {
+        this.height = (this.textLines.length * this.lineSpacing) + this.textPadding + (options.length * this.buttonHeight);
+    }
+    
+    // position such that the dialog box will be centered, build buttons and text.
     this.x = (vastengine.Game.Canvas.getCanvasWidth() / 2) - (this.width / 2);
     this.y = (vastengine.Game.Canvas.getCanvasHeight() / 2) - (this.height / 2);
+    this.buttons = this.buildButtons(options, this.x, this.y, this.width, this.height, this.buttonHeight);
     this.visible = false;
-    this.textPadding = 10;
-    this.buttons = this.buildButtons();
-    
-    this.state = function () {
-        var currentState = vastengine.DialogState.closed;
+
+    // for a zoom-in animation when created.
+    this.scale = function () {
+        var currentScale = 0;
         return {
-            get: function () { return currentState; },
-            set: function (newVal) { currentState = newVal; }
+            get: function () { return currentScale; },
+            update: function () {
+                if (currentScale < 1) {
+                    currentScale += (1 - currentScale) * 0.25;
+                }
+                if (currentScale > 0.99) {
+                    currentScale = 1;
+                }
+            }
         };
-    }(); 
+    }();
 };
 
 
-vastengine.Dialog.prototype.buildButtons = function () {
-    var buttons = [];
-    if (this.options.length === 1) {
-        buttons.push({ text: this.options[0], x: this.x, y: this.y + this.height - 50, w: this.width, h: 50 });
-    } else if (this.options.length === 2) {
-        buttons.push({ text: this.options[0], x: this.x, y: this.y + this.height - 50, w: this.width / 2, h: 50 });
-        buttons.push({ text: this.options[1], x: this.x + (this.width / 2), y: this.y + this.height - 50, w: this.width / 2, h: 50 });
-    } else {
-        for (var i = 0; i < this.options.length; i++) {
-            // TODO
+/**
+ * Builds an array of individual lines of the dialog text based
+ * such that it wraps neatly in the dialog box.
+ * @param {string} text The text to build into lines.
+ * @return {Array.<string>} Individual lines of wrapped text.
+ */
+vastengine.Dialog.prototype.buildTextLines = function (text, maxWidth, font) {
+    var context = $vast.Game.Canvas.getDrawingContext();
+    context.font = font;
+    
+    var textLines = [];
+    var words = text.split(' ');
+    var line = '';
+    for (var i = 0; i < words.length; i++) {
+        var currentLine = line + words[i] + ' ';
+        var currentLineWidth = context.measureText(currentLine).width;
+        if (currentLineWidth > maxWidth && i > 0) {
+            textLines.push(line);
+            line = words[i] + ' ';
         }
+        else {
+            line = currentLine;
+        }
+    }
+    textLines.push(line); // the rest.
+
+    return textLines;
+};
+
+
+/**
+ * Builds buttons to be clicked on, including their position and size, for each of the given options.
+ * @param {Array.<string>} options The options to build buttons for.
+ */
+vastengine.Dialog.prototype.buildButtons = function (options, dialogX, dialogY, dialogW, dialogH, buttonHeight) {
+    var buttons = [];
+    for (var i = options.length - 1; i >= 0; i--) {
+        buttons.push({ text: options[options.length - i - 1], x: dialogX, y: dialogY + dialogH - ((i + 1) * buttonHeight), w: dialogW, h: buttonHeight });
     }
     return buttons;
 };
 
 
 /**
- * Enumeration of states the dialog box can be in.
+ * Sets whether this Dialog object is visible on the screen.
+ * @param {boolean} isVisible True to show the dialog.
  */
-vastengine.DialogState = {
-    closed: 0,
-    open: 1
+vastengine.Dialog.prototype.setVisible = function (isVisible) {
+    this.visible = isVisible;
 };
 
 
-vastengine.Dialog.prototype.show = function () {
-    if (this.state.get() === vastengine.DialogState.closed) {
-        this.visible = true;
-        this.scale = 0;
-        this.state.set(vastengine.DialogState.open);
-    }
+/**
+ * Determines whether this Dialog is currently visible.
+ * @return {boolean} True if the Dialog object is currently visible (being drawn).
+ */
+vastengine.Dialog.prototype.isVisible = function () {
+    return this.visible;
 };
 
-vastengine.Dialog.prototype.hide = function () {
-    if (this.state.get() === vastengine.DialogState.open) {
-        this.visible = false;
-        this.state.set(vastengine.DialogState.open);
-    }
-};
 
+/**
+ * Touch event-handler. Determine if any of the buttons were clicked on, and if 
+ * so call this Dialog object's callback function with the selected index then hide this dialog.
+ * @param {number} x X-coordinate of touch event.
+ * @param {number} y Y-coordinate of touch event.
+ */
 vastengine.Dialog.prototype.onTouch = function (x, y) {
-    var selection = -1;
-    if (this.state.get() === vastengine.DialogState.open) {
-        for (var i = 0; i < this.buttons.length; i++) {
-            if (x > this.buttons[i].x && x < (this.buttons[i].x + this.buttons[i].w) && y > this.buttons[i].y && (y < this.buttons[i].y + this.buttons[i].h)) {
-                selection = i;
-            }
-        }
+    var clickedOn = -1;
 
-        // destroy the dialog if a button was clicked and call the callback.
-        if (selection > -1) {
-            vastengine.Game.setDialog(undefined);
-            if (this.callback) {
-                this.callback(selection);
-            }
+    // see if a button was clicked on.
+    for (var i = 0; i < this.buttons.length; i++) {
+        if (x > this.buttons[i].x && x < (this.buttons[i].x + this.buttons[i].w) && y > this.buttons[i].y && (y < this.buttons[i].y + this.buttons[i].h)) {
+            clickedOn = i;
+        }
+    }
+
+    // destroy the dialog if a button was clicked and call the callback.
+    if (clickedOn > -1) {
+        vastengine.Game.setDialog(undefined);
+        if (this.callback) {
+            this.callback(clickedOn);
         }
     }
 };
 
 
-
+/**
+ * Draw the dialog box and its components.
+ */
 vastengine.Dialog.prototype.draw = function () {
     if (this.visible) {
         var context = $vast.Game.Canvas.getDrawingContext();
+        this.scale.update();
 
-        var orig_fillStyle = context.fillStyle;
-        var orig_globalAlpha = context.globalAlpha;
-        var orig_textAlign = context.textAlign;
-        var orig_textBaseline = context.textBaseline;
-        var orig_font = context.font;
-
-        var inc = 0.2;
-        if (this.scale < 1 - inc) {
-            this.scale += inc;
-        } else if (this.scale > 0.75) {
-            this.scale = 1;
-        }
-
-        // shadow
+        // background shadow
         context.fillStyle = '#000';
         context.globalAlpha = 0.5;
         context.fillRect(0, 0, vastengine.Game.Canvas.getCanvasWidth(), vastengine.Game.Canvas.getCanvasHeight());
 
         // dialog background
         context.globalAlpha = 1;
+        context.shadowBlur = 20;
+        context.shadowColor = "black";
         context.fillStyle = '#FFF';
-        context.fillRect(this.x + ((this.width - this.width * this.scale) / 2), this.y + ((this.height - this.height * this.scale) / 2), this.width * this.scale, this.height * this.scale);
+        context.fillRect(this.x + ((this.width - this.width * this.scale.get()) / 2), this.y + ((this.height - this.height * this.scale.get()) / 2), this.width * this.scale.get(), this.height * this.scale.get());
+        context.shadowBlur = 0;
 
-        if (this.scale === 1) {
-            // draw the text. TODO: build words in constructor? (or make build() function to build buttons, text, width, height, etc)
+        // draw text and buttons only when animation is finished.
+        if (this.scale.get() === 1) {
+            // text
             context.textBaseline = 'top';
-            context.font = '18pt Calibri';
             context.fillStyle = '#000';
-            var words = this.text.split(' ');
-            var line = '';
-            var textY = this.y;
-            for (var i = 0; i < words.length; i++) {
-                var testLine = line + words[i] + ' ';
-                var metrics = context.measureText(testLine);
-                var testWidth = metrics.width;
-                if (testWidth > this.width - this.textPadding && i > 0) {
-                    context.fillText(line, this.x + this.textPadding, textY);
-                    line = words[i] + ' ';
-                    textY += 22;
-                }
-                else {
-                    line = testLine;
-                }
+            context.font = this.textFont;
+            
+            for (var i = 0; i < this.textLines.length; i++) {
+                context.fillText(this.textLines[i], this.x + this.textPadding, this.y + i * this.lineSpacing);
             }
-            //context.fillText(line, this.x + this.textPadding, textY); // the last line
-
-            // draw the buttons
-            context.font = '20pt Calibri';
+            // buttons
+            context.font = (this.buttonHeight / 2) + 'pt Calibri';
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             for (var n = 0; n < this.buttons.length; n++) {
                 context.fillText(this.buttons[n].text, this.buttons[n].x + (this.buttons[n].w / 2), this.buttons[n].y + (this.buttons[n].h / 2));
             }
         }
-
-
         
-        // reset styles
-        context.fillStyle = orig_fillStyle;
-        context.globalAlpha = orig_globalAlpha;
-        context.textAlign = orig_textAlign;
-        context.textBaseline = orig_textBaseline;
-        context.font = orig_font;
+        // reset context styles
+        vastengine.Game.Canvas.resetContext();
     }
 };

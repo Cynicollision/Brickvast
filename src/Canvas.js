@@ -1,4 +1,6 @@
 ﻿/// <reference path="Game.js" />
+/// <reference path="Canvas.js" />
+
 var vastengine = vastengine || {};
 
 
@@ -7,7 +9,8 @@ var vastengine = vastengine || {};
  * @constructor
  */
 vastengine.Canvas = function () {
-    this.buildCanvas();
+    this.canvas = this.buildCanvas();
+    this.contextDefaults = this.setContextDefaults();
 
     // forward the mousedown event to the Game's active controller.
     this.canvas.onmousedown = function (e) {
@@ -30,15 +33,18 @@ vastengine.CanvasScaleMode = {
     COVER: 2
 };
 
+
 /** 
  * build the HTML canvas and insert into the DOM.
+ * @return {Object} Reference to the canvas that was built.
  */
 vastengine.Canvas.prototype.buildCanvas = function () {
-    this.canvas = document.createElement('canvas');
-    this.canvas.id = 'vastCanvas';
-    this.setCanvasSize(vastengine.Game.Config.canvasWidth, vastengine.Game.Config.canvasHeight);
-    this.context = this.canvas.getContext('2d');
-    document.body.appendChild(this.canvas);
+    var canvas = document.createElement('canvas');
+    canvas.id = 'vastCanvas';
+    canvas.width = vastengine.Game.Config.canvasWidth;
+    canvas.height = vastengine.Game.Config.canvasHeight;
+    document.body.appendChild(canvas);
+    return canvas;
 };
 
 
@@ -47,9 +53,37 @@ vastengine.Canvas.prototype.buildCanvas = function () {
  * @return {object} 2D drawing context of the game's canvas.
  */
 vastengine.Canvas.prototype.getDrawingContext = function () {
-    return this.context;
+    return this.canvas.getContext('2d');
 };
 
+
+/**
+ * Sets the default properties of the drawing context. Should be called 
+ * after any other object does drawing and sets font styles, colors, etc.
+ * @return {Array.<Object>} Key-value list of context properties.
+ */
+vastengine.Canvas.prototype.setContextDefaults = function () {
+    var defaults = [];
+    var context = this.getDrawingContext();
+    for (var property in context) {
+        if (property != 'canvas') {
+            defaults.push({ key: property, value: context[property] });
+        }
+    }
+    return defaults;
+};
+
+
+/**
+ * Resets the properties of the drawing context to the default.
+ */
+vastengine.Canvas.prototype.resetContext = function () {
+    var context = this.getDrawingContext();
+    for (var i = 0; i < this.contextDefaults.length; i++) {
+        var property = this.contextDefaults[i];
+        context[property.key] = property.value;
+    }
+};
 
 /**
  * Sets the background-color property of the game canvas.
@@ -179,7 +213,8 @@ vastengine.Canvas.prototype.getViewRelativeY = function (controller) {
  * @param {Controller} controller Controller object to draw.
  */
 vastengine.Canvas.prototype.draw = function (controller) {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    var context = this.getDrawingContext();
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     // get relative (x,y) to the location of the controller's view
     var relativeX = this.getViewRelativeX(controller);
@@ -202,7 +237,7 @@ vastengine.Canvas.prototype.draw = function (controller) {
             var img = entities[i].getImage();
             if (img) {
                 try {
-                    this.context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
+                    context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
                 } catch (e) {
                     vastengine.Game.setError("Failed drawing entity image: " + img.src);
                 }
