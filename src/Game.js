@@ -78,7 +78,6 @@ vastengine.Game.getTimestamp = function () {
  * Initializes all game-level resources. Must be called first when setting up the game.
  */
 vastengine.Game.init = function () {
-    vastengine.Game.Input = new vastengine.Input();
     vastengine.Game.Images = new vastengine.AssetManager(vastengine.AssetType.IMAGE);
     vastengine.Game.Audio = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
     vastengine.Game.Canvas = new vastengine.Canvas();

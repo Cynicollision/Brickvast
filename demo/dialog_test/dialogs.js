@@ -10,7 +10,7 @@
 
     // set the background color
     $vast.Game.Canvas.setBackgroundColor('#ecc');
-
+    $vast.Game.Canvas.setScaleMode($vast.CanvasScaleMode.FIT);
 
     // set up Controller;
     var ctrl = new $vast.Controller();

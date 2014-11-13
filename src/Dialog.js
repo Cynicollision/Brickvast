@@ -62,7 +62,7 @@ vastengine.Dialog = function (text, width, height, options, callback) {
  * @return {Array.<string>} Individual lines of wrapped text.
  */
 vastengine.Dialog.prototype.buildTextLines = function (text, maxWidth, font) {
-    var context = $vast.Game.Canvas.getDrawingContext();
+    var context = vastengine.Game.Canvas.getDrawingContext();
     context.font = font;
     
     var textLines = [];
@@ -147,7 +147,7 @@ vastengine.Dialog.prototype.onTouch = function (x, y) {
  */
 vastengine.Dialog.prototype.draw = function () {
     if (this.visible) {
-        var context = $vast.Game.Canvas.getDrawingContext();
+        var context = vastengine.Game.Canvas.getDrawingContext();
         this.scale.update();
 
         // background shadow

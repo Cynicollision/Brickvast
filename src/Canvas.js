@@ -14,12 +14,12 @@ vastengine.Canvas = function () {
 
     // forward the mousedown event to the Game's active controller.
     this.canvas.onmousedown = function (e) {
-        vastengine.Game.Input.onTouch(e);
+        vastengine.Input.onTouch(e);
     };
 
     // forward the mouseup event to the Game's active controller.
     this.canvas.onmouseup = function (e) {
-        vastengine.Game.Input.onTouchEnd(e);
+        vastengine.Input.onTouchEnd(e);
     };
 };
 
