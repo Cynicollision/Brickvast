@@ -1,9 +1,4 @@
 ﻿module.exports = function (grunt) {
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-closure-compiler');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks("grunt-jsdoc-to-markdown");
 
     // init
     grunt.initConfig({
@@ -34,6 +29,10 @@
             }
         },
 
+        clean: {
+            build: ['build/vastengine.js']
+        },
+
         copy: {
             main: {
                 files: [
@@ -42,32 +41,28 @@
             }
         },
 
-        jsdoc2md: {
-            //oneOutputFile: {
-            //    src: "src/*.js",
-            //    dest: "doc/api.md"
-            //},
-            separateOutputFilePerInput: {
-                files: [
-                    //{ src: "src/jacket.js", dest: "doc/jacket.md" },
-                    { src: "src/Game.js", dest: "doc/Game.md" }
-                ]
-            },
-            withOptions: {
+        jsdoc: {
+            dist: {
+                src: ['src/*.js'],
                 options: {
-                    index: true
+                    destination: 'api'
                 }
             }
         }
     });
 
+    grunt.loadNpmTasks('grunt-closure-compiler');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-jsdoc');
+    
+
     // register the tasks
-    grunt.registerTask('travis', ['jshint', 'jasmine']);
-    grunt.registerTask('test', 'jasmine');
-    grunt.registerTask('compile', 'closure-compiler');
-    grunt.registerTask('copy_to_demo', ['copy']);
-    grunt.registerTask('api_md', 'jsdoc2md');
-    grunt.registerTask('build', ['closure-compiler', 'copy_to_demo']);
+    grunt.registerTask('test', ['jshint', 'jasmine']);
+    grunt.registerTask('api', 'jsdoc');
+    grunt.registerTask('build', ['clean', 'closure-compiler', 'copy']);
     grunt.registerTask('default', function () {
         grunt.log.write('So vast!').ok();
     });

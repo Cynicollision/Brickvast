@@ -24,9 +24,14 @@
   "homepage": "https://github.com/Cynicollision/vastengine",
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-jasmine": "^0.8.1",
-    "grunt-contrib-jshint": "^0.10.0"
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jsdoc": "^0.5.7",
+    "grunt-jsdoc-to-markdown": "^0.4.2",
+    "jsdoc-to-markdown": "^0.5.9",
+    "more-fs": "^0.5.0"
   },
   "dependencies": {
     "grunt-jasmine-node": "^0.2.1"
