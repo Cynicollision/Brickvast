@@ -49,9 +49,9 @@ vastengine.Input.onTouchEvent = function (eventType, actualX, actualY) {
     var ctrl = vastengine.Game.getActiveController();
     var scale = vastengine.Game.Canvas.getScale();
     
-    // adjust for scale and the view's coordinates.
-    var clickX = (actualX / scale) + ctrl.view.x;
-    var clickY = (actualY / scale) + ctrl.view.y;
+    // adjust for scale
+    var clickX = (actualX / scale);
+    var clickY = (actualY / scale);
 
     if (vastengine.Game.activeDialog) {
         if (eventType === vastengine.InputEventType.TOUCH_START) {
@@ -59,10 +59,11 @@ vastengine.Input.onTouchEvent = function (eventType, actualX, actualY) {
         }
     } else {
         if (ctrl) {
+            // adjust for view's coordinates
             if (eventType === vastengine.InputEventType.TOUCH_START && ctrl.onTouch) {
-                ctrl.onTouch(clickX, clickY);
+                ctrl.onTouch(clickX + ctrl.view.x, clickY + ctrl.view.y);
             } else if (ctrl.onTouchEnd) {
-                ctrl.onTouchEnd(clickX, clickY);
+                ctrl.onTouchEnd(clickX + ctrl.view.x, clickY + ctrl.view.y);
             }
         }
     }

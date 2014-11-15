@@ -1,4 +1,5 @@
-﻿/// <reference path="../../src/MathUtil.js" />
+﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Dialog.js" />
+/// <reference path="../../src/MathUtil.js" />
 /// <reference path="../../src/Canvas.js" />
 /// <reference path="../../src/Controller.js" />
 /// <reference path="../../src/Entity.js" />
@@ -186,8 +187,14 @@
     // determine if the player ran into the enemy
     function checkForDead() {
         if (mainPlayer.checkCollision(badguy)) {
-            mainPlayer.setPosition(64, 64);
-            mainPlayer.setSpeed(0);
+            var text = 'Dead!';
+            var w = vastengine.Game.Canvas.getCanvasWidth() / 2;
+            var h = vastengine.Game.Canvas.getCanvasHeight() / 2;
+
+            $vast.Game.setDialog(new $vast.Dialog(text, w, h, ['Start over'], function () {
+                mainPlayer.setPosition(64, 64);
+                mainPlayer.setSpeed(0);
+            }));
         }
     }
 
@@ -200,8 +207,13 @@
 
         var d = $vast.MathUtil.getPointDistance(playerX, playerY, goalX, goalY);
         if (d <= 1) {
-            alert('Goal!!!1');
-            mainPlayer.setPosition(64, 64);
+            var text = 'Win!';
+            var w = vastengine.Game.Canvas.getCanvasWidth() / 2;
+            var h = vastengine.Game.Canvas.getCanvasHeight() / 2;
+
+            $vast.Game.setDialog(new $vast.Dialog(text, w, h, ['Start over'], function () {
+                mainPlayer.setPosition(64, 64);
+            })); 
         }
     }
 
