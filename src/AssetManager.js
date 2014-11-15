@@ -14,6 +14,10 @@ vastengine.AssetManager = function (type) {
     }
 };
 
+
+/**
+ * Enumeration of asset types.
+ */
 vastengine.AssetType = {
     IMAGE: 'image',
     AUDIO: 'audio'

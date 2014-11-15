@@ -33,4 +33,17 @@ describe('Input', function () {
         expect(testController.onTouch).not.toHaveBeenCalled();
         expect(testController.onTouchEnd).toHaveBeenCalled();
     });
+
+    it('Correctly un-scales the clicked coordinates.', function () {
+        // simulate scaled touch coordinates.
+        vastengine.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
+        var scale = vastengine.Game.Canvas.getScale();
+        mockEvent.pageX *= scale;
+        mockEvent.pageY *= scale;
+
+        $vast.Input.onTouch(mockEvent);
+
+        // expect Input.onTouchEnd to have scaled the coordinates back to the real position in the game.
+        expect(testController.onTouch).toHaveBeenCalledWith(mockEvent.pageX / scale, mockEvent.pageY / scale);
+    });
 });
