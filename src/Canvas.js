@@ -11,6 +11,7 @@ var vastengine = vastengine || {};
 vastengine.Canvas = function () {
     this.canvas = this.buildCanvas();
     this.contextDefaults = this.setContextDefaults();
+    this.backgroundScrollFactor = 1;
 
     // forward the mousedown event to the Game's active controller.
     this.canvas.onmousedown = function (e) {
@@ -118,6 +119,17 @@ vastengine.Canvas.prototype.setBackgroundPosition = function (x, y) {
 
 
 /**
+ * Sets the scroll factor (ratio) for the background image. A value of 0 results 
+ * in a fixed background and a value of 1 results in the background scrolling 
+ * proportionally to the active controller's view position.
+ * @param {number} factor Scroll factor (ratio to active controller's view position).
+ */
+vastengine.Canvas.prototype.setScrollFactor = function (factor) {
+    this.backgroundScrollFactor = factor;
+};
+
+
+/**
  * Retrieves the width of the game canvas.
  * @return {number} Width of the game canvas.
  */
@@ -221,7 +233,7 @@ vastengine.Canvas.prototype.draw = function (controller) {
     var relativeY = this.getViewRelativeY(controller);
 
     // adjust the background position according to the relative (x, y)
-    this.setBackgroundPosition(-relativeX, -relativeY);
+    this.setBackgroundPosition(-relativeX * this.backgroundScrollFactor, -relativeY * this.backgroundScrollFactor);
 
     // draw entities (sorted in reverse order by depth).
     controller.sortEntities();

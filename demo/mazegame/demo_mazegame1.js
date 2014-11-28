@@ -1,35 +1,32 @@
 ﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Dialog.js" />
-/// <reference path="../../src/MathUtil.js" />
-/// <reference path="../../src/Canvas.js" />
-/// <reference path="../../src/Controller.js" />
-/// <reference path="../../src/Entity.js" />
-/// <reference path="../../src/Game.js" />
+/// <reference path="C:\Users\Sean\workspace\vastengine\src/Canvas.js" />
 // set background color and load assets
 (function () {
+    // used for grid movement
+    var TILE_SIZE = 64;
+
     $vast.Game.init();
 
-    $vast.Game.Canvas.setBackgroundImage('../_images/texture.png');
+    // game config settings
+    $vast.Game.Config.fps = 60;
+    $vast.Game.Config.canvasWidth = 640;
+    $vast.Game.Config.canvasHeight = 512;
+
+    // images
+    $vast.Game.Canvas.setBackgroundImage('../_images/texture.png', true);
     $vast.Game.Images.add('sun', '../_images/sun.jpg');
     $vast.Game.Images.add('flag', '../_images/flag.png');
     $vast.Game.Images.add('stone', '../_images/stone.png');
     $vast.Game.Images.add('badguy', '../_images/enemy.png');
     $vast.Game.Images.load();
 
-    // optional: config game settings... just one so far
-    //$vast.Game.Config.fps = 60;
-
-    // used for grid movement
-    var TILE_SIZE = 64;
-
     // set canvas size and scale mode
-     $vast.Game.Config.canvasWidth = 640;
-     $vast.Game.Config.canvasHeight = 512;
-    //$vast.Game.Canvas.setCanvasSize($vast.Game.Config.canvasWidth, $vast.Game.Config.canvasHeight);
     $vast.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
+    $vast.Game.Canvas.setScrollFactor(0.6);
 
+
+    // build the game
     var ctrl = new $vast.Controller();
-
-    // some maze objects
     var mainPlayer = buildPlayerEntity();
     var goal = buildGoalEntity();
     var badguy = buildEnemyEntity();
