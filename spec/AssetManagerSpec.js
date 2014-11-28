@@ -45,17 +45,12 @@ describe('AssetManager', function () {
 
     it('Defines each asset when loading.', function () {
         var imageAsset = imageManager.getById('testImage1');
-        var audioAsset = audioManager.getById('testSound1');
         expect(imageAsset).not.toBeDefined();
-        expect(audioAsset).not.toBeDefined();
 
         // do loading
         imageManager.load();
-        audioManager.load();
 
         imageAsset = imageManager.getById('testImage1');
-        audioAsset = audioManager.getById('testSound1');
         expect(imageAsset).toBeDefined();
-        expect(audioAsset).toBeDefined();
     });
 });
