@@ -9,6 +9,12 @@ var $vast = vastengine;
 vastengine.Game = function() {
     this.activeController = null;
     this.activeDialog = null;
+    this.state = vastengine.GameState.STOPPED;
+};
+
+vastengine.GameState = {
+    STOPPED: 0,
+    RUNNING: 1
 };
 
 
@@ -21,6 +27,10 @@ vastengine.Game.Config = {
     canvasHeight: 512
 };
 
+
+vastengine.Game.setState = function (state) {
+    this.state = state;
+};
 
 /** 
  * Sets the running Controller to the given Controller object.
@@ -53,16 +63,13 @@ vastengine.Game.setDialog = function (dialog) {
     if (dialog) {
         this.activeDialog = dialog;
         this.activeDialog.setVisible(true);
-        vastengine.Game.running = false;
+        vastengine.Game.setState(vastengine.GameState.STOPPED);
     } else {
-        vastengine.Game.running = true;
+        vastengine.Game.setState(vastengine.GameState.RUNNING);
         this.activeDialog.setVisible(false);
         this.activeDialog = null;
     }
 };
-
-// TODO: replace with GameState enum?
-vastengine.Game.running = true;
 
 
 /**
@@ -92,6 +99,7 @@ vastengine.Game.run = function () {
     var stepSize = 1 / fps;
     var offset = 0;
     var previous = vastengine.Game.getTimestamp();
+    vastengine.Game.state = vastengine.GameState.RUNNING;
 
     function stepAndDraw() {
         var current = vastengine.Game.getTimestamp();
@@ -99,7 +107,7 @@ vastengine.Game.run = function () {
 
         // still step during the offset (time difference between frames).
         while (offset > stepSize) {
-            if (vastengine.Game.running) {
+            if (vastengine.Game.state === vastengine.GameState.RUNNING) {
                 if (vastengine.Game.hasActiveControler()) {
                     vastengine.Game.getActiveController().step(stepSize);
                 }

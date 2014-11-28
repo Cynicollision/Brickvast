@@ -69,11 +69,10 @@ vastengine.Dialog = function (text, width, height, options, callback) {
 vastengine.Dialog.prototype.buildTextLines = function (text, maxWidth, font) {
     // determine line width.
     var lineWidth = -1;
-    
-    if (vastengine.Game.Canvas) {
-        var context = vastengine.Game.Canvas.getDrawingContext();
+
+    var context = vastengine.Game.Canvas.getDrawingContext();
+    if (context) {
         context.font = font;
-        lineWidth = context.measureText(currentLine).width;
     }
     
     var textLines = [];
@@ -81,14 +80,17 @@ vastengine.Dialog.prototype.buildTextLines = function (text, maxWidth, font) {
     var line = '';
     for (var i = 0; i < words.length; i++) {
         var currentLine = line + words[i] + ' ';
-        var currentLineWidth = lineWidth;
-        if (currentLineWidth > maxWidth && i > 0) {
-            textLines.push(line);
-            line = words[i] + ' ';
+        if (context) {
+            var currentLineWidth = context.measureText(currentLine).width;
+            if (currentLineWidth > maxWidth && i > 0) {
+                textLines.push(line);
+                line = words[i] + ' ';
+            }
+            else {
+                line = currentLine;
+            }
         }
-        else {
-            line = currentLine;
-        }
+        
     }
     textLines.push(line); // the rest.
 
