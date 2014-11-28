@@ -45,6 +45,8 @@ vastengine.AssetManager.prototype.getById = function (id) {
             return this.assets[i].asset;
         }
     }
+
+    throw "No asset exists with the given ID value.";
 };
 
 

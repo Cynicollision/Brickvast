@@ -59,6 +59,8 @@
     <Content Include="demo\_images\sun.jpg" />
     <Content Include="demo\_images\texture.png" />
     <Content Include="demo\_images\tile.png" />
+    <Content Include="spec\AssetManagerSpec.js" />
+    <Content Include="spec\DialogSpec.js" />
     <Content Include="spec\InputSpec.js" />
     <Content Include="src\Dialog.js" />
     <Content Include="Gruntfile.js" />

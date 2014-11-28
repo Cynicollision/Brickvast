@@ -23,7 +23,7 @@ vastengine.Dialog = function (text, width, height, options, callback) {
     this.textFont = (this.lineSpacing - 10) + 'pt Calibri';
     this.textPadding = 10;
     
-
+    // build text lines
     this.textLines = this.buildTextLines(text, this.width - this.textPadding, this.textFont);
 
     // auto-height if not given a height.
@@ -32,8 +32,13 @@ vastengine.Dialog = function (text, width, height, options, callback) {
     }
     
     // position such that the dialog box will be centered, build buttons and text.
-    this.x = (vastengine.Game.Canvas.getCanvasWidth() / 2) - (this.width / 2);
-    this.y = (vastengine.Game.Canvas.getCanvasHeight() / 2) - (this.height / 2);
+    this.x = 0;
+    this.y = 0;
+    if (vastengine.Game.Canvas) {
+        this.x = (vastengine.Game.Canvas.getCanvasWidth() / 2) - (this.width / 2);
+        this.y = (vastengine.Game.Canvas.getCanvasHeight() / 2) - (this.height / 2);
+    }
+    
     this.buttons = this.buildButtons(options, this.x, this.y, this.width, this.height, this.buttonHeight);
     this.visible = false;
 
@@ -62,15 +67,21 @@ vastengine.Dialog = function (text, width, height, options, callback) {
  * @return {Array.<string>} Individual lines of wrapped text.
  */
 vastengine.Dialog.prototype.buildTextLines = function (text, maxWidth, font) {
-    var context = vastengine.Game.Canvas.getDrawingContext();
-    context.font = font;
+    // determine line width.
+    var lineWidth = -1;
+    
+    if (vastengine.Game.Canvas) {
+        var context = vastengine.Game.Canvas.getDrawingContext();
+        context.font = font;
+        lineWidth = context.measureText(currentLine).width;
+    }
     
     var textLines = [];
     var words = text.split(' ');
     var line = '';
     for (var i = 0; i < words.length; i++) {
         var currentLine = line + words[i] + ' ';
-        var currentLineWidth = context.measureText(currentLine).width;
+        var currentLineWidth = lineWidth;
         if (currentLineWidth > maxWidth && i > 0) {
             textLines.push(line);
             line = words[i] + ' ';
@@ -135,9 +146,18 @@ vastengine.Dialog.prototype.onTouch = function (x, y) {
     // destroy the dialog if a button was clicked and call the callback.
     if (clickedOn > -1) {
         vastengine.Game.setDialog(undefined);
-        if (this.callback) {
-            this.callback(clickedOn);
-        }
+        this.doCallback(clickedOn);
+    }
+};
+
+
+/**
+ * Calls the Dialog's callback with the given input.
+ * @param {number} Integer selection.
+ */
+vastengine.Dialog.prototype.doCallback = function (input) {
+    if (this.callback) {
+        this.callback(input);
     }
 };
 
