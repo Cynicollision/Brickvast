@@ -70,9 +70,12 @@ vastengine.Dialog.prototype.buildTextLines = function (text, maxWidth, font) {
     // determine line width.
     var lineWidth = -1;
 
-    var context = vastengine.Game.Canvas.getDrawingContext();
-    if (context) {
-        context.font = font;
+    var context;
+    if (vastengine.Game.Canvas) {
+        context = vastengine.Game.Canvas.getDrawingContext();
+        if (context) {
+            context.font = font;
+        }
     }
     
     var textLines = [];
