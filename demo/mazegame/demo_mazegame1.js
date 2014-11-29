@@ -5,12 +5,12 @@
     // used for grid movement
     var TILE_SIZE = 64;
 
-    $vast.Game.init();
-
     // game config settings
     $vast.Game.Config.fps = 60;
-    $vast.Game.Config.canvasWidth = 640;
-    $vast.Game.Config.canvasHeight = 512;
+    $vast.Game.Config.canvasWidth = window.innerWidth;
+    $vast.Game.Config.canvasHeight = window.innerHeight;
+
+    $vast.Game.init();
 
     // images
     $vast.Game.Canvas.setBackgroundImage('../_images/texture.png', true);
@@ -28,7 +28,7 @@
     // build the game
     var ctrl = new $vast.Controller();
     var mainPlayer = buildPlayerEntity();
-    var goal = buildGoalEntity();
+    var goal;
     var badguy = buildEnemyEntity();
 
     // setup Controller and Entity objects, then run the game
@@ -36,7 +36,6 @@
 
         // set up the "controller" with the test Entity object
         ctrl.addEntity(mainPlayer);
-        ctrl.addEntity(goal);
         ctrl.addEntity(badguy);
         ctrl.setOnTouch(gameClick);
         ctrl.setPostStep(function () {
@@ -82,14 +81,6 @@
         return player;
     }
 
-    // builds and returns the goal Entity object
-    function buildGoalEntity() {
-        var goal = new $vast.Entity(null, 'goal');
-        goal.setImage($vast.Game.Images.getById('flag'));
-        goal.setX($vast.Game.Canvas.getCanvasWidth() - 128);
-        goal.setY($vast.Game.Canvas.getCanvasHeight() - 128);
-        return goal;
-    }
 
     // builds and returns an enemy
     function buildEnemyEntity() {
@@ -122,7 +113,7 @@
             3: '#   ####  ###  #',
             4: '# ####      #  #',
             5: '# #  # ###  #  #',
-            6: '#      # #     #',
+            6: '#      #F#     #',
             7: '# ###### ####  #',
             8: '#           #  #',
             9: '################'
@@ -140,6 +131,11 @@
                     wall.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     wall.setSize(TILE_SIZE, TILE_SIZE);
                     ctrl.addEntity(wall);
+                } else if (row.charAt(j) === 'F') {
+                    goal = new $vast.Entity(null, 'goal');
+                    goal.setImage($vast.Game.Images.getById('flag'));
+                    goal.setPosition(j * TILE_SIZE, i * TILE_SIZE);
+                    ctrl.addEntity(goal);
                 }
             }
         }
@@ -186,9 +182,8 @@
         if (mainPlayer.checkCollision(badguy)) {
             var text = 'Dead!';
             var w = vastengine.Game.Canvas.getCanvasWidth() / 2;
-            var h = vastengine.Game.Canvas.getCanvasHeight() / 2;
 
-            $vast.Game.setDialog(new $vast.Dialog(text, w, h, ['Start over'], function () {
+            $vast.Game.setDialog(new $vast.Dialog(text, w, -1, ['Start over'], function () {
                 mainPlayer.setPosition(64, 64);
                 mainPlayer.setSpeed(0);
             }));
@@ -206,9 +201,8 @@
         if (d <= 1) {
             var text = 'Win!';
             var w = vastengine.Game.Canvas.getCanvasWidth() / 2;
-            var h = vastengine.Game.Canvas.getCanvasHeight() / 2;
 
-            $vast.Game.setDialog(new $vast.Dialog(text, w, h, ['Start over'], function () {
+            $vast.Game.setDialog(new $vast.Dialog(text, w, -1, ['Start over'], function () {
                 mainPlayer.setPosition(64, 64);
             })); 
         }

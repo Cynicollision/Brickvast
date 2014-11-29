@@ -49,6 +49,8 @@
     <Content Include="demo\drawing1\demo_drawing1.js" />
     <Content Include="demo\drawing1\demo_drawing1.html" />
     <Content Include="demo\reset.css" />
+    <Content Include="demo\rooms\rooms.html" />
+    <Content Include="demo\rooms\rooms.js" />
     <Content Include="demo\sounds1\demo_sounds1.js" />
     <Content Include="demo\sounds1\demo_sounds1.html" />
     <Content Include="demo\dialog_test\dialogs.html" />
