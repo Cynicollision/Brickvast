@@ -1,5 +1,4 @@
-# Auto-generated documentation
-api/*
+
 
 # Windows image file caches
 Thumbs.db
@@ -10,12 +9,6 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
 
 # User-specific files
 *.suo
@@ -40,6 +33,13 @@ build/*.txt
 # Roslyn cache directories
 *.ide/
 
+# Android Studio files
+VastDroid/.gradle
+VastDroid/local.properties
+VastDroid/.idea/workspace.xml
+VastDroid/.idea/libraries
+VastDroid/.DS_Store
+VastDroid/build
 
 # ========================= 
 # Operating System Files
