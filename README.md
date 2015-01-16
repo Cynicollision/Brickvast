@@ -3,7 +3,7 @@ vastengine [![Build Status](https://travis-ci.org/Cynicollision/vastengine.svg?b
 
 vastengine is a 2D game engine written in JavaScript. It is currently in very early stages of development. It is used to create video games that run in the web browser, particularly on mobile devices. Desktop browsers are of course to be supported, but for the time being there are no plans to support keyboard input. 
 
-The intention is to be an all-in-one library to cover the foundation (game loop, asset management, etc.) without becoming bloated with features that can otherwise be acheived in JavaScript. For instance, drawing primitive shapes on the canvas is already very simple: vastengine will make it easy to get the drawing context but will not implement its own method of drawing primitives. It is expected that the developer is experienced with JavaScript but 
+The intention is to be an all-in-one library to cover the foundation (game loop, asset management, etc.) without becoming bloated with features that can otherwise be acheived in JavaScript. For instance, drawing primitive shapes on the canvas is already very simple: vastengine will make it easy to get the drawing context but will not implement its own method of drawing primitives. It is expected that the developer is at least experienced with JavaScript.
 
 The following features are in development and/or planned for the first version of the engine:
 * Game loop and state management.
