@@ -7,17 +7,19 @@
 
     // game config settings
     $vast.Game.Config.fps = 60;
-    $vast.Game.Config.canvasWidth = window.innerWidth / 3;
-    $vast.Game.Config.canvasHeight = window.innerHeight / 3;
+    $vast.Game.Config.canvasWidth = window.innerWidth;
+    $vast.Game.Config.canvasHeight = window.innerHeight;
+    //$vast.Game.Config.canvasWidth = 200;
+    //$vast.Game.Config.canvasHeight = 200;
 
     $vast.Game.init();
 
     // images
-    $vast.Game.Canvas.setBackgroundImage('../_images/bg.png', true);
-    $vast.Game.Images.add('sun', '../_images/sun.jpg');
-    $vast.Game.Images.add('flag', '../_images/flag.png');
-    $vast.Game.Images.add('stone', '../_images/stone.png');
-    $vast.Game.Images.add('badguy', '../_images/enemy.png');
+    $vast.Game.Canvas.setBackgroundImage('../images/bg.png', true);
+    $vast.Game.Images.add('sun', '../images/sun.jpg');
+    $vast.Game.Images.add('flag', '../images/flag.png');
+    $vast.Game.Images.add('stone', '../images/stone.png');
+    $vast.Game.Images.add('badguy', '../images/enemy.png');
     $vast.Game.Images.load();
 
     // set canvas size and scale mode
