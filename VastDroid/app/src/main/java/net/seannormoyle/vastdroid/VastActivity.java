@@ -10,7 +10,7 @@ import android.webkit.WebView;
 
 public class VastActivity extends Activity
 {
-    private final String URL = "file:///android_asset/demo/mazegame/demo_mazegame1.html";
+    private final String URL = "file:///android_asset/demo/demo_mazegame/mazegame.html";
     private WebView webView;
 
     /** Called when the activity is first created. */

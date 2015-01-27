@@ -5,14 +5,14 @@
         pkg: grunt.file.readJSON('package.json'),
 
         jshint: {
-            all: ['Gruntfile.js', 'src/*.js', 'spec/*.js']
+            all: ['Gruntfile.js', 'vastengine/src/*.js', 'vastengine/spec/*.js']
         },
 
         jasmine: {
             pivotal: {
-                src: 'src/*.js',
+                src: 'vastengine/src/*.js',
                 options: {
-                    specs: 'spec/*Spec.js'
+                    specs: 'vastengine/spec/*Spec.js'
                 }
             }
         },
@@ -20,7 +20,7 @@
         'closure-compiler': {
             engine: {
                 closurePath: 'C:\\Users\\Sean\\workspace\\vastengine\\',
-                js: 'src/*',
+                js: 'vastengine/src/*',
                 jsOutputFile: 'build/vastengine.js',
                 maxBuffer: 500,
                 options: {
@@ -30,22 +30,28 @@
         },
 
         clean: {
-            build: ['build/vastengine.js']
+            build: ['build/vastengine.js'],
+			'android assets/demo': ['VastDroid/app/src/main/assets/demo']
         },
 
         copy: {
-            main: {
+            'build -> demo': {
                 files: [
-                  { src: 'build/vastengine.js', dest: 'demo/vastengine.js' },
+                  { src: 'build/vastengine.js', dest: 'vastengine/demo/vastengine.js' },
                 ]
-            }
+            },
+			'demo -> android assets': {
+				files: [
+					{  cwd: 'vastengine/', src: 'demo/**', expand: true, dest: 'VastDroid/app/src/main/assets/' },
+				]
+			}
         },
 
         jsdoc: {
             dist: {
-                src: ['src/*.js'],
+                src: ['vastengine/src/*.js'],
                 options: {
-                    destination: 'api'
+                    destination: 'doc'
                 }
             }
         }
@@ -61,7 +67,7 @@
 
     // register the tasks
     grunt.registerTask('test', ['jshint', 'jasmine']);
-    grunt.registerTask('api', 'jsdoc');
+    grunt.registerTask('doc', 'jsdoc');
     grunt.registerTask('build', ['clean', 'closure-compiler', 'copy']);
     grunt.registerTask('default', function () {
         grunt.log.write('So vast!').ok();
