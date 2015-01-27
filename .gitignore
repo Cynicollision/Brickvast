@@ -33,13 +33,14 @@ build/*.txt
 *.ide/
 
 # Android Studio files
+*.apk
+*.ap_
 VastDroid/.gradle
 VastDroid/local.properties
 VastDroid/.idea/workspace.xml
 VastDroid/.idea/libraries
 VastDroid/.DS_Store
 VastDroid/build
-VastDroid/app/build/intermediates
 
 
 # ========================= 
