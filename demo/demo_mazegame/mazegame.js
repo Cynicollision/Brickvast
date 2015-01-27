@@ -7,17 +7,19 @@
 
     // game config settings
     $vast.Game.Config.fps = 60;
-    $vast.Game.Config.canvasWidth = window.innerWidth / 3;
-    $vast.Game.Config.canvasHeight = window.innerHeight / 3;
+    $vast.Game.Config.canvasWidth = window.innerWidth;
+    $vast.Game.Config.canvasHeight = window.innerHeight;
+    //$vast.Game.Config.canvasWidth = 200;
+    //$vast.Game.Config.canvasHeight = 200;
 
     $vast.Game.init();
 
     // images
-    $vast.Game.Canvas.setBackgroundImage('../_images/bg.png', true);
-    $vast.Game.Images.add('sun', '../_images/sun.jpg');
-    $vast.Game.Images.add('flag', '../_images/flag.png');
-    $vast.Game.Images.add('stone', '../_images/stone.png');
-    $vast.Game.Images.add('badguy', '../_images/enemy.png');
+    $vast.Game.Canvas.setBackgroundImage('../images/bg.png', true);
+    $vast.Game.Images.add('sun', '../images/sun.jpg');
+    $vast.Game.Images.add('flag', '../images/flag.png');
+    $vast.Game.Images.add('stone', '../images/stone.png');
+    $vast.Game.Images.add('badguy', '../images/enemy.png');
     $vast.Game.Images.load();
 
     // set canvas size and scale mode
@@ -43,7 +45,7 @@
             var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - ($vast.Game.Config.canvasHeight / 2);
             ctrl.setViewPosition(x, y);
         });
-        
+
         buildWallMap(ctrl);
         $vast.Game.setActiveController(ctrl);
 
@@ -85,7 +87,7 @@
     function buildEnemyEntity() {
         var enemy = new $vast.Entity(null, 'enemy');
         enemy.setImage($vast.Game.Images.getById('badguy'));
-        enemy.setPosition(192, 64);
+        enemy.setPosition(384, 256);
         enemy.setSize(TILE_SIZE, TILE_SIZE);
         enemy.setSpeed(10);
         enemy.setDirection(0); // right
@@ -203,7 +205,7 @@
 
             $vast.Game.setDialog(new $vast.Dialog(text, w, -1, ['Start over'], function () {
                 mainPlayer.setPosition(64, 64);
-            })); 
+            }));
         }
     }
 

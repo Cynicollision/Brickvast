@@ -2,7 +2,7 @@
     $vast.Game.init();
 
     // loading assets should be done before calling Game.run
-    $vast.Game.Images.add('tile', '../_images/tile.png');
+    $vast.Game.Images.add('tile', '../images/tile.png');
     $vast.Game.Images.load();
 
     // set up the "controller" with the two test Entity objects

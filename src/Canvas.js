@@ -173,7 +173,7 @@ vastengine.Canvas.prototype.setScaleMode = function (scaleMode) {
  * Scales the canvas depending on the current CanvasScaleMode.
  */
 vastengine.Canvas.prototype.scaleCanvas = function () {
-    var scale = this.getScale();
+    var scale = this.getScale(); // TODO: eliminate scale modes? just use "FIT" always?
     this.canvas.style.transformOrigin = "0 0";
     this.canvas.style.transform = "scale(" + scale + ")";
 };

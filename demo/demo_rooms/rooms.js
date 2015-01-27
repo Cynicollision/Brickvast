@@ -13,9 +13,9 @@
     $vast.Game.Config.canvasHeight = 512;
 
     // images
-    $vast.Game.Images.add('sun', '../_images/sun.jpg');
-    $vast.Game.Images.add('stone', '../_images/stone.png');
-    $vast.Game.Images.add('badguy', '../_images/enemy.png');
+    $vast.Game.Images.add('sun', '../images/sun.jpg');
+    $vast.Game.Images.add('stone', '../images/stone.png');
+    $vast.Game.Images.add('badguy', '../images/enemy.png');
     $vast.Game.Images.load();
 
     // set canvas size and scale mode
