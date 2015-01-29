@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Entity.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: Entity.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>var vastengine = vastengine || {};
+
+/**
+ * Represents one (usually visible) "thing" to exist in the game.
+ * @param {string} type Used to group and retrieve similar Entity objects.
+ * @constructor
+ */
+vastengine.Entity = function (type, id) {
+    this.x = 0;
+    this.y = 0;
+    this.depth = 0;
+    this.type = type || '';
+    this.id = id || 0;
+    this.isDestroyed = false;
+    this.speed = 0;
+    this.direction = 0;
+    this.width = 0;
+    this.height = 0;
+
+    // methods.
+    this.onTouch = null;
+    this.onTouchEnd = null;
+    this.step = null;
+    this.draw = null;
+};
+
+
+/**
+ * Set the function to be called when this Entity is "clicked on". The means the coordinates 
+ * of the touch event fall within this Entity object's bounds (width x height at x, y).
+ * @param {function} onTouchFn function to call when clicked on.
+ */
+vastengine.Entity.prototype.setOnTouch = function (onTouchFn) {
+    this.onTouch = onTouchFn;
+};
+
+
+/**
+ * Set the function to be called when a click is released within this Entity object's bounds.
+ * @param {function} onTouchEndFn function to call when a click is released.
+ */
+vastengine.Entity.prototype.setOnTouchEnd = function (onTouchEndFn) {
+    this.onTouchEnd = onTouchEndFn;
+};
+
+
+/** 
+ * Set the function this Entity object calls each game step.
+ * @param {function} step function to call each game step.
+ */
+vastengine.Entity.prototype.setStep = function (stepFn) {
+    this.step = stepFn;
+};
+
+
+/**
+ * Set the function this Entity object calls when each frame is drawn.
+ * @param {function} drawFn draw function to call each frame.
+ */
+vastengine.Entity.prototype.setDraw = function (drawFn) {
+    this.draw = drawFn;
+};
+
+
+/**
+ * Called by the managing Controller object if e's coordinates are within this Entity's bounding area.
+ * @param {number} x X-coordinate of onmouseup event.
+ * @param {number} y Y-coordinate of onmouseup event.
+ */
+vastengine.Entity.prototype.mouseup = function (x, y) {
+    // to be overridden in instantiation to define mouseup behavior
+};
+
+
+/**
+ * Destroy this Entity on the managing Controller's next step.
+ */
+vastengine.Entity.prototype.destroy = function () {
+    this.isDestroyed = true;
+};
+
+
+/** 
+ * Determine if this Entity object's bounding area intersects with that of the given Entity object to compare to.
+ * @param {Entity} Other entity to check for a collision with.
+ * @return {boolean} True if the other Entity object's bounding area intersects with this one's.
+ */
+vastengine.Entity.prototype.checkCollision = function (other) {
+    return !((this.x + this.width &lt; other.x + 1) || (other.x + other.width - 1 &lt; this.x) || (this.y + this.height &lt; other.y + 1) || (other.y + other.height - 1 &lt; this.y));
+};
+
+
+/**
+ * Determine if the given coordinates fall within the bounds of this Entity object.
+ * @param {number} onX X-coordinate to check.
+ * @param {number} onY Y-coordinate to check.
+ * @return Whether the given coordinates fall within the bounds of this Entity object.
+ */
+vastengine.Entity.prototype.onPosition = function (onX, onY) {
+    return (onX > this.x && onY > this.y && onX &lt; this.x + this.width && onY &lt; this.y + this.height);
+};
+
+
+
+/**************************************************************
+ * Getters and setters
+ **************************************************************/
+vastengine.Entity.prototype.getImage = function () {
+    return this.image;
+};
+
+vastengine.Entity.prototype.setImage = function (newImage) {
+    this.image = newImage;
+};
+
+vastengine.Entity.prototype.setPosition = function (newX, newY) {
+    this.x = newX;
+    this.y = newY;
+};
+
+vastengine.Entity.prototype.getX = function () {
+    return this.x;
+};
+
+vastengine.Entity.prototype.setX = function (newX) {
+    this.x = newX;
+};
+
+vastengine.Entity.prototype.getY = function () {
+    return this.y;
+};
+
+vastengine.Entity.prototype.setY = function (newY) {
+    this.y = newY;
+};
+
+vastengine.Entity.prototype.getSpeed = function () {
+    return this.speed;
+};
+
+vastengine.Entity.prototype.setSpeed = function (newSpeed) {
+    this.speed = newSpeed;
+};
+
+vastengine.Entity.prototype.getDirection = function () {
+    return this.direction;
+};
+
+vastengine.Entity.prototype.setDirection = function (newDir) {
+    this.direction = newDir;
+};
+
+vastengine.Entity.prototype.setSize = function (newWidth, newHeight) {
+    this.width = newWidth;
+    this.height = newHeight;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="vastengine.AssetManager.html">AssetManager</a></li><li><a href="vastengine.Canvas.html">Canvas</a></li><li><a href="vastengine.Controller.html">Controller</a></li><li><a href="vastengine.Dialog.html">Dialog</a></li><li><a href="vastengine.Entity.html">Entity</a></li><li><a href="vastengine.Game.html">Game</a></li><li><a href="vastengine.Input.html">Input</a></li><li><a href="vastengine.MathUtil.html">MathUtil</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed Jan 28 2015 20:35:21 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

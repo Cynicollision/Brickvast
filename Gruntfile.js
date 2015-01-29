@@ -5,23 +5,23 @@
         pkg: grunt.file.readJSON('package.json'),
 
         jshint: {
-            all: ['Gruntfile.js', 'src/*.js', 'spec/*.js']
+            all: ['Gruntfile.js', 'engine/src/*.js', 'engine/spec/*.js']
         },
 
         jasmine: {
-            pivotal: {
-                src: 'src/*.js',
+            'run-all-tests': {
+                src: 'engine/src/*.js',
                 options: {
-                    specs: 'spec/*Spec.js'
+                    specs: 'engine/spec/*Spec.js'
                 }
             }
         },
 
         'closure-compiler': {
             engine: {
-                closurePath: 'C:\\Users\\Sean\\workspace\\vastengine\\',
-                js: 'src/*',
-                jsOutputFile: 'build/vastengine.js',
+                closurePath: 'C:\\Users\\Sean\\workspace\\vastengine\\engine\\',
+                js: 'engine/src/*',
+                jsOutputFile: 'engine/build/vastengine.js',
                 maxBuffer: 500,
                 options: {
                     language_in: 'ECMASCRIPT5_STRICT'
@@ -30,25 +30,36 @@
         },
 
         clean: {
-            build: ['build/vastengine.js']
+            'engine/build': ['engine/build/vastengine.js'],
+			'android assets/demo': ['VastDroid/app/src/main/assets/demo']
         },
 
         copy: {
-            main: {
+            'build -> demo': {
                 files: [
-                  { src: 'build/vastengine.js', dest: 'demo/vastengine.js' },
+                  { src: 'engine/build/vastengine.js', dest: 'engine/demo/vastengine.js' },
                 ]
-            }
+            },
+			'demo -> android assets': {
+				files: [
+					{ cwd: 'engine', src: 'demo/**', expand: true, dest: 'VastDroid/app/src/main/assets/' },
+				]
+			}
         },
 
         jsdoc: {
             dist: {
-                src: ['src/*.js'],
+                src: ['engine/src/*.js'],
                 options: {
-                    destination: 'api'
+                    destination: 'doc'
                 }
             }
-        }
+        },
+		
+		exec: {
+		  echo_something: 'echo "This could be fun"'
+		}
+		
     });
 
     grunt.loadNpmTasks('grunt-closure-compiler');
@@ -57,13 +68,18 @@
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-jsdoc');
+	grunt.loadNpmTasks('grunt-exec');
     
 
     // register the tasks
     grunt.registerTask('test', ['jshint', 'jasmine']);
-    grunt.registerTask('api', 'jsdoc');
-    grunt.registerTask('build', ['clean', 'closure-compiler', 'copy']);
-    grunt.registerTask('default', function () {
+	grunt.registerTask('build', ['clean', 'closure-compiler', 'copy']);
+    grunt.registerTask('doc', 'jsdoc');
+	
+	// might be handy someday
+	grunt.registerTask('execit', 'exec');
+    
+	grunt.registerTask('default', function () {
         grunt.log.write('So vast!').ok();
     });
 };
