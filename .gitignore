@@ -1,4 +1,4 @@
-
+doc
 
 # Windows image file caches
 Thumbs.db
@@ -16,7 +16,6 @@ $RECYCLE.BIN/
 *.sln.docstates
 
 # Visual Studio
-*.config
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
