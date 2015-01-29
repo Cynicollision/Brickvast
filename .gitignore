@@ -1,20 +1,10 @@
 # Generated documentation
 doc
 
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# User-specific files
-*.suo
-*.user
-*.sln.docstates
+# Node/grunt stuff
+node_modules
+*npm-debug.log
+tmp
 
 # Visual Studio
 [Dd]ebug/
@@ -28,6 +18,9 @@ build/*.jar
 build/*.txt
 [Bb]in/
 [Oo]bj/
+*.suo
+*.user
+*.sln.docstates
 
 # Roslyn cache directories
 *.ide/
@@ -47,6 +40,19 @@ VastDroid/build
 # Operating System Files
 # =========================
 
+# WINDOWS
+# =========================
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
 # OSX
 # =========================
 
@@ -57,15 +63,9 @@ VastDroid/build
 # Icon must ends with two \r.
 Icon
 
-
 # Thumbnails
 ._*
 
 # Files that might appear on external disk
 .Spotlight-V100
 .Trashes
-
-# Node/grunt stuff
-node_modules
-*npm-debug.log
-tmp
