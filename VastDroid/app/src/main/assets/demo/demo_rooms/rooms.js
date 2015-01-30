@@ -9,19 +9,14 @@
     $vast.Game.init();
 
     // game config settings
-    $vast.Game.Config.canvasWidth = 640;
-    $vast.Game.Config.canvasHeight = 512;
+    //$vast.Game.Config.canvasWidth = 640;
+    //$vast.Game.Config.canvasHeight = 512;
 
     // images
     $vast.Game.Images.add('sun', '../images/sun.jpg');
     $vast.Game.Images.add('stone', '../images/stone.png');
     $vast.Game.Images.add('badguy', '../images/enemy.png');
     $vast.Game.Images.load();
-
-    // set canvas size and scale mode
-    //$vast.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
-    $vast.Game.Canvas.setScrollFactor(0.6);
-
 
     // build the game
     var room1 = buildController1();
@@ -65,7 +60,7 @@
 
     function buildController3() {
         var ent = new $vast.Entity();
-        ent.setPosition(100, 300);
+        ent.setPosition(100, 400);
         ent.setImage($vast.Game.Images.getById('badguy'));
         ent.setSize(64, 64);
         ent.setOnTouch(function () {

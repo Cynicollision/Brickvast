@@ -12,6 +12,7 @@ vastengine.Canvas = function () {
     this.canvas = this.buildCanvas();
     this.contextDefaults = this.setContextDefaults();
     this.backgroundScrollFactor = 1;
+    this.scaleFactor = 2;
 
     // forward the mousedown event to the Game's active controller.
     this.canvas.onmousedown = function (e) {
@@ -159,32 +160,21 @@ vastengine.Canvas.prototype.setCanvasSize = function (w, h) {
     this.canvas.height = h;
 };
 
-
 /**
- * Scales the canvas depending on the current CanvasScaleMode.
+ * Sets the scale ratio for the canvas.
+ * @param {number} Scale ratio.
  */
-vastengine.Canvas.prototype.scaleCanvas = function () {
-    this.canvas.style.transformOrigin = "0 0";
-    this.canvas.style.transform = "scale(" + this.getScale() + ")";
+vastengine.Canvas.prototype.setScaleFactor = function (factor) {
+    this.scaleFactor = factor;
 };
-
 
 /**
  * Gets a single scaling ratio depending on the current CanvasScaleMode.
  */
 vastengine.Canvas.prototype.getScale = function () {
-    //switch (this.scaleMode) {
-    //    case vastengine.CanvasScaleMode.COVER:
-    //        return Math.max(window.innerWidth / this.canvas.width, window.innerHeight / this.canvas.height);
-    //
-    //    case vastengine.CanvasScaleMode.FIT:
-            return Math.min(window.innerWidth / this.canvas.width, window.innerHeight / this.canvas.height);
-
-    //    default:
-    //        return 1;
-    //}
+    //return Math.min((window.innerWidth / this.canvas.width) * this.scaleFactor, (window.innerHeight / this.canvas.height) * this.scaleFactor);
+    return this.scaleFactor;
 };
-
 
 /**
  * Retrieve the horizontal position of the view.
@@ -219,6 +209,17 @@ vastengine.Canvas.prototype.getViewRelativeY = function (controller) {
 vastengine.Canvas.prototype.draw = function (controller) {
     var context = this.getDrawingContext();
     context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    context.save();
+    context.scale(this.scaleFactor, this.scaleFactor);
+
+    var translateX = (vastengine.Game.Canvas.getCanvasWidth() - (vastengine.Game.Canvas.getCanvasWidth() / this.scaleFactor)) / 2;
+    var translateY = (vastengine.Game.Canvas.getCanvasHeight() - (vastengine.Game.Canvas.getCanvasHeight() / this.scaleFactor)) / 2;
+
+    var scaleFromCenter  = true;
+    if (scaleFromCenter) {
+        context.translate(-translateX, -translateY);
+    }
+    
 
     // get relative (x,y) to the location of the controller's view
     var relativeX = this.getViewRelativeX(controller);
@@ -226,6 +227,8 @@ vastengine.Canvas.prototype.draw = function (controller) {
 
     // adjust the background position according to the relative (x, y)
     this.setBackgroundPosition(-relativeX * this.backgroundScrollFactor, -relativeY * this.backgroundScrollFactor);
+    
+    
 
     // draw entities (sorted in reverse order by depth).
     controller.sortEntities();
@@ -249,6 +252,5 @@ vastengine.Canvas.prototype.draw = function (controller) {
         }
     }
 
-    // do scaling
-    this.scaleCanvas();
+    this.getDrawingContext().restore();
 };

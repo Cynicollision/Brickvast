@@ -9,8 +9,8 @@
     $vast.Game.init();
 
     // game config settings
-    $vast.Game.Config.canvasWidth = 640;
-    $vast.Game.Config.canvasHeight = 512;
+    //$vast.Game.Config.canvasWidth = 640;
+    //$vast.Game.Config.canvasHeight = 512;
 
     // images
     $vast.Game.Images.add('sun', '../images/sun.jpg');
@@ -60,7 +60,7 @@
 
     function buildController3() {
         var ent = new $vast.Entity();
-        ent.setPosition(100, 300);
+        ent.setPosition(100, 400);
         ent.setImage($vast.Game.Images.getById('badguy'));
         ent.setSize(64, 64);
         ent.setOnTouch(function () {

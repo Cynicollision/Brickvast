@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="Canvas.js" />
+
 var vastengine = vastengine || {};
 
 /**
@@ -48,10 +49,21 @@ vastengine.Input.onTouchEnd = function (e) {
 vastengine.Input.onTouchEvent = function (eventType, actualX, actualY) {
     var ctrl = vastengine.Game.getActiveController();
     var scale = vastengine.Game.Canvas.getScale();
-    
+
+    var translateX = (window.innerWidth - (vastengine.Game.Canvas.getCanvasWidth() / scale)) / 2;
+    var translateY = (window.innerHeight - (vastengine.Game.Canvas.getCanvasHeight() / scale)) / 2;
+
+
     // adjust for scale
     var clickX = (actualX / scale);
     var clickY = (actualY / scale);
+
+    // TODO: scaleFromCenter needs to live somewhere Canvas?
+    var scaleFromCenter = true;
+    if (scaleFromCenter) {
+        clickX += translateX;
+        clickY += translateY;
+    }
 
     if (vastengine.Game.activeDialog) {
         if (eventType === vastengine.InputEventType.TOUCH_START) {

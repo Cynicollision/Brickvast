@@ -17,8 +17,11 @@
     $vast.Game.Images.add('badguy', '../images/enemy.png');
     $vast.Game.Images.load();
 
-    // set canvas size and scale mode
-    //$vast.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
+    // one way to set a horizontal resolution...
+    var resX = (1 / (640 / $vast.Game.Canvas.getCanvasWidth()));
+    $vast.Game.Canvas.setScaleFactor(resX);
+
+    // cool background scolling effect
     $vast.Game.Canvas.setScrollFactor(0.6);
 
     // game components
