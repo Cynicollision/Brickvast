@@ -50,6 +50,7 @@ vastengine.Input.onTouchEvent = function (eventType, actualX, actualY) {
     var ctrl = vastengine.Game.getActiveController();
     var scale = vastengine.Game.Canvas.getScale();
 
+    // TODO: need a way to get translation better...
     var translateX = (window.innerWidth - (vastengine.Game.Canvas.getCanvasWidth() / scale)) / 2;
     var translateY = (window.innerHeight - (vastengine.Game.Canvas.getCanvasHeight() / scale)) / 2;
 
