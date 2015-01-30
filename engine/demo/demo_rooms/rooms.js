@@ -18,11 +18,6 @@
     $vast.Game.Images.add('badguy', '../images/enemy.png');
     $vast.Game.Images.load();
 
-    // set canvas size and scale mode
-    $vast.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
-    $vast.Game.Canvas.setScrollFactor(0.6);
-
-
     // build the game
     var room1 = buildController1();
     var room2 = buildController2();

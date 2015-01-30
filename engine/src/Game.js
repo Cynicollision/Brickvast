@@ -23,8 +23,8 @@ vastengine.GameState = {
  */
 vastengine.Game.Config = {
     fps: 60,
-    canvasWidth: 640,
-    canvasHeight: 512
+    canvasWidth: window.innerWidth,
+    canvasHeight: window.innerHeight
 };
 
 

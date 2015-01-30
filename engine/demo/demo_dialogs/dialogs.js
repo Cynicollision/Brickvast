@@ -1,7 +1,5 @@
 ﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Game.js" />
 (function () {
-    $vast.Game.Config.canvasWidth = 1024;
-    $vast.Game.Config.canvasHeight = 768;
     $vast.Game.init();
 
     var DIALOG_TEXT = 'Hello, world! Here is a whole bunch of text that hopefully fits in this dialog.';
@@ -10,7 +8,6 @@
 
     // set the background color
     $vast.Game.Canvas.setBackgroundColor('#ecc');
-    $vast.Game.Canvas.setScaleMode($vast.CanvasScaleMode.FIT);
 
     // set up Controller;
     var ctrl = new $vast.Controller();

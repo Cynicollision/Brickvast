@@ -36,7 +36,6 @@ describe('Input', function () {
 
     it('Correctly un-scales the clicked coordinates.', function () {
         // simulate scaled touch coordinates.
-        vastengine.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
         var scale = vastengine.Game.Canvas.getScale();
         mockEvent.pageX *= scale;
         mockEvent.pageY *= scale;

@@ -7,11 +7,6 @@
 
     // game config settings
     $vast.Game.Config.fps = 60;
-    $vast.Game.Config.canvasWidth = window.innerWidth;
-    $vast.Game.Config.canvasHeight = window.innerHeight;
-    //$vast.Game.Config.canvasWidth = 200;
-    //$vast.Game.Config.canvasHeight = 200;
-
     $vast.Game.init();
 
     // images
@@ -23,7 +18,7 @@
     $vast.Game.Images.load();
 
     // set canvas size and scale mode
-    $vast.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
+    //$vast.Game.Canvas.setScaleMode(vastengine.CanvasScaleMode.FIT);
     $vast.Game.Canvas.setScrollFactor(0.6);
 
     // game components

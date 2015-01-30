@@ -161,21 +161,11 @@ vastengine.Canvas.prototype.setCanvasSize = function (w, h) {
 
 
 /**
- * Sets the scaling mode of the canvas.
- * @param {CanvasScaleMode} scaleMode New scale mode.
- */
-vastengine.Canvas.prototype.setScaleMode = function (scaleMode) {
-    this.scaleMode = scaleMode;
-};
-
-
-/**
  * Scales the canvas depending on the current CanvasScaleMode.
  */
 vastengine.Canvas.prototype.scaleCanvas = function () {
-    var scale = this.getScale(); // TODO: eliminate scale modes? just use "FIT" always?
     this.canvas.style.transformOrigin = "0 0";
-    this.canvas.style.transform = "scale(" + scale + ")";
+    this.canvas.style.transform = "scale(" + this.getScale() + ")";
 };
 
 
@@ -183,16 +173,16 @@ vastengine.Canvas.prototype.scaleCanvas = function () {
  * Gets a single scaling ratio depending on the current CanvasScaleMode.
  */
 vastengine.Canvas.prototype.getScale = function () {
-    switch (this.scaleMode) {
-        case vastengine.CanvasScaleMode.COVER:
-            return Math.max(window.innerWidth / this.canvas.width, window.innerHeight / this.canvas.height);
-
-        case vastengine.CanvasScaleMode.FIT:
+    //switch (this.scaleMode) {
+    //    case vastengine.CanvasScaleMode.COVER:
+    //        return Math.max(window.innerWidth / this.canvas.width, window.innerHeight / this.canvas.height);
+    //
+    //    case vastengine.CanvasScaleMode.FIT:
             return Math.min(window.innerWidth / this.canvas.width, window.innerHeight / this.canvas.height);
 
-        default:
-            return 1;
-    }
+    //    default:
+    //        return 1;
+    //}
 };
 
 
