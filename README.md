@@ -16,6 +16,9 @@ Future plans/ideas that I would like to happen someday but so far are nowhere ev
 * Visual game editor (either in the browser or for the desktop) that generates JavaScript that uses vastengine. Game Maker 4.x inspired this project and it would be awesome to come full circle and create a next-generation version.
 * Multi-platform support.
 * WebGL support because Canvas can be rather slow...
+* 
+### Documentation
+Work in progress, but getting started on the [github pages site](http://cynicollision.github.io/vastengine).
 
 ### Special Thanks
 This project depend heavily on the following pieces of software and I am extremely grateful for their existence:
