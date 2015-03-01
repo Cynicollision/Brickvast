@@ -22,7 +22,6 @@ describe('Input', function () {
     });
 
     it('Calls the onTouch method of the active Controller object.', function () {
-        
         $vast.Input.onTouch(mockEvent);
         
         expect(testController.onTouch).toHaveBeenCalled();
@@ -30,29 +29,37 @@ describe('Input', function () {
     });
 
     it('Calls the onTouchEnd method of the active Controller object.', function () {
-
         $vast.Input.onTouchEnd(mockEvent);
 
         expect(testController.onTouch).not.toHaveBeenCalled();
         expect(testController.onTouchEnd).toHaveBeenCalled();
     });
 
-    it('Correctly un-scales the clicked coordinates.', function () {
+    it('Correctly un-scales the clicked coordinates when scale mode is the default.', function () {
+        $vast.Game.Config.scaleFromCenter = false;
+
         // simulate scaled touch coordinates.
         var scale = vastengine.Game.Canvas.getScale();
-        
-        
+        mockEvent.pageX *= scale;
+        mockEvent.pageY *= scale;
+
+        $vast.Input.onTouch(mockEvent);
+
+        // expect Input.onTouchEnd to have scaled the coordinates back to the real position in the game.
+        expect(testController.onTouch).toHaveBeenCalledWith(eventX, eventY);
+    });
+
+    it('Correctly un-scales the clicked coordinates when scale mode is "from center".', function () {
+        $vast.Game.Config.scaleFromCenter = true;
+
+        // simulate scaled and translated touch coordinates.
+        var scale = vastengine.Game.Canvas.getScale();
         var translateX = (window.innerWidth - (vastengine.Game.Canvas.getCanvasWidth() / scale)) / 2;
         var translateY = (window.innerHeight - (vastengine.Game.Canvas.getCanvasHeight() / scale)) / 2;
 
-        // TODO: this needs to be updated to work when scaleFromCenter = true...
-        var scaleFromCenter = true;
-        if (scaleFromCenter) {
-            mockEvent.pageX -= translateX;
-            mockEvent.pageY -= translateY;
-        }
-
-
+        mockEvent.pageX -= translateX;
+        mockEvent.pageY -= translateY;
+        
         mockEvent.pageX *= scale;
         mockEvent.pageY *= scale;
 

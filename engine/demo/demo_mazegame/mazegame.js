@@ -7,6 +7,7 @@
 
     // game config settings
     $vast.Game.Config.fps = 60;
+    $vast.Game.Config.scaleFromCenter = true;
     $vast.Game.init();
 
     // images
@@ -18,8 +19,9 @@
     $vast.Game.Images.load();
 
     // one way to set a horizontal resolution...
-    var resX = (1 / (640 / $vast.Game.Canvas.getCanvasWidth()));
-    $vast.Game.Canvas.setScaleFactor(resX);
+    // TODO: better way to set resolution like this based on a target width/height
+    var resX = (1 / (512 / $vast.Game.Canvas.getCanvasWidth()));
+    $vast.Game.Canvas.setScale(resX);
 
     // cool background scolling effect
     $vast.Game.Canvas.setScrollFactor(0.6);

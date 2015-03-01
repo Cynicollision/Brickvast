@@ -43,30 +43,4 @@ describe('Canvas', function () {
         var css = testCanvas.canvas.style.backgroundPosition;
         expect(testCanvas.canvas.style.backgroundPosition).toEqual('25px 50px');
     });
-
-    it('Can store default canvas context settings and then restore them.', function () {
-        var context = testCanvas.getDrawingContext();
-
-        // store defaults
-        testCanvas.setContextDefaults();
-
-        var orig_context_shadowBlur = context.shadowBlur;
-        var orig_context_font = context.font;
-        var orig_context_textBaseline = context.textBaseline;
-        var orig_context_globalAlpha = context.globalAlpha;
-
-        // change some properties
-        context.shadowBlur = 123;
-        context.font = '21pt yolo';
-        context.textBaseline = 'bottom';
-        context.globalAlpha = 0.6;
-
-        // reset
-        testCanvas.resetContext();
-
-        expect(context.shadowBlur).toEqual(orig_context_shadowBlur);
-        expect(context.font).toEqual(orig_context_font);
-        expect(context.textBaseline).toEqual(orig_context_textBaseline);
-        expect(context.globalAlpha).toEqual(orig_context_globalAlpha);
-    });
 });
