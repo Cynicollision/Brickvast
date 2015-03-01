@@ -23,193 +23,195 @@ var vastengine = vastengine || {};
         };
     };
 
-    /** 
-     * build the HTML canvas and insert into the DOM.
-     * @return {Object} Reference to the canvas that was built.
-     */
-    vastengine.Canvas.prototype.buildCanvas = function () {
-        var canvas = document.createElement('canvas');
-        canvas.id = 'vastCanvas';
-        canvas.className = 'canvasStlye';
-        canvas.width = vastengine.Game.Config.canvasWidth;
-        canvas.height = vastengine.Game.Config.canvasHeight;
+    vastengine.Canvas.prototype = {
 
-        document.body.appendChild(canvas);
-        return canvas;
-    };
+        /** 
+         * build the HTML canvas and insert into the DOM.
+         * @return {Object} Reference to the canvas that was built.
+         */
+        buildCanvas: function () {
+            var canvas = document.createElement('canvas');
+            canvas.id = 'vastCanvas';
+            canvas.className = 'canvasStlye';
+            canvas.width = vastengine.Game.Config.canvasWidth;
+            canvas.height = vastengine.Game.Config.canvasHeight;
 
-    /**
-     * Retrieves a reference of the 2D drawing context.
-     * @return {object} 2D drawing context of the game's canvas.
-     */
-    vastengine.Canvas.prototype.getDrawingContext = function () {
-        return this.canvas.getContext('2d');
-    };
+            document.body.appendChild(canvas);
+            return canvas;
+        },
 
-    /**
-     * Sets the background-color property of the game canvas.
-     * @param {string} color CSS color value.
-     */
-    vastengine.Canvas.prototype.setBackgroundColor = function (color) {
-        this.canvas.style.background = color;
-    };
+        /**
+         * Retrieves a reference of the 2D drawing context.
+         * @return {object} 2D drawing context of the game's canvas.
+         */
+        getDrawingContext: function () {
+            return this.canvas.getContext('2d');
+        },
 
-    /**
-     * Sets the background-image property of the game canvas.
-     * @param {string} url URL to image resource to use as background image.
-     * @param {boolean} Whether to tile the background image or not.
-     */
-    vastengine.Canvas.prototype.setBackgroundImage = function (url, tiled) {
-        this.canvas.style.backgroundImage = 'url(' + url + ')';
-        if (!tiled) {
-            this.canvas.style.backgroundRepeat = 'no-repeat';
-        }
-    };
+        /**
+         * Sets the background-color property of the game canvas.
+         * @param {string} color CSS color value.
+         */
+        setBackgroundColor: function (color) {
+            this.canvas.style.background = color;
+        },
 
-    /**
-     * Sets the background-position property of the game canvas.
-     * @param {number} x New X-offset from origin.
-     * @param {number} y New Y-offset from origin.
-     */
-    vastengine.Canvas.prototype.setBackgroundPosition = function (x, y) {
-        this.canvas.style.backgroundPosition = x + 'px ' + y + 'px';
-    };
+        /**
+         * Sets the background-image property of the game canvas.
+         * @param {string} url URL to image resource to use as background image.
+         * @param {boolean} Whether to tile the background image or not.
+         */
+        setBackgroundImage: function (url, tiled) {
+            this.canvas.style.backgroundImage = 'url(' + url + ')';
+            if (!tiled) {
+                this.canvas.style.backgroundRepeat = 'no-repeat';
+            }
+        },
 
-    /**
-     * Sets the scroll factor (ratio) for the background image. A value of 0 results 
-     * in a fixed background and a value of 1 results in the background scrolling 
-     * proportionally to the active controller's view position.
-     * @param {number} factor Scroll factor (ratio to active controller's view position).
-     */
-    vastengine.Canvas.prototype.setScrollFactor = function (factor) {
-        this.backgroundScrollFactor = factor;
-    };
+        /**
+         * Sets the background-position property of the game canvas.
+         * @param {number} x New X-offset from origin.
+         * @param {number} y New Y-offset from origin.
+         */
+        setBackgroundPosition: function (x, y) {
+            this.canvas.style.backgroundPosition = x + 'px ' + y + 'px';
+        },
 
-    /**
-     * Retrieves the width of the game canvas.
-     * @return {number} Width of the game canvas.
-     */
-    vastengine.Canvas.prototype.getCanvasWidth = function () {
-        return this.canvas.width;
-    };
+        /**
+         * Sets the scroll factor (ratio) for the background image. A value of 0 results 
+         * in a fixed background and a value of 1 results in the background scrolling 
+         * proportionally to the active controller's view position.
+         * @param {number} factor Scroll factor (ratio to active controller's view position).
+         */
+        setScrollFactor: function (factor) {
+            this.backgroundScrollFactor = factor;
+        },
 
-    /**
-     * Retrieve the height of the game canvas.
-     * @return {number} Height of the game canvas.
-     */
-    vastengine.Canvas.prototype.getCanvasHeight = function () {
-        return this.canvas.height;
-    };
+        /**
+         * Retrieves the width of the game canvas.
+         * @return {number} Width of the game canvas.
+         */
+        getCanvasWidth: function () {
+            return this.canvas.width;
+        },
 
-    /**
-     * Sets the width and height of the HTML canvas.
-     * @param {number} w New width for the canvas.
-     * @param {number} h New height for the canvas.
-     */
-    vastengine.Canvas.prototype.setCanvasSize = function (w, h) {
-        this.canvas.width = w;
-        this.canvas.height = h;
-    };
+        /**
+         * Retrieve the height of the game canvas.
+         * @return {number} Height of the game canvas.
+         */
+        getCanvasHeight: function () {
+            return this.canvas.height;
+        },
 
-    /**
-     * Sets the scale ratio for the canvas.
-     * @param {number} Scale ratio.
-     */
-    vastengine.Canvas.prototype.setScale = function (factor) {
-        this.scaleFactor = factor;
-    };
+        /**
+         * Sets the width and height of the HTML canvas.
+         * @param {number} w New width for the canvas.
+         * @param {number} h New height for the canvas.
+         */
+        setCanvasSize: function (w, h) {
+            this.canvas.width = w;
+            this.canvas.height = h;
+        },
 
-    /**
-     * Gets a single scaling ratio of the canvas.
-     */
-    vastengine.Canvas.prototype.getScale = function () {
-        return this.scaleFactor;
-    };
+        /**
+         * Sets the scale ratio for the canvas.
+         * @param {number} Scale ratio.
+         */
+        setScale: function (factor) {
+            this.scaleFactor = factor;
+        },
 
-    /**
-     * Retrieve the horizontal position of the view.
-     * @return {number} X-coordinate of the given Controller object's view property.
-     */
-    vastengine.Canvas.prototype.getViewRelativeX = function (controller) {
-        if (controller.view !== undefined) {
-            return controller.view.x;
-        } else {
-            return 0;
-        }
-    };
+        /**
+         * Gets a single scaling ratio of the canvas.
+         */
+        getScale: function () {
+            return this.scaleFactor;
+        },
 
-    /**
-     * Retrieve the vertical position of the view.
-     * @return {number} Y-coordinate of the given Controller object's view property.
-     */
-    vastengine.Canvas.prototype.getViewRelativeY = function (controller) {
-        if (controller.view !== undefined) {
-            return controller.view.y;
-        } else {
-            return 0;
-        }
-    };
+        /**
+         * Retrieve the horizontal position of the view.
+         * @return {number} X-coordinate of the given Controller object's view property.
+         */
+        getViewRelativeX: function (controller) {
+            if (controller.view !== undefined) {
+                return controller.view.x;
+            } else {
+                return 0;
+            }
+        },
 
-    /**
-     * Draw directly on the canvas, passing a delegate function to call with the Canvas's 2D drawing context.
-     * @param {function} Delegate to call, passing the Canvas's 2D drawing context.
-     */
-    vastengine.Canvas.prototype.drawElement = function (func) {
-        var context = this.getDrawingContext();
-        context.save();
-        func(this.getDrawingContext());
-        context.restore();
-    };
+        /**
+         * Retrieve the vertical position of the view.
+         * @return {number} Y-coordinate of the given Controller object's view property.
+         */
+        getViewRelativeY: function (controller) {
+            if (controller.view !== undefined) {
+                return controller.view.y;
+            } else {
+                return 0;
+            }
+        },
 
-    /**
-     * Clears the game canvas and draws the given Controller object. Draws the given controller's managed entities relative to its view.
-     * @param {Controller} controller Controller object to draw.
-     */
-    vastengine.Canvas.prototype.draw = function (controller) {
-        // clear and save the drawing context, then scale.
-        var context = this.getDrawingContext();
-        context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        context.save();
-        context.scale(this.scaleFactor, this.scaleFactor);
+        /**
+         * Draw directly on the canvas, passing a delegate function to call with the Canvas's 2D drawing context.
+         * @param {function} Delegate to call, passing the Canvas's 2D drawing context.
+         */
+        drawElement: function (func) {
+            var context = this.getDrawingContext();
+            context.save();
+            func(this.getDrawingContext());
+            context.restore();
+        },
 
-        // translate context to account for scaling if scale mode is "from center"
-        var translateX = (vastengine.Game.Canvas.getCanvasWidth() - (vastengine.Game.Canvas.getCanvasWidth() / this.scaleFactor)) / 2;
-        var translateY = (vastengine.Game.Canvas.getCanvasHeight() - (vastengine.Game.Canvas.getCanvasHeight() / this.scaleFactor)) / 2;
-        if (vastengine.Game.Config.scaleFromCenter) {
-            context.translate(-translateX, -translateY);
-        }
+        /**
+         * Clears the game canvas and draws the given Controller object. Draws the given controller's managed entities relative to its view.
+         * @param {Controller} controller Controller object to draw.
+         */
+        draw: function (controller) {
+            // clear and save the drawing context, then scale.
+            var context = this.getDrawingContext();
+            context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            context.save();
+            context.scale(this.scaleFactor, this.scaleFactor);
 
-        // get relative (x,y) to the location of the controller's view.
-        var relativeX = this.getViewRelativeX(controller);
-        var relativeY = this.getViewRelativeY(controller);
-
-        // adjust the background position according to the relative (x, y) of the view.
-        this.setBackgroundPosition(-relativeX * this.backgroundScrollFactor, -relativeY * this.backgroundScrollFactor);
-
-        // draw entities (sorted in reverse order by depth) at their positions relative to the view.
-        controller.sortEntities();
-        var entities = controller.getEntities();
-        for (var i = 0; i < entities.length; i++) {
-            // first call each Entitiy's draw() ...
-            if (entities[i].draw) {
-                entities[i].draw();
+            // translate context to account for scaling if scale mode is "from center"
+            var translateX = (vastengine.Game.Canvas.getCanvasWidth() - (vastengine.Game.Canvas.getCanvasWidth() / this.scaleFactor)) / 2;
+            var translateY = (vastengine.Game.Canvas.getCanvasHeight() - (vastengine.Game.Canvas.getCanvasHeight() / this.scaleFactor)) / 2;
+            if (vastengine.Game.Config.scaleFromCenter) {
+                context.translate(-translateX, -translateY);
             }
 
-            // ...then draw its Image.
-            if (entities[i]) {
-                var img = entities[i].getImage();
-                if (img) {
-                    try {
-                        context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
-                    } catch (e) {
-                        vastengine.Game.setError("Failed drawing entity image: " + img.src);
+            // get relative (x,y) to the location of the controller's view.
+            var relativeX = this.getViewRelativeX(controller);
+            var relativeY = this.getViewRelativeY(controller);
+
+            // adjust the background position according to the relative (x, y) of the view.
+            this.setBackgroundPosition(-relativeX * this.backgroundScrollFactor, -relativeY * this.backgroundScrollFactor);
+
+            // draw entities (sorted in reverse order by depth) at their positions relative to the view.
+            controller.sortEntities();
+            var entities = controller.getEntities();
+            for (var i = 0; i < entities.length; i++) {
+                // first call each Entitiy's draw() ...
+                if (entities[i].draw) {
+                    entities[i].draw();
+                }
+
+                // ...then draw its Image.
+                if (entities[i]) {
+                    var img = entities[i].getImage();
+                    if (img) {
+                        try {
+                            context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
+                        } catch (e) {
+                            vastengine.Game.setError("Failed drawing entity image: " + img.src);
+                        }
                     }
                 }
             }
+
+            // restore the drawing context.
+            this.getDrawingContext().restore();
         }
-
-        // restore the drawing context.
-        this.getDrawingContext().restore();
     };
-
 })();
