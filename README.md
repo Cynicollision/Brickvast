@@ -1,5 +1,6 @@
-vastengine [![Build Status](https://travis-ci.org/Cynicollision/vastengine.svg?branch=master)](https://travis-ci.org/Cynicollision/vastengine)
+vastengine [![Build Status](https://travis-ci.org/Cynicollision/vastengine.svg?branch=master)](https://travis-ci.org/Cynicollision/vastengine) [![Dependencies](https://david-dm.org/cynicollision/vastengine.svg)](https://david-dm.org/Cynicollision/vastengine#info=devDependencies)
 ==========
+
 
 vastengine is a work-in-progress JavaScript/HTML Canvas game engine. It is used to create 2D video games that run in the web browser, particularly on mobile devices (particularly Android).
 
