@@ -26,7 +26,7 @@ var $vast = vastengine;
      * Game-level constants. Intended to be overridden as the first step of game setup (or use these defaults).
      */
     vastengine.Game.Config = {
-        fps: 60,
+        fps: 60, // TODO: should be "game speed" as it will always attempt to run at 60fps.
         canvasWidth: window.innerWidth,
         canvasHeight: window.innerHeight,
         scaleFromCenter: false,
@@ -148,6 +148,9 @@ var $vast = vastengine;
         requestAnimationFrame(stepAndDraw);
     };
 
+    /**
+     * Draws the current FPS that the game is running at.
+     */
     function drawCurrentFPS() {
         vastengine.Game.Canvas.drawElement(function (context) {
             context.save();
@@ -158,8 +161,6 @@ var $vast = vastengine;
 
             context.restore();
         });
-        
-
     }
 
     // this is awesome: http://stackoverflow.com/questions/8279729/calculate-fps-in-canvas-using-requestanimationframe

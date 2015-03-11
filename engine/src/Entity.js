@@ -16,6 +16,7 @@ var vastengine = vastengine || {};
         this.direction = 0;
         this.width = 0;
         this.height = 0;
+        this.image = null; // TODO: replace with sprite
 
         // methods.
         this.onTouch = null;
@@ -97,11 +98,11 @@ var vastengine = vastengine || {};
         /**************************************************************
          * Getters and setters
          **************************************************************/
-        getImage: function () {
+        getImage: function () { // TODO: replace with getSprite
             return this.image;
         },
 
-        setImage: function (newImage) {
+        setImage: function (newImage) { // TODO: replace with setSprite
             this.image = newImage;
         },
 

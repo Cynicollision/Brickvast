@@ -12,7 +12,7 @@
 
     // images
     $vast.Game.Canvas.setBackgroundImage('../images/bg.png', true);
-    $vast.Game.Images.add('sun', '../images/sun.jpg');
+    $vast.Game.Images.add('sun', '../images/man.png');
     $vast.Game.Images.add('flag', '../images/flag.png');
     $vast.Game.Images.add('stone', '../images/stone.png');
     $vast.Game.Images.add('badguy', '../images/enemy.png');
