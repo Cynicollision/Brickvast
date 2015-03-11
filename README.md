@@ -1,4 +1,4 @@
-vastengine [![Build Status](https://travis-ci.org/Cynicollision/vastengine.svg?branch=master)](https://travis-ci.org/Cynicollision/vastengine) [![Dependencies](https://david-dm.org/cynicollision/vastengine.svg)](https://david-dm.org/Cynicollision/vastengine#info=devDependencies)
+vastengine [![Build Status](https://travis-ci.org/Cynicollision/vastengine.svg?branch=master)](https://travis-ci.org/Cynicollision/vastengine) [![devDependency Status](https://david-dm.org/Cynicollision/vastengine/dev-status.svg)](https://david-dm.org/Cynicollision/vastengine#info=devDependencies)
 ==========
 
 
