@@ -56,6 +56,7 @@ var vastengine = vastengine || {};
         /**
          * Instantiates all managed assets from their sources at once. Relies on this AssetManager object being correctly instantiated with a valid type.
          */
+        // TODO: add callback?
         load: function () {
             for (var i = 0; i < this.assets.length; i++) {
                 if (this.type === vastengine.AssetType.IMAGE) {

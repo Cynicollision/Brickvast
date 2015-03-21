@@ -55,12 +55,15 @@
     <Content Include="Demo\demo_rooms\rooms.js" />
     <Content Include="Demo\demo_sounds\sounds.html" />
     <Content Include="Demo\demo_sounds\sounds.js" />
+    <Content Include="Demo\demo_sprites\sprites.html" />
+    <Content Include="Demo\demo_sprites\sprites.js" />
     <Content Include="Demo\images\bg.png" />
     <Content Include="Demo\images\enemy.png" />
     <Content Include="Demo\images\flag.png" />
     <Content Include="Demo\images\stone.png" />
     <Content Include="Demo\images\sun.jpg" />
     <Content Include="Demo\images\tile.png" />
+    <Content Include="Demo\images\walk.png" />
     <Content Include="Demo\reset.css" />
     <Content Include="Demo\sounds\LOZ_Get_Rupee.wav" />
     <Content Include="Demo\vastengine.js" />
@@ -88,6 +91,7 @@
     <Content Include="src\Game.js" />
     <Content Include="src\Input.js" />
     <Content Include="src\MathUtil.js" />
+    <Content Include="src\Sprite.js" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>

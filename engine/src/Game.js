@@ -82,6 +82,7 @@ var $vast = vastengine;
         }
     };
 
+    // TODO: can this be eliminated?
     /**
      * Initializes all game-level resources. Must be called first when setting up the game.
      */
@@ -182,15 +183,21 @@ var $vast = vastengine;
         };
     }());
 
+    // TODO: test method for the following, also maybe modify to check for undefined error
     /**
-     * For throwing exceptions by errors noted by vastengine itself.
+     * For throwing exceptions by errors raised by vastengine itself.
      * @param {string} message Error message.
+     * @param {string} (optional) e Inner exception.
      */
-    vastengine.Game.setError = function (message) {
+    vastengine.Game.setError = function (message, e) {
         var error = "vastengine error: ";
         if (message) {
             error += message;
         }
+        if (e) {
+            error += '\n\n' + e;
+        }
+
         throw error;
     };
 

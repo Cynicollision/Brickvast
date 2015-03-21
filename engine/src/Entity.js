@@ -14,7 +14,7 @@ var vastengine = vastengine || {};
         this.isDestroyed = false;
         this.speed = 0;
         this.direction = 0;
-        this.width = 0;
+        this.width = 0; // TODO: get width and height from Sprite?
         this.height = 0;
         this.image = null; // TODO: replace with sprite
 

@@ -30,8 +30,7 @@
         },
 
         clean: {
-            'engine/build': ['engine/build/vastengine.js'],
-			'android assets/demo': ['VastDroid/app/src/main/assets/demo']
+            'engine/build': ['engine/build/vastengine.js']
         },
 
         copy: {
@@ -39,13 +38,16 @@
                 files: [
                   { src: 'engine/build/vastengine.js', dest: 'engine/demo/vastengine.js' },
                 ]
-            },
-			'demo -> android assets': {
-				files: [
-					{ cwd: 'engine', src: 'demo/**', expand: true, dest: 'VastDroid/app/src/main/assets/' },
-				]
-			}
+            }
         },
+
+        //copy2droid: {
+		//	'demo -> android assets': {
+        //        files: [
+        //            { cwd: '../', src: 'demo/**', expand: true, dest: 'VastDroid/app/src/main/assets/' },
+        //        ]
+		//	}
+        //},
 
         jsdoc: {
             dist: {

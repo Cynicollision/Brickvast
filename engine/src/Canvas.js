@@ -198,13 +198,14 @@ var vastengine = vastengine || {};
                 }
 
                 // ...then draw its Image.
+                // TODO: get from entity's sprite, eliminate .getImage from Entity (it will be in Sprite).
                 if (entities[i]) {
                     var img = entities[i].getImage();
                     if (img) {
                         try {
                             context.drawImage(img, entities[i].x - relativeX, entities[i].y - relativeY);
                         } catch (e) {
-                            vastengine.Game.setError("Failed drawing entity image: " + img.src);
+                            vastengine.Game.setError("Failed drawing entity image: " + img.src, e);
                         }
                     }
                 }
