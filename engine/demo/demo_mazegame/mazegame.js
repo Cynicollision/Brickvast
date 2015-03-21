@@ -11,20 +11,20 @@
     $vast.Game.init();
 
     // images
-    $vast.Game.Canvas.setBackgroundImage('../images/bg.png', true);
-    $vast.Game.Images.add('sun', '../images/man.png');
-    $vast.Game.Images.add('flag', '../images/flag.png');
-    $vast.Game.Images.add('stone', '../images/stone.png');
-    $vast.Game.Images.add('badguy', '../images/enemy.png');
-    $vast.Game.Images.load();
+    $vast.Canvas.setBackgroundImage('../images/bg.png', true);
+    $vast.Images.add('sun', '../images/man.png');
+    $vast.Images.add('flag', '../images/flag.png');
+    $vast.Images.add('stone', '../images/stone.png');
+    $vast.Images.add('badguy', '../images/enemy.png');
+    $vast.Images.load();
 
     // one way to set a horizontal resolution...
     // TODO: better way to set resolution like this based on a target width/height
-    var resX = (1 / (512 / $vast.Game.Canvas.getCanvasWidth()));
-    $vast.Game.Canvas.setScale(resX);
+    var resX = (1 / (512 / $vast.Canvas.getCanvasWidth()));
+    $vast.Canvas.setScale(resX);
 
     // cool background scolling effect
-    $vast.Game.Canvas.setScrollFactor(0.6);
+    $vast.Canvas.setScrollFactor(0.6);
 
     // game components
     var ctrl = new $vast.Controller();
@@ -58,7 +58,7 @@
     function buildPlayerEntity() {
         var player = new $vast.Entity(null, 'player');
         player.setSize(TILE_SIZE, TILE_SIZE);
-        player.setImage($vast.Game.Images.getById('sun'));
+        player.setImage($vast.Images.getById('sun'));
         player.setPosition(64, 64);
         player.depth = -100; // make sure player stays on top
 
@@ -86,7 +86,7 @@
     // builds and returns an enemy
     function buildEnemyEntity() {
         var enemy = new $vast.Entity(null, 'enemy');
-        enemy.setImage($vast.Game.Images.getById('badguy'));
+        enemy.setImage($vast.Images.getById('badguy'));
         enemy.setPosition(384, 256);
         enemy.setSize(TILE_SIZE, TILE_SIZE);
         enemy.setSpeed(10);
@@ -128,13 +128,13 @@
             for (var j = 0; j < row.length; j++) {
                 if (row.charAt(j) === '#') {
                     var wall = new $vast.Entity('wall', 0);
-                    wall.setImage($vast.Game.Images.getById('stone'));
+                    wall.setImage($vast.Images.getById('stone'));
                     wall.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     wall.setSize(TILE_SIZE, TILE_SIZE);
                     ctrl.addEntity(wall);
                 } else if (row.charAt(j) === 'F') {
                     goal = new $vast.Entity(null, 'goal');
-                    goal.setImage($vast.Game.Images.getById('flag'));
+                    goal.setImage($vast.Images.getById('flag'));
                     goal.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     ctrl.addEntity(goal);
                 }
@@ -182,7 +182,7 @@
     function checkForDead() {
         if (mainPlayer.checkCollision(badguy)) {
             var text = 'Dead!';
-            var w = vastengine.Game.Canvas.getCanvasWidth() / 2;
+            var w = $vast.Canvas.getCanvasWidth() / 2;
 
             $vast.Game.setDialog(new $vast.Dialog(text, w, -1, ['Start over'], function () {
                 mainPlayer.setPosition(64, 64);

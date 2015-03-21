@@ -49,7 +49,7 @@ var vastengine = vastengine || {};
                 }
             }
 
-            throw "No asset exists with the given ID value.";
+            throw "No asset exists with the given ID value: " + id;
         },
 
 
@@ -57,7 +57,7 @@ var vastengine = vastengine || {};
          * Instantiates all managed assets from their sources at once. Relies on this AssetManager object being correctly instantiated with a valid type.
          */
         // TODO: add callback?
-        load: function () {
+        load: function (callback) {
             for (var i = 0; i < this.assets.length; i++) {
                 if (this.type === vastengine.AssetType.IMAGE) {
                     this.assets[i].asset = new Image();
@@ -66,6 +66,10 @@ var vastengine = vastengine || {};
                 }
 
                 this.assets[i].asset.src = this.assets[i].source;
+            }
+
+            if (callback) {
+                callback();
             }
         }
     };

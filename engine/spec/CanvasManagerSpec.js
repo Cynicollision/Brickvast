@@ -1,11 +1,10 @@
-﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Canvas.js" />
+﻿//************************************************************************************//
+// Test suite for CanvasManager class
 //************************************************************************************//
-// Test suite for Canvas class
-//************************************************************************************//
-describe('Canvas', function () {
+describe('CanvasManager', function () {
     var testCanvas;
     beforeEach(function () {
-        testCanvas = new $vast.Canvas();
+        testCanvas = new $vast.CanvasManager();
     });
 
     it('Retrieves a valid drawing context (used for drawing primitives)', function () {

@@ -44,11 +44,11 @@ var vastengine = vastengine || {};
      */
     vastengine.Input.onTouchEvent = function (eventType, actualX, actualY) {
         var ctrl = vastengine.Game.getActiveController();
-        var scale = vastengine.Game.Canvas.getScale();
+        var scale = vastengine.Canvas.getScale();
 
         // translate to account for scaling.
-        var translateX = (window.innerWidth - (vastengine.Game.Canvas.getCanvasWidth() / scale)) / 2;
-        var translateY = (window.innerHeight - (vastengine.Game.Canvas.getCanvasHeight() / scale)) / 2;
+        var translateX = (window.innerWidth - (vastengine.Canvas.getCanvasWidth() / scale)) / 2;
+        var translateY = (window.innerHeight - (vastengine.Canvas.getCanvasHeight() / scale)) / 2;
 
         // adjust for scale
         var clickX = (actualX / scale);

@@ -39,7 +39,7 @@ describe('Input', function () {
         $vast.Game.Config.scaleFromCenter = false;
 
         // simulate scaled touch coordinates.
-        var scale = vastengine.Game.Canvas.getScale();
+        var scale = vastengine.Canvas.getScale();
         mockEvent.pageX *= scale;
         mockEvent.pageY *= scale;
 
@@ -53,9 +53,9 @@ describe('Input', function () {
         $vast.Game.Config.scaleFromCenter = true;
 
         // simulate scaled and translated touch coordinates.
-        var scale = vastengine.Game.Canvas.getScale();
-        var translateX = (window.innerWidth - (vastengine.Game.Canvas.getCanvasWidth() / scale)) / 2;
-        var translateY = (window.innerHeight - (vastengine.Game.Canvas.getCanvasHeight() / scale)) / 2;
+        var scale = vastengine.Canvas.getScale();
+        var translateX = (window.innerWidth - (vastengine.Canvas.getCanvasWidth() / scale)) / 2;
+        var translateY = (window.innerHeight - (vastengine.Canvas.getCanvasHeight() / scale)) / 2;
 
         mockEvent.pageX -= translateX;
         mockEvent.pageY -= translateY;

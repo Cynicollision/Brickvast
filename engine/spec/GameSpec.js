@@ -15,13 +15,13 @@ describe('Game', function () {
         $vast.Game.setActiveController(null);
 
         // don't break Jasmine's UI.
-        $vast.Game.Canvas.setCanvasSize(0, 0);
+        $vast.Canvas.setCanvasSize(0, 0);
     });
 
     it('Defines global objects for managing various resources', function () {
-        expect($vast.Game.Images).toBeDefined();
-        expect($vast.Game.Audio).toBeDefined();
-        expect($vast.Game.Canvas).toBeDefined();
+        expect($vast.Images).toBeDefined();
+        expect($vast.Audio).toBeDefined();
+        expect($vast.Canvas).toBeDefined();
     });
 
     it('Has a Config object with default values for each item', function () {

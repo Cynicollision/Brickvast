@@ -82,15 +82,13 @@ var $vast = vastengine;
         }
     };
 
-    // TODO: can this be eliminated?
     /**
      * Initializes all game-level resources. Must be called first when setting up the game.
      */
     vastengine.Game.init = function () {
-        // TODO: someday make these $vast.Images, $vast.Audio, $vast.Canvas
-        vastengine.Game.Images = new vastengine.AssetManager(vastengine.AssetType.IMAGE);
-        vastengine.Game.Audio = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
-        vastengine.Game.Canvas = new vastengine.Canvas();
+        vastengine.Images = new vastengine.AssetManager(vastengine.AssetType.IMAGE);
+        vastengine.Audio = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
+        vastengine.Canvas = new vastengine.CanvasManager();
     };
 
     /**
@@ -129,13 +127,12 @@ var $vast = vastengine;
 
             // draw
             if (vastengine.Game.hasActiveControler()) {
-                vastengine.Game.Canvas.draw(vastengine.Game.getActiveController());
+                vastengine.Canvas.draw(vastengine.Game.getActiveController());
             }
             if (vastengine.Game.activeDialog) {
                 if (vastengine.Game.activeDialog.isVisible()) {
                     vastengine.Game.activeDialog.draw();
                 }
-
             }
 
             if (vastengine.Game.Config.debugShowFPS) {
@@ -153,7 +150,7 @@ var $vast = vastengine;
      * Draws the current FPS that the game is running at.
      */
     function drawCurrentFPS() {
-        vastengine.Game.Canvas.drawElement(function (context) {
+        vastengine.Canvas.drawElement(function (context) {
             context.save();
             context.fillStyle = "White";
             context.font = "normal 16pt Arial";
@@ -183,7 +180,6 @@ var $vast = vastengine;
         };
     }());
 
-    // TODO: test method for the following, also maybe modify to check for undefined error
     /**
      * For throwing exceptions by errors raised by vastengine itself.
      * @param {string} message Error message.

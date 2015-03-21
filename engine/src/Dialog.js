@@ -34,9 +34,9 @@ var vastengine = vastengine || {};
         // position such that the dialog box will be centered, build buttons and text.
         this.x = 0;
         this.y = 0;
-        if (vastengine.Game.Canvas) {
-            this.x = (vastengine.Game.Canvas.getCanvasWidth() / 2) - (this.width / 2);
-            this.y = (vastengine.Game.Canvas.getCanvasHeight() / 2) - (this.height / 2);
+        if (vastengine.Canvas) {
+            this.x = (vastengine.Canvas.getCanvasWidth() / 2) - (this.width / 2);
+            this.y = (vastengine.Canvas.getCanvasHeight() / 2) - (this.height / 2);
         }
     
         this.buttons = this.buildButtons(options, this.x, this.y, this.width, this.height, this.buttonHeight);
@@ -72,8 +72,8 @@ var vastengine = vastengine || {};
             var lineWidth = -1;
 
             var context;
-            if (vastengine.Game.Canvas) {
-                context = vastengine.Game.Canvas.getDrawingContext();
+            if (vastengine.Canvas) {
+                context = vastengine.Canvas.getDrawingContext();
                 if (context) {
                     context.font = font;
                 }
@@ -167,14 +167,14 @@ var vastengine = vastengine || {};
          */
         draw: function () {
             if (this.visible) {
-                var context = vastengine.Game.Canvas.getDrawingContext();
+                var context = vastengine.Canvas.getDrawingContext();
                 context.save();
                 this.scale.update();
 
                 // background shadow
                 context.fillStyle = '#000';
                 context.globalAlpha = 0.5;
-                context.fillRect(0, 0, vastengine.Game.Canvas.getCanvasWidth(), vastengine.Game.Canvas.getCanvasHeight());
+                context.fillRect(0, 0, vastengine.Canvas.getCanvasWidth(), vastengine.Canvas.getCanvasHeight());
 
                 // dialog background
                 context.globalAlpha = 1;

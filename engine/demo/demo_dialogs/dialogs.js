@@ -7,7 +7,7 @@
     var text = 'Click to be PROMPTED!!!';
 
     // set the background color
-    $vast.Game.Canvas.setBackgroundColor('#ecc');
+    $vast.Canvas.setBackgroundColor('#ecc');
 
     // set up Controller;
     var ctrl = new $vast.Controller();
@@ -18,13 +18,13 @@
                 var moreOptions = new $vast.Dialog(DIALOG_TEXT2, 800, 0, ['Red', 'Blue', 'Green'], function (choice) {
                     switch (choice) {
                         case 0:
-                            $vast.Game.Canvas.setBackgroundColor('#F00');
+                            $vast.Canvas.setBackgroundColor('#F00');
                             break;
                         case 1:
-                            $vast.Game.Canvas.setBackgroundColor('#00F');
+                            $vast.Canvas.setBackgroundColor('#00F');
                             break;
                         default:
-                            $vast.Game.Canvas.setBackgroundColor('#0F0');
+                            $vast.Canvas.setBackgroundColor('#0F0');
 
                     }
                 });
@@ -43,7 +43,7 @@
     ent.setDirection(90);
 
     ent.setDraw(function () {
-        var context = $vast.Game.Canvas.getDrawingContext();
+        var context = $vast.Canvas.getDrawingContext();
         context.font = '48px "Courier New"';
         context.fillText(text, 25, ent.y);
     });

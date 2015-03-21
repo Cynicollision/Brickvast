@@ -1,22 +1,12 @@
-﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Dialog.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\src/Canvas.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\src/Entity.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\src/Controller.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\src/Game.js" />
-// set background color and load assets
-(function () {
+﻿(function () {
 
     $vast.Game.init();
 
-    // game config settings
-    //$vast.Game.Config.canvasWidth = 640;
-    //$vast.Game.Config.canvasHeight = 512;
-
     // images
-    $vast.Game.Images.add('sun', '../images/sun.jpg');
-    $vast.Game.Images.add('stone', '../images/stone.png');
-    $vast.Game.Images.add('badguy', '../images/enemy.png');
-    $vast.Game.Images.load();
+    $vast.Images.add('sun', '../images/sun.jpg');
+    $vast.Images.add('stone', '../images/stone.png');
+    $vast.Images.add('badguy', '../images/enemy.png');
+    $vast.Images.load();
 
     // build the game
     var room1 = buildController1();
@@ -26,14 +16,14 @@
     $vast.Game.run();
 
     function setRoom(room) {
-        $vast.Game.Canvas.setBackgroundColor(room.bgcolor);
+        $vast.Canvas.setBackgroundColor(room.bgcolor);
         $vast.Game.setActiveController(room);
     }
 
     function buildController1() {
         var ent = new $vast.Entity();
         ent.setPosition(400, 100);
-        ent.setImage($vast.Game.Images.getById('sun'));
+        ent.setImage($vast.Images.getById('sun'));
         ent.setSize(64, 64);
         ent.setOnTouch(function () {
             setRoom(room2);
@@ -47,7 +37,7 @@
     function buildController2() {
         var ent = new $vast.Entity();
         ent.setPosition(100, 100);
-        ent.setImage($vast.Game.Images.getById('stone'));
+        ent.setImage($vast.Images.getById('stone'));
         ent.setSize(64, 64);
         ent.setOnTouch(function () {
             setRoom(room3);
@@ -61,7 +51,7 @@
     function buildController3() {
         var ent = new $vast.Entity();
         ent.setPosition(100, 400);
-        ent.setImage($vast.Game.Images.getById('badguy'));
+        ent.setImage($vast.Images.getById('badguy'));
         ent.setSize(64, 64);
         ent.setOnTouch(function () {
             setRoom(room1);

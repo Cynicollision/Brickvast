@@ -70,7 +70,7 @@
     <Content Include="Demo\vastgame\mazegame.html" />
     <Content Include="Demo\vastgame\mazegame.js" />
     <Content Include="spec\AssetManagerSpec.js" />
-    <Content Include="spec\CanvasSpec.js" />
+    <Content Include="spec\CanvasManagerSpec.js" />
     <Content Include="spec\Content\jasmine\jasmine.css" />
     <Content Include="spec\Content\jasmine\jasmine_favicon.png" />
     <Content Include="spec\ControllerSpec.js" />
@@ -84,7 +84,7 @@
     <Content Include="spec\Scripts\jasmine\jasmine-html.js" />
     <Content Include="spec\Scripts\jasmine\jasmine.js" />
     <Content Include="src\AssetManager.js" />
-    <Content Include="src\Canvas.js" />
+    <Content Include="src\CanvasManager.js" />
     <Content Include="src\Controller.js" />
     <Content Include="src\Dialog.js" />
     <Content Include="src\Entity.js" />

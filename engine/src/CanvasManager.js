@@ -7,7 +7,7 @@ var vastengine = vastengine || {};
      * Used specifically for manipulating directly the main game canvas, i.e. drawing on it.
      * @constructor
      */
-    vastengine.Canvas = function () {
+    vastengine.CanvasManager = function () {
         this.canvas = this.buildCanvas();
         this.backgroundScrollFactor = 1;
         this.scaleFactor = 2;
@@ -23,7 +23,7 @@ var vastengine = vastengine || {};
         };
     };
 
-    vastengine.Canvas.prototype = {
+    vastengine.CanvasManager.prototype = {
 
         /** 
          * build the HTML canvas and insert into the DOM.
@@ -175,8 +175,8 @@ var vastengine = vastengine || {};
             context.scale(this.scaleFactor, this.scaleFactor);
 
             // translate context to account for scaling if scale mode is "from center"
-            var translateX = (vastengine.Game.Canvas.getCanvasWidth() - (vastengine.Game.Canvas.getCanvasWidth() / this.scaleFactor)) / 2;
-            var translateY = (vastengine.Game.Canvas.getCanvasHeight() - (vastengine.Game.Canvas.getCanvasHeight() / this.scaleFactor)) / 2;
+            var translateX = (this.getCanvasWidth() - (this.getCanvasWidth() / this.scaleFactor)) / 2;
+            var translateY = (this.getCanvasHeight() - (this.getCanvasHeight() / this.scaleFactor)) / 2;
             if (vastengine.Game.Config.scaleFromCenter) {
                 context.translate(-translateX, -translateY);
             }

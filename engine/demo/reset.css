@@ -1,4 +1,4 @@
-﻿html, body, canavs {
+﻿html, body, canvas {
     margin:0;
     padding:0;
     border:0;
@@ -8,6 +8,7 @@
     background:transparent;
     transform: translate3d(0,0,0);
     -webkit-transform: translate3d(0,0,0);  
+    overflow: hidden;
 }
 
 .canvasStyle {
