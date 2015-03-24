@@ -19,7 +19,7 @@
     $vast.Images.load();
 
     // one way to set a horizontal resolution...
-    // TODO: better way to set resolution like this based on a target width/height
+    // TODO: better way to set resolution like this based on a target width/height (target size and then horizontally or vertically oriented)
     var resX = (1 / (512 / $vast.Canvas.getCanvasWidth()));
     $vast.Canvas.setScale(resX);
 
@@ -58,9 +58,11 @@
     function buildPlayerEntity() {
         var player = new $vast.Entity(null, 'player');
         player.setSize(TILE_SIZE, TILE_SIZE);
-        player.setImage($vast.Images.getById('sun'));
         player.setPosition(64, 64);
         player.depth = -100; // make sure player stays on top
+
+        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('sun'), 64, 64);
+        player.setSprite(sprite);
 
         // define a step function
         player.setStep(function () {
@@ -86,7 +88,8 @@
     // builds and returns an enemy
     function buildEnemyEntity() {
         var enemy = new $vast.Entity(null, 'enemy');
-        enemy.setImage($vast.Images.getById('badguy'));
+        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('badguy'));
+        enemy.setSprite(sprite);
         enemy.setPosition(384, 256);
         enemy.setSize(TILE_SIZE, TILE_SIZE);
         enemy.setSpeed(10);
@@ -128,13 +131,16 @@
             for (var j = 0; j < row.length; j++) {
                 if (row.charAt(j) === '#') {
                     var wall = new $vast.Entity('wall', 0);
-                    wall.setImage($vast.Images.getById('stone'));
+                    var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('stone'));
+                    wall.setSprite(sprite);
                     wall.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     wall.setSize(TILE_SIZE, TILE_SIZE);
                     ctrl.addEntity(wall);
                 } else if (row.charAt(j) === 'F') {
                     goal = new $vast.Entity(null, 'goal');
-                    goal.setImage($vast.Images.getById('flag'));
+
+                    var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('flag'));
+                    goal.setSprite(sprite);
                     goal.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     ctrl.addEntity(goal);
                 }
