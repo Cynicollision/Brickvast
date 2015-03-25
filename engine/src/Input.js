@@ -54,7 +54,7 @@ var vastengine = vastengine || {};
         var clickX = (actualX / scale);
         var clickY = (actualY / scale);
 
-        if (vastengine.Game.Config.scaleFromCenter) {
+        if (vastengine.Config.getProperty('scale_center')) {
             clickX += translateX;
             clickY += translateY;
         }

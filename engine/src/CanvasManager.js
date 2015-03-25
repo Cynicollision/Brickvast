@@ -33,8 +33,17 @@ var vastengine = vastengine || {};
             var canvas = document.createElement('canvas');
             canvas.id = 'vastCanvas';
             canvas.className = 'canvasStlye';
-            canvas.width = vastengine.Game.Config.canvasWidth;
-            canvas.height = vastengine.Game.Config.canvasHeight;
+
+            // TODO: move to Config, add default width/height
+            var fullscreen = true;
+
+            if (fullscreen) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            } else {
+                canvas.width = 640;
+                canvas.height = 480;
+            }
 
             document.body.appendChild(canvas);
             return canvas;
@@ -177,7 +186,7 @@ var vastengine = vastengine || {};
             // translate context to account for scaling if scale mode is "from center"
             var translateX = (this.getCanvasWidth() - (this.getCanvasWidth() / this.scaleFactor)) / 2;
             var translateY = (this.getCanvasHeight() - (this.getCanvasHeight() / this.scaleFactor)) / 2;
-            if (vastengine.Game.Config.scaleFromCenter) {
+            if (vastengine.Config.getProperty('scale_center')) {
                 context.translate(-translateX, -translateY);
             }
 

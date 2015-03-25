@@ -85,6 +85,7 @@
     <Content Include="spec\Scripts\jasmine\jasmine.js" />
     <Content Include="src\AssetManager.js" />
     <Content Include="src\CanvasManager.js" />
+    <Content Include="src\Config.js" />
     <Content Include="src\Controller.js" />
     <Content Include="src\Debug.js" />
     <Content Include="src\Dialog.js" />

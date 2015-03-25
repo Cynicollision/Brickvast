@@ -1,13 +1,27 @@
 ﻿var vastengine = vastengine || {};
 
-vastengine.Debug = function () {
-    this.showFPS = false;
+vastengine.Debug = (function () {
+    var _properties = {
+        'show_fps': false
+    };
+
+    this.setProperty = function (name, value) {
+        if (_properties[name] !== undefined) {
+            _properties[name] = value;
+        } else {
+            vastengine.Game.setError('Unknown property: ' + name);
+        }
+    };
+
+    this.getProperty = function (name) {
+        return _properties[name];
+    };
 
     /**
      * Draws any debug-related elements on the canvas.
      */
     this.draw = function () {
-        if (this.showFPS) {
+        if (_properties) {
             vastengine.Canvas.drawElement(function (context) {
                 context.fillStyle = "White";
                 context.font = "normal 16pt Arial";
@@ -42,4 +56,4 @@ vastengine.Debug = function () {
     }());
 
     return this;
-}();
+})();

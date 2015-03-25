@@ -16,18 +16,9 @@ vastengine.GameState = {
  * Manages game-level components such as the currently running Controller object, routing input, and accessing assets through AssetManager instances.
  * @constructor
  */
-vastengine.Game = function () {
-    // TODO: move to own class.
-    this.Config = {
-        gameSpeed: 60,
-        canvasWidth: window.innerWidth,
-        canvasHeight: window.innerHeight,
-        scaleFromCenter: false
-    };
-
-    var activeController = null;
-    var activeDialog = null;
-    var state = vastengine.GameState.STOPPED;
+vastengine.Game = (function () {
+    // default state is stopped. run() must be called to start the game.
+    var activeController, state = vastengine.GameState.STOPPED;
 
     /**
      * Sets the game state, used to pause and resume the game loop.
@@ -52,23 +43,6 @@ vastengine.Game = function () {
         return activeController;
     };
 
-    
-    /**
-     * Pauses the game loop to launch the given Dialog object.
-     * @param {Dialog} Dialog object to show.
-     */
-    // TODO: Dialog needs to be entirely external from the core engine.
-    this.setDialog = function (dialog) {
-        if (dialog) {
-            activeDialog = dialog;
-            activeDialog.setVisible(true);
-            this.setState(vastengine.GameState.STOPPED);
-        } else {
-            this.setState(vastengine.GameState.RUNNING);
-            this.activeDialog.setVisible(false);
-            this.activeDialog = null;
-        }
-    };
 
     /**
      * Initializes all game-level resources. Must be called first when setting up the game.
@@ -84,25 +58,25 @@ vastengine.Game = function () {
      * The main game loop. Keeps the game running at a fixed FPS.
      */
     this.run = function () {
-        var fpsActual = 0;
-        var stepSize = 1 / vastengine.Game.Config.gameSpeed;
-        var offset = 0;
-        var previous = getTimestamp();
+        var stepSize, previous, state, now, offset = 0;
+        stepSize = 1 / vastengine.Config.getProperty('game_speed');
         state = vastengine.GameState.RUNNING;
+        now = (function () {
+            return function () {
+                if (window.performance && window.performance.now) {
+                    return window.performance.now();
+                } else {
+                    return (new Date()).getTime();
+                }
+            };
+        })();
 
-        function getTimestamp() {
-            if (window.performance && window.performance.now) {
-                return window.performance.now();
-            } else {
-                return (new Date()).getTime();
-            }
-        }
+        previous = now();
 
         function stepAndDraw() {
-            var current = getTimestamp();
+            var current = now();
             offset += (Math.min(1, (current - previous) / 1000));
 
-            // perform all step operations
             while (offset > stepSize) {
                 if (state === vastengine.GameState.RUNNING) {
                     if (activeController) {
@@ -113,15 +87,8 @@ vastengine.Game = function () {
                 offset -= stepSize;
             }
 
-            // draw components
             if (activeController) {
                 vastengine.Canvas.drawController(activeController);
-            }
-
-            if (activeDialog) {
-                if (activeDialog.isVisible()) {
-                    activeDialog.draw();
-                }
             }
 
             if (vastengine.Debug) {
@@ -153,4 +120,4 @@ vastengine.Game = function () {
     };
 
     return this;
-}();
+})();

@@ -1,15 +1,14 @@
-﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Dialog.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\src/Canvas.js" />
+﻿/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/CanvasManager.js" />
+
 // set background color and load assets
 (function () {
     // used for grid movement
     var TILE_SIZE = 64;
 
     // game config settings
-    $vast.Debug.showFPS = true;
-
-    $vast.Game.Config.fps = 60;
-    $vast.Game.Config.scaleFromCenter = true;
+    
+    $vast.Config.setProperty('scale_center', true);
+    $vast.Debug.setProperty('show_fps', true);
     $vast.Game.init();
 
     // images
@@ -43,8 +42,8 @@
         ctrl.setOnTouch(gameClick);
         ctrl.setPostStep(function () {
             // adjust the view's coordinates to follow the player Entity
-            var x = (mainPlayer.getX() + (mainPlayer.width / 2)) - ($vast.Game.Config.canvasWidth / 2);
-            var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - ($vast.Game.Config.canvasHeight / 2);
+            var x = (mainPlayer.getX() + (mainPlayer.width / 2)) - ($vast.Canvas.getCanvasWidth() / 2);
+            var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - ($vast.Canvas.getCanvasHeight() / 2);
             ctrl.setViewPosition(x, y);
         });
 
