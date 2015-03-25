@@ -2,10 +2,12 @@
     $vast.Game.init();
     $vast.Canvas.setBackgroundColor('#5B9');
 
+    $vast.Debug.showFPS = true;
+
     $vast.Images.add('sheet0', '../images/walk.png');
     $vast.Images.load();
 
-    // build an 4-frame animated 64x64 sprite.
+    // build a 4-frame animated 64x64 sprite.
     var srcImage = $vast.Images.getById('sheet0');
     var sprite0 = $vast.Sprite.buildFromImage(srcImage, 64, 64, 0, 3);
 

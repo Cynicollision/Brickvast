@@ -6,6 +6,8 @@
     var TILE_SIZE = 64;
 
     // game config settings
+    $vast.Debug.showFPS = true;
+
     $vast.Game.Config.fps = 60;
     $vast.Game.Config.scaleFromCenter = true;
     $vast.Game.init();

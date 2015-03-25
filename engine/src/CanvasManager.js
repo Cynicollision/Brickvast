@@ -167,7 +167,7 @@ var vastengine = vastengine || {};
          * Clears the game canvas and draws the given Controller object. Draws the given controller's managed entities relative to its view.
          * @param {Controller} controller Controller object to draw.
          */
-        draw: function (controller) {
+        drawController: function (controller) {
             // clear and save the drawing context, then scale.
             var context = this.getDrawingContext();
             context.clearRect(0, 0, this.canvas.width, this.canvas.height);
