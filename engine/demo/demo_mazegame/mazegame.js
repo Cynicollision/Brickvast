@@ -1,15 +1,16 @@
 ﻿/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/CanvasManager.js" />
+/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/Config.js" />
+/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/Debug.js" />
 
 // set background color and load assets
 (function () {
     // used for grid movement
     var TILE_SIZE = 64;
 
-    // game config settings
-    
-    $vast.Config.setProperty('scale_center', true);
-    $vast.Debug.setProperty('show_fps', true);
-    $vast.Game.init();
+    // game config/debug settings
+    $vast.Config.scaleCenter = true;
+    $vast.Config.fullScreen = true;
+    $vast.Debug.showFPS = true;
 
     // images
     $vast.Canvas.setBackgroundImage('../images/bg.png', true);
@@ -21,8 +22,8 @@
 
     // one way to set a horizontal resolution...
     // TODO: better way to set resolution like this based on a target width/height (target size and then horizontally or vertically oriented)
-    var resX = (1 / (512 / $vast.Canvas.getCanvasWidth()));
-    $vast.Canvas.setScale(resX);
+    var resX = (1 / (512 / window.innerWidth ));
+    vastengine.Config.scale = resX;
 
     // cool background scolling effect
     $vast.Canvas.setScrollFactor(0.6);
@@ -188,13 +189,8 @@
     // determine if the player ran into the enemy
     function checkForDead() {
         if (mainPlayer.checkCollision(badguy)) {
-            var text = 'Dead!';
-            var w = $vast.Canvas.getCanvasWidth() / 2;
-
-            $vast.Game.setDialog(new $vast.Dialog(text, w, -1, ['Start over'], function () {
-                mainPlayer.setPosition(64, 64);
-                mainPlayer.setSpeed(0);
-            }));
+            mainPlayer.setPosition(64, 64);
+            mainPlayer.setSpeed(0);
         }
     }
 

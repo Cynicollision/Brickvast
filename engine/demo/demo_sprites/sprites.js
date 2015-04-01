@@ -1,8 +1,7 @@
 ﻿(function () {
-    $vast.Game.init();
-    $vast.Canvas.setBackgroundColor('#5B9');
-
     $vast.Debug.showFPS = true;
+
+    $vast.Canvas.setBackgroundColor('rgb(33,66,99)');
 
     $vast.Images.add('sheet0', '../images/walk.png');
     $vast.Images.load();

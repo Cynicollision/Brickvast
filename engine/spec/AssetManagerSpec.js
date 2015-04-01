@@ -1,7 +1,4 @@
-﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/AssetManager.js" />
-//************************************************************************************//
-// Test suite for AssetManager class
-//************************************************************************************//
+﻿/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/AssetManager.js" />
 describe('AssetManager', function () {
     var imageManager;
     var audioManager;
@@ -12,6 +9,10 @@ describe('AssetManager', function () {
 
         audioManager = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
         audioManager.add('testSound1', 'fake/sound.mp3');
+    });
+
+    it('Defines vastengine.AssetType', function () {
+    	expect(vastengine.AssetType).toBeDefined();
     });
 
     it('Throws an error if instantiated with an invalid AssetType.', function () {
@@ -37,7 +38,7 @@ describe('AssetManager', function () {
 
     it('Throws an error if retrieving by asset ID fails.', function () {
         var getImage = function () {
-            imageManager.getById('tstImage1');
+            imageManager.getById('idontknow');
         };
 
         expect(getImage).toThrow();

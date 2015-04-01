@@ -1,12 +1,6 @@
-﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Game.js" />
-
-//************************************************************************************//
-// Test suite for Game class
-//************************************************************************************//
-describe('Game', function () {
+﻿describe('Game', function () {
     beforeEach(function () {
-        // reset the active controller and call init().
-        vastengine.Game.init();
+        // reset the active controller.
         vastengine.Game.setActiveController(new vastengine.Controller());
     });
 
@@ -15,13 +9,14 @@ describe('Game', function () {
         vastengine.Game.setActiveController(null);
 
         // don't break Jasmine's UI.
-        vastengine.Canvas.setCanvasSize(0, 0);
+        vastengine.Canvas.setSize(0, 0);
     });
 
-    it('Defines global objects for managing various resources', function () {
+    it('Defines vastengine.GameState enumeration, and Canvas, Images, and Audio modules', function () {
+        expect(vastengine.GameState).toBeDefined();
+        expect(vastengine.Canvas).toBeDefined();
         expect(vastengine.Images).toBeDefined();
         expect(vastengine.Audio).toBeDefined();
-        expect(vastengine.Canvas).toBeDefined();
     });
 
     it('Determines if an active Controller has been assigned', function () {

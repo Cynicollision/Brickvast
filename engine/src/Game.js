@@ -17,107 +17,102 @@ vastengine.GameState = {
  * @constructor
  */
 vastengine.Game = (function () {
+    // initialize Canvas, Images, and Audio
+    vastengine.Canvas.buildCanvas();
+    vastengine.Images = new vastengine.AssetManager(vastengine.AssetType.IMAGE);
+    vastengine.Audio = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
+
     // default state is stopped. run() must be called to start the game.
     var activeController, state = vastengine.GameState.STOPPED;
 
-    /**
-     * Sets the game state, used to pause and resume the game loop.
-     * @param {GameState} state.
-     */
-    this.setState = function (state) {
-        state = state;
-    };
+    return {
+        /**
+         * Sets the game state, used to pause and resume the game loop.
+         * @param {GameState} state.
+         */
+        setState: function (state) {
+            state = state;
+        },
 
-    /** 
-     * Sets the running Controller to the given Controller object.
-     * @param {Controller} controller.
-     */
-    this.setActiveController = function (newActiveController) {
-        activeController = newActiveController;
-    };
+        /** 
+         * Sets the running Controller to the given Controller object.
+         * @param {Controller} controller.
+         */
+        setActiveController: function (newActiveController) {
+            activeController = newActiveController;
+        },
 
-    /** 
-     * Returns the running Controller
-     */
-    this.getActiveController = function () {
-        return activeController;
-    };
+        /** 
+         * Returns the running Controller
+         */
+        getActiveController: function () {
+            return activeController;
+        },
 
-
-    /**
-     * Initializes all game-level resources. Must be called first when setting up the game.
-     */
-    // TODO: eliminate this, rename Canvas back, can be declared as static classes in their own files.
-    this.init = function () {
-        vastengine.Images = new vastengine.AssetManager(vastengine.AssetType.IMAGE);
-        vastengine.Audio = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
-        vastengine.Canvas = new vastengine.CanvasManager();
-    };
-
-    /**
-     * The main game loop. Keeps the game running at a fixed FPS.
-     */
-    this.run = function () {
-        var stepSize, previous, state, now, offset = 0;
-        stepSize = 1 / vastengine.Config.getProperty('game_speed');
-        state = vastengine.GameState.RUNNING;
-        now = (function () {
-            return function () {
-                if (window.performance && window.performance.now) {
-                    return window.performance.now();
-                } else {
-                    return (new Date()).getTime();
-                }
-            };
-        })();
-
-        previous = now();
-
-        function stepAndDraw() {
-            var current = now();
-            offset += (Math.min(1, (current - previous) / 1000));
-
-            while (offset > stepSize) {
-                if (state === vastengine.GameState.RUNNING) {
-                    if (activeController) {
-                        activeController.step(stepSize);
+        /**
+         * The main game loop. Keeps the game running at a fixed FPS.
+         */
+        run: function () {
+            var stepSize, previous, state, now, offset = 0;
+            stepSize = 1 / vastengine.Config.gameSpeed;
+            state = vastengine.GameState.RUNNING;
+            now = (function () {
+                return function () {
+                    if (window.performance && window.performance.now) {
+                        return window.performance.now();
+                    } else {
+                        return (new Date()).getTime();
                     }
+                };
+            })();
+
+            previous = now();
+
+            function stepAndDraw() {
+                var current = now();
+                offset += (Math.min(1, (current - previous) / 1000));
+
+                while (offset > stepSize) {
+                    if (state === vastengine.GameState.RUNNING) {
+                        if (activeController) {
+                            activeController.step(stepSize);
+                        }
+                    }
+
+                    offset -= stepSize;
                 }
 
-                offset -= stepSize;
+                if (activeController) {
+                    vastengine.Canvas.drawController(activeController);
+                }
+
+                if (vastengine.Debug) {
+                    vastengine.Debug.draw();
+                }
+
+                previous = current;
+                requestAnimationFrame(stepAndDraw);
             }
 
-            if (activeController) {
-                vastengine.Canvas.drawController(activeController);
-            }
-
-            if (vastengine.Debug) {
-                vastengine.Debug.draw();
-            }
-
-            previous = current;
+            vastengine.Canvas.updateCanvasSize();
             requestAnimationFrame(stepAndDraw);
-        }
+        },
 
-        requestAnimationFrame(stepAndDraw);
+        /**
+         * For throwing exceptions by errors raised by vastengine itself.
+         * @param {string} message Error message.
+         * @param {string} (optional) e Inner exception.
+         */
+        setError: function (message, e) {
+            var error = "vastengine error: ";
+            if (message) {
+                error += message;
+            }
+            if (e) {
+                error += '\n\n' + e;
+            }
+
+            throw error;
+        }
     };
-
-    /**
-     * For throwing exceptions by errors raised by vastengine itself.
-     * @param {string} message Error message.
-     * @param {string} (optional) e Inner exception.
-     */
-    this.setError = function (message, e) {
-        var error = "vastengine error: ";
-        if (message) {
-            error += message;
-        }
-        if (e) {
-            error += '\n\n' + e;
-        }
-
-        throw error;
-    };
-
-    return this;
 })();

@@ -70,11 +70,10 @@
     <Content Include="Demo\vastgame\mazegame.html" />
     <Content Include="Demo\vastgame\mazegame.js" />
     <Content Include="spec\AssetManagerSpec.js" />
-    <Content Include="spec\CanvasManagerSpec.js" />
+    <Content Include="spec\CanvasSpec.js" />
     <Content Include="spec\Content\jasmine\jasmine.css" />
     <Content Include="spec\Content\jasmine\jasmine_favicon.png" />
     <Content Include="spec\ControllerSpec.js" />
-    <Content Include="spec\DialogSpec.js" />
     <Content Include="spec\EntitySpec.js" />
     <Content Include="spec\GameSpec.js" />
     <Content Include="spec\InputSpec.js" />
@@ -84,7 +83,7 @@
     <Content Include="spec\Scripts\jasmine\jasmine-html.js" />
     <Content Include="spec\Scripts\jasmine\jasmine.js" />
     <Content Include="src\AssetManager.js" />
-    <Content Include="src\CanvasManager.js" />
+    <Content Include="src\Canvas.js" />
     <Content Include="src\Config.js" />
     <Content Include="src\Controller.js" />
     <Content Include="src\Debug.js" />
@@ -116,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="spec\Controllers\JasmineController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

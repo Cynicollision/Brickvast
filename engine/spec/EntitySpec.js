@@ -1,9 +1,4 @@
-﻿/// <reference path="../src/Entity.js" />
-
-//************************************************************************************//
-// Test suite for Entity class
-//************************************************************************************//
-describe('Entity', function () {
+﻿describe('Entity', function () {
     var testEntity;
 
     beforeEach(function () {

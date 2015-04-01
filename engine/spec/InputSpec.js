@@ -1,15 +1,6 @@
-﻿/// <reference path="C:\Users\Sean\workspace\vastengine\src/Game.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\src/Input.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\src/Controller.js" />
-/**
- * Test suite for the Input class.
- */
-describe('Input', function () {
-    var eventX = 25;
-    var eventY = 50;
+﻿describe('Input', function () {
+    var eventX = 25, eventY = 50, testController, mockEvent;
 
-    var testController;
-    var mockEvent;
     beforeEach(function () {
         testController = new vastengine.Controller();
         mockEvent = { pageX: eventX, pageY: eventY };
@@ -17,7 +8,6 @@ describe('Input', function () {
         spyOn(testController, 'onTouch');
         spyOn(testController, 'onTouchEnd');
 
-        vastengine.Game.init();
         vastengine.Game.setActiveController(testController);
     });
 
@@ -36,7 +26,7 @@ describe('Input', function () {
     });
 
     it('Correctly un-scales the clicked coordinates when scale mode is the default.', function () {
-        vastengine.Config.setProperty('scale_center', false);
+        vastengine.Config.scaleCenter = false;
 
         // simulate scaled touch coordinates.
         var scale = vastengine.Canvas.getScale();
@@ -50,7 +40,7 @@ describe('Input', function () {
     });
 
     it('Correctly un-scales the clicked coordinates when scale mode is "from center".', function () {
-        vastengine.Config.setProperty('scale_center', true);
+        vastengine.Config.scaleCenter = true;
 
         // simulate scaled and translated touch coordinates.
         var scale = vastengine.Canvas.getScale();
