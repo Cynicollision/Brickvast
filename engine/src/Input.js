@@ -66,7 +66,7 @@ vastengine.Input = (function () {
                 }
             }
 
-            if (vastengine.Game.state === vastengine.GameState.RUNNING) {
+            if (vastengine.Game.getState() === vastengine.GameState.RUNNING) {
                 // call onTouch for each of the active Controller's Entity collection.
                 var entities = ctrl.getEntities();
                 for (var i = 0; i < entities.length; i++) {

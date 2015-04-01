@@ -34,6 +34,10 @@ vastengine.Game = (function () {
             state = newState;
         },
 
+        getState: function () {
+            return state;
+        },
+
         /** 
          * Sets the running Controller to the given Controller object.
          * @param {Controller} controller.
@@ -53,7 +57,7 @@ vastengine.Game = (function () {
          * The main game loop. Keeps the game running at a fixed FPS.
          */
         run: function () {
-            var stepSize, previous, state, now, offset = 0;
+            var stepSize, previous, now, offset = 0;
             stepSize = 1 / vastengine.Config.gameSpeed;
             state = vastengine.GameState.RUNNING;
             now = (function () {

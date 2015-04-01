@@ -1,7 +1,6 @@
-﻿(function () {
-
-    $vast.Game.init();
-
+﻿/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/Entity.js" />
+/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/Sprite.js" />
+(function () {
     // images
     $vast.Images.add('sun', '../images/sun.jpg');
     $vast.Images.add('stone', '../images/stone.png');
@@ -23,11 +22,14 @@
     function buildController1() {
         var ent = new $vast.Entity();
         ent.setPosition(400, 100);
-        ent.setImage($vast.Images.getById('sun'));
-        ent.setSize(64, 64);
+        ent.setSize(64, 64); // TODO: set size from image somehow?
         ent.setOnTouch(function () {
             setRoom(room2);
         });
+
+        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('sun'), 64, 64);
+        ent.setSprite(sprite);
+
         var ctrl = new $vast.Controller();
         ctrl.addEntity(ent);
         ctrl.bgcolor = '#00B';
@@ -37,11 +39,14 @@
     function buildController2() {
         var ent = new $vast.Entity();
         ent.setPosition(100, 100);
-        ent.setImage($vast.Images.getById('stone'));
         ent.setSize(64, 64);
         ent.setOnTouch(function () {
             setRoom(room3);
         });
+
+        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('stone'), 64, 64);
+        ent.setSprite(sprite);
+
         var ctrl = new $vast.Controller();
         ctrl.addEntity(ent);
         ctrl.bgcolor = '#B00';
@@ -51,11 +56,14 @@
     function buildController3() {
         var ent = new $vast.Entity();
         ent.setPosition(100, 400);
-        ent.setImage($vast.Images.getById('badguy'));
         ent.setSize(64, 64);
         ent.setOnTouch(function () {
             setRoom(room1);
         });
+
+        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('badguy'), 64, 64);
+        ent.setSprite(sprite);
+
         var ctrl = new $vast.Controller();
         ctrl.addEntity(ent);
         ctrl.bgcolor = '#0B0';
