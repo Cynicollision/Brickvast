@@ -1,7 +1,15 @@
 ﻿/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/Canvas.js" />
 describe('CanvasManager', function () {
-    var canvasName = 'vastCanvas';
-    var canvasElement = document.getElementById(canvasName);
+    var canvasElement;
+
+    beforeEach(function () {
+        canvasElement = document.getElementById('vastCanvas');
+    });
+
+    afterEach(function () {
+        // reset back to zero to not screw up jasimine's UI
+        vastengine.Canvas.setSize(0, 0);
+    });
 
     it('Builds the canvas element on the webpage', function () {
         expect(canvasElement).toBeDefined();
@@ -32,8 +40,5 @@ describe('CanvasManager', function () {
 
         expect(vastengine.Canvas.getCanvasWidth()).toEqual(500);
         expect(vastengine.Canvas.getCanvasHeight()).toEqual(300);
-
-        // reset back to zero to not screw up jasimine's UI
-        vastengine.Canvas.setSize(0, 0);
     });
 });

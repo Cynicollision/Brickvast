@@ -67,10 +67,9 @@
     <Content Include="Demo\reset.css" />
     <Content Include="Demo\sounds\LOZ_Get_Rupee.wav" />
     <Content Include="Demo\vastengine.js" />
-    <Content Include="Demo\vastgame\mazegame.html" />
-    <Content Include="Demo\vastgame\mazegame.js" />
     <Content Include="spec\AssetManagerSpec.js" />
     <Content Include="spec\CanvasSpec.js" />
+    <Content Include="spec\ConfigSpec.js" />
     <Content Include="spec\Content\jasmine\jasmine.css" />
     <Content Include="spec\Content\jasmine\jasmine_favicon.png" />
     <Content Include="spec\ControllerSpec.js" />

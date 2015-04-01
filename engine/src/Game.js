@@ -30,8 +30,8 @@ vastengine.Game = (function () {
          * Sets the game state, used to pause and resume the game loop.
          * @param {GameState} state.
          */
-        setState: function (state) {
-            state = state;
+        setState: function (newState) {
+            state = newState;
         },
 
         /** 

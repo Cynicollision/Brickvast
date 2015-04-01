@@ -1,4 +1,8 @@
 ﻿(function () {
+    $vast.Config.canvasWidth = 300;
+    $vast.Config.canvasHeight = 300;
+    //$vast.Config.fullScreen = true;
+    //$vast.Config.scale = 2;
     $vast.Debug.showFPS = true;
 
     $vast.Canvas.setBackgroundColor('rgb(33,66,99)');

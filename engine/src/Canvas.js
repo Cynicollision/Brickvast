@@ -10,7 +10,7 @@ var vastengine = vastengine || {};
  */
  vastengine.Canvas = (function () {
      var canvas, context, backgroundScrollFactor = 1, scaleFactor = 1,
-         canvasId = 'vastCanvas', className = 'canvasStyle', defaultWidth = 640, defaultHeight = 480;
+         canvasId = 'vastCanvas', className = 'canvasStyle';
 
      return {
          /** 
@@ -37,7 +37,6 @@ var vastengine = vastengine || {};
 
          /**
           * Updates the size of the canvas according to whether the game is fullscreen or not.
-          * TODO: need another way to set a fixed w,h other than defaultWidth,defaultHeight (Config.canvasWidth?)
           */
          updateCanvasSize: function () {
              scaleFactor = vastengine.Config.scale;
@@ -45,8 +44,8 @@ var vastengine = vastengine || {};
                  canvas.width = window.innerWidth;
                  canvas.height = window.innerHeight;
              } else {
-                 canvas.width = defaultWidth;
-                 canvas.height = defaultHeight;
+                 canvas.width = vastengine.Config.canvasWidth * vastengine.Config.scale;
+                 canvas.height = vastengine.Config.canvasHeight * vastengine.Config.scale;
              }
          },
 

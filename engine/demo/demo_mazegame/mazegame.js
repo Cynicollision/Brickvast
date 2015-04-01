@@ -22,6 +22,7 @@
 
     // one way to set a horizontal resolution...
     // TODO: better way to set resolution like this based on a target width/height (target size and then horizontally or vertically oriented)
+    // just need better way to set scale in general
     var resX = (1 / (512 / window.innerWidth ));
     vastengine.Config.scale = resX;
 

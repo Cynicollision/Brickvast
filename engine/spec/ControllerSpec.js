@@ -1,9 +1,4 @@
-﻿/// <reference path="../..//Controller.js" />
-/// <reference path="C:\Users\Sean\workspace\Brickvast\src/Entity.js" />
-//************************************************************************************//
-// Test suite for Controller class
-//************************************************************************************//
-describe('Controller', function () {
+﻿describe('Controller', function () {
     var testController;
 
     beforeEach(function () {
