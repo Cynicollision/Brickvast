@@ -1,5 +1,4 @@
-﻿
-var vastengine = vastengine || {};
+﻿/// <reference path="namespace.js" />
 
 /**
  * Enumeration of asset types.

@@ -1,8 +1,4 @@
-﻿/// <reference path="Game.js" />
-/// <reference path="Canvas.js" />
-/// <reference path="Config.js" />
-
-var vastengine = vastengine || {};
+﻿/// <reference path="namespace.js" />
 
 /**
  * Used specifically for manipulating directly the main game canvas, i.e. drawing on it.
@@ -13,13 +9,16 @@ var vastengine = vastengine || {};
          canvasId = 'vastCanvas', className = 'canvasStyle';
 
      return {
+         visible: true,
+
          /** 
-          * build the HTML canvas and insert into the DOM.
+          * Build the HTML canvas and insert into the DOM.
           */
          buildCanvas: function () {
              canvas = document.createElement('canvas');
              canvas.id = canvasId;
              canvas.className = className;
+             this.setVisible(false);
 
              // "wire up" mouse events to be handled by Input class.
              canvas.onmousedown = function (e) {
@@ -33,6 +32,15 @@ var vastengine = vastengine || {};
              context = canvas.getContext('2d');
              document.body.appendChild(canvas);
              this.updateCanvasSize();
+         },
+
+         /**
+          * Set whether the canvas element is visible or not (Game will still run).
+          * @param {bool} Whether to display the canvas element.
+          */
+         setVisible: function (isVisible) {
+             this.visible = isVisible;
+             canvas.style.display = isVisible ? 'block' : 'none';
          },
 
          /**
@@ -201,4 +209,4 @@ var vastengine = vastengine || {};
              context.restore();
          }
     };
-})();
+ }());

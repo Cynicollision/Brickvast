@@ -1,7 +1,4 @@
-﻿/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/CanvasManager.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/Config.js" />
-/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/Debug.js" />
-
+﻿
 // set background color and load assets
 (function () {
     // used for grid movement
@@ -10,7 +7,8 @@
     // game config/debug settings
     $vast.Config.scaleCenter = true;
     $vast.Config.fullScreen = true;
-    $vast.Debug.showFPS = true;
+
+    $vast.Debug.showDebug = true;
 
     // images
     $vast.Canvas.setBackgroundImage('../images/bg.png', true);
@@ -44,16 +42,23 @@
         ctrl.setOnTouch(gameClick);
         ctrl.setPostStep(function () {
             // adjust the view's coordinates to follow the player Entity
-            var x = (mainPlayer.getX() + (mainPlayer.width / 2)) - ($vast.Canvas.getCanvasWidth() / 2);
-            var y = (mainPlayer.getY() + (mainPlayer.height / 2)) - ($vast.Canvas.getCanvasHeight() / 2);
+            var x = (mainPlayer.x + (mainPlayer.width / 2)) - ($vast.Canvas.getCanvasWidth() / 2);
+            var y = (mainPlayer.y + (mainPlayer.height / 2)) - ($vast.Canvas.getCanvasHeight() / 2);
             ctrl.setViewPosition(x, y);
+
+            // trick to avoid "jumping" effect on load if you call Canvas.setVisible(false) right after Game.run(), then this.
+            // (when view is drawn at (0, 0) briefly before "snapping" to desired position)
+            if (!$vast.Canvas.visible) {
+                $vast.Canvas.setVisible(true);
+            }
         });
 
         buildWallMap(ctrl);
         $vast.Game.setActiveController(ctrl);
 
-        // run the game
+        // run the game, hide the Canvas until we're ready
         $vast.Game.run();
+        $vast.Canvas.setVisible(false);
     }
 
 
@@ -69,11 +74,11 @@
 
         // define a step function
         player.setStep(function () {
-            var x = Math.floor(mainPlayer.getX());
-            var y = Math.floor(mainPlayer.getY());
-            if ((x % TILE_SIZE < 5) && (y % TILE_SIZE < 5) && (mainPlayer.getSpeed() > 0)) {
+            var x = Math.floor(mainPlayer.x);
+            var y = Math.floor(mainPlayer.y);
+            if ((x % TILE_SIZE < 5) && (y % TILE_SIZE < 5) && (mainPlayer.speed > 0)) {
                 // "snap" to the grid
-                mainPlayer.setSpeed(0);
+                mainPlayer.speed = 0;
                 mainPlayer.setPosition(TILE_SIZE * Math.floor(x / TILE_SIZE), TILE_SIZE * Math.floor(y / TILE_SIZE));
 
                 // see if we made it to the goal
@@ -95,17 +100,17 @@
         enemy.setSprite(sprite);
         enemy.setPosition(384, 256);
         enemy.setSize(TILE_SIZE, TILE_SIZE);
-        enemy.setSpeed(10);
-        enemy.setDirection(0); // right
+        enemy.speed = 10;
+        enemy.direction = 0; // right
         enemy.setStep(function () {
             // "bounce" left and right
-            var toMyLeft = ctrl.getEntitiesAtPosition(enemy.getX() - 2, enemy.getY() + 2, 'wall');
-            var toMyRight = ctrl.getEntitiesAtPosition(enemy.getX() + enemy.width + 2, enemy.getY() + 2, 'wall');
+            var toMyLeft = ctrl.getEntitiesAtPosition(enemy.x - 2, enemy.y + 2, 'wall');
+            var toMyRight = ctrl.getEntitiesAtPosition(enemy.x + enemy.width + 2, enemy.y + 2, 'wall');
 
-            if (enemy.getDirection() === 180 && toMyLeft.length > 0) {
-                enemy.setDirection(0);
-            } else if (enemy.getDirection() === 0 && toMyRight.length > 0) {
-                enemy.setDirection(180);
+            if (enemy.direction === 180 && toMyLeft.length > 0) {
+                enemy.direction = 0;
+            } else if (enemy.direction === 0 && toMyRight.length > 0) {
+                enemy.direction = 180;
             }
         });
         return enemy;
@@ -124,7 +129,6 @@
             7: '# ###### ####  #',
             8: '#           #  #',
             9: '################'
-
         }
 
         var rowCount = 10;
@@ -153,7 +157,7 @@
 
     // called when the user clicks on the screen
     function gameClick(x, y) {
-        if (mainPlayer.getSpeed() === 0) {
+        if (mainPlayer.speed === 0) {
             var speed = 50;
             var clickedTileX = Math.floor(x / TILE_SIZE);
             var clickedTileY = Math.floor(y / TILE_SIZE);
@@ -165,22 +169,22 @@
                 if (clickedTileX === playerTileX) {
                     if (clickedTileY === playerTileY + 1) {
                         // move down
-                        mainPlayer.setSpeed(speed);
-                        mainPlayer.setDirection(90);
+                        mainPlayer.speed = speed;
+                        mainPlayer.direction = 90;
                     } else if (clickedTileY === playerTileY - 1) {
                         // move up
-                        mainPlayer.setSpeed(speed);
-                        mainPlayer.setDirection(270);
+                        mainPlayer.speed = speed;
+                        mainPlayer.direction = 270;
                     }
                 } else if (clickedTileY === playerTileY) {
                     if (clickedTileX === playerTileX + 1) {
                         // move right
-                        mainPlayer.setSpeed(speed);
-                        mainPlayer.setDirection(0);
+                        mainPlayer.speed = speed;
+                        mainPlayer.direction = 0;
                     } else if (clickedTileX === playerTileX - 1) {
                         //move left
-                        mainPlayer.setSpeed(speed);
-                        mainPlayer.setDirection(180);
+                        mainPlayer.speed = speed;
+                        mainPlayer.direction = 180;
                     }
                 }
             }
@@ -191,18 +195,14 @@
     function checkForDead() {
         if (mainPlayer.checkCollision(badguy)) {
             mainPlayer.setPosition(64, 64);
-            mainPlayer.setSpeed(0);
+            mainPlayer.speed = 0;
         }
     }
 
     // determine if the player made it to the goal
     function checkForWin() {
-        var playerX = mainPlayer.getX();
-        var playerY = mainPlayer.getY();
-        var goalX = goal.getX();
-        var goalY = goal.getY();
 
-        var d = $vast.MathUtil.getPointDistance(playerX, playerY, goalX, goalY);
+        var d = $vast.MathUtil.getPointDistance(mainPlayer.x, mainPlayer.y, goal.x, goal.y);
         if (d <= 1) {
             var text = 'Win!';
             var w = vastengine.Game.Canvas.getCanvasWidth() / 2;

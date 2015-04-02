@@ -1,4 +1,5 @@
-﻿var vastengine = vastengine || {};
+﻿/// <reference path="namespace.js" />
+
 vastengine.Config = {
     fullScreen: false,
     gameSpeed: 60,

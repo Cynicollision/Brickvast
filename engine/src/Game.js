@@ -1,7 +1,4 @@
-/// <reference path="Debug.js" />
-/// <reference path="Canvas.js" />
-var vastengine = vastengine || {};
-var $vast = vastengine;
+/// <reference path="namespace.js" />
 
 /**
  * Enum of states that the game loop can be in (stopped or running).
@@ -99,6 +96,7 @@ vastengine.Game = (function () {
             }
 
             vastengine.Canvas.updateCanvasSize();
+            vastengine.Canvas.setVisible(true);
             requestAnimationFrame(stepAndDraw);
         },
 
@@ -119,4 +117,4 @@ vastengine.Game = (function () {
             throw error;
         }
     };
-})();
+}());

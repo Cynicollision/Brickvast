@@ -1,6 +1,4 @@
-﻿/// <reference path="Canvas.js" />
-
-var vastengine = vastengine || {};
+﻿/// <reference path="namespace.js" />
 
 /**
  * Enumeration of touch input event types.
@@ -84,4 +82,4 @@ vastengine.Input = (function () {
             }
         }
     };
-})(); 
+}());

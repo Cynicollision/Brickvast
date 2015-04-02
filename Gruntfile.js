@@ -10,7 +10,7 @@
 
         jasmine: {
             'run-all-tests': {
-                src: 'engine/src/*.js',
+                src: ['engine/src/namespace.js', 'engine/src/*.js'],
                 options: {
                     specs: 'engine/spec/*Spec.js'
                 }
@@ -49,7 +49,10 @@
         uglify: {
             build: {
                 files: {
-                    'engine/build/vastengine.js': ['engine/src/*.js']
+                    'engine/build/vastengine.js': [
+					'engine/src/namespace.js',
+					'engine/src/*.js'
+					]
                 }
             }
         }

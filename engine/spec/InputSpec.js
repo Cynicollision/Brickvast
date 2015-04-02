@@ -3,6 +3,9 @@
 
     beforeEach(function () {
         testController = new vastengine.Controller();
+        testController.onTouch = function () { };
+        testController.onTouchEnd = function () { };
+
         mockEvent = { pageX: eventX, pageY: eventY };
         
         spyOn(testController, 'onTouch');

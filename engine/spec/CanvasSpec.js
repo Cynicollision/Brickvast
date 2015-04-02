@@ -1,5 +1,5 @@
 ﻿/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/Canvas.js" />
-describe('CanvasManager', function () {
+describe('vastengine.Canvas', function () {
     var canvasElement;
 
     beforeEach(function () {
@@ -13,6 +13,16 @@ describe('CanvasManager', function () {
 
     it('Builds the canvas element on the webpage', function () {
         expect(canvasElement).toBeDefined();
+    });
+
+    it('Can toggle visibility of the canvas element on the page off/on.', function () {
+        vastengine.Canvas.setVisible(false);
+        expect(vastengine.Canvas.visible).toBeFalsy();
+        expect(canvasElement.style.display).toEqual('none');
+
+        vastengine.Canvas.setVisible(true);
+        expect(vastengine.Canvas.visible).toBeTruthy();
+        expect(canvasElement.style.display).toEqual('block');
     });
 
     it('Routes mouse input to vastengine.Input', function () {

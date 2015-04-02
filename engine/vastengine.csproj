@@ -86,11 +86,11 @@
     <Content Include="src\Config.js" />
     <Content Include="src\Controller.js" />
     <Content Include="src\Debug.js" />
-    <Content Include="src\Dialog.js" />
     <Content Include="src\Entity.js" />
     <Content Include="src\Game.js" />
     <Content Include="src\Input.js" />
     <Content Include="src\MathUtil.js" />
+    <Content Include="src\namespace.js" />
     <Content Include="src\Sprite.js" />
     <Content Include="web.config">
       <SubType>Designer</SubType>

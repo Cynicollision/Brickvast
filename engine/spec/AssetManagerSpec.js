@@ -1,5 +1,5 @@
 ﻿/// <reference path="C:\Users\Sean\workspace\vastengine\engine\src/AssetManager.js" />
-describe('AssetManager', function () {
+describe('vastengine.AssetManager', function () {
     var imageManager;
     var audioManager;
 
