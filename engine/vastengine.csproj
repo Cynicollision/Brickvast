@@ -77,6 +77,7 @@
     <Content Include="spec\Scripts\jasmine\console.js" />
     <Content Include="spec\Scripts\jasmine\jasmine-html.js" />
     <Content Include="spec\Scripts\jasmine\jasmine.js" />
+    <Content Include="spec\SpriteSpec.js" />
     <Content Include="src\AssetManager.js" />
     <Content Include="src\Canvas.js" />
     <Content Include="src\Config.js" />
