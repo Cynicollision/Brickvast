@@ -1,4 +1,4 @@
-﻿describe('Game', function () {
+﻿describe('vastengine.Game', function () {
     beforeEach(function () {
         // reset the active controller.
         vastengine.Game.setActiveController(new vastengine.Controller());
@@ -19,10 +19,7 @@
         expect(vastengine.Audio).toBeDefined();
     });
 
-    it('Determines if an active Controller has been assigned', function () {
-        vastengine.Game.setActiveController(new vastengine.Controller());
-        expect(vastengine.Game.getActiveController()).toBeTruthy();
-        vastengine.Game.setActiveController(null);
-        expect(vastengine.Game.getActiveController()).toBeFalsy();
+    it('Defines a default active Controller', function () {
+        expect(vastengine.Game.getActiveController()).toBeDefined();
     });
 });

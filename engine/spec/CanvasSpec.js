@@ -51,4 +51,18 @@ describe('vastengine.Canvas', function () {
         expect(vastengine.Canvas.getWidth()).toEqual(500);
         expect(vastengine.Canvas.getHeight()).toEqual(300);
     });
+
+    it('Draws the active Controller\'s entities, then calls its draw() if it is defined', function () {
+        var testCtrl = new vastengine.Controller();
+        testCtrl.draw = function () { };
+        vastengine.Game.setActiveController(testCtrl);
+
+        var ctrl = vastengine.Game.getActiveController();
+        spyOn(ctrl, 'drawEntities');
+        spyOn(ctrl, 'draw');
+
+        vastengine.Canvas.draw();
+        expect(ctrl.drawEntities).toHaveBeenCalled();
+        expect(ctrl.draw).toHaveBeenCalled();
+    });
 });

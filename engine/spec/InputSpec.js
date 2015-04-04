@@ -1,4 +1,4 @@
-﻿describe('Input', function () {
+﻿describe('vastengine.Input', function () {
     var eventX = 25, eventY = 50, testController, mockEvent;
 
     beforeEach(function () {
@@ -12,6 +12,10 @@
         spyOn(testController, 'onTouchEnd');
 
         vastengine.Game.setActiveController(testController);
+    });
+
+    it('Defines vastengine.InputEventType enum', function () {
+        expect(vastengine.InputEventType).toBeDefined();
     });
 
     it('Calls the onTouch method of the active Controller object.', function () {

@@ -1,8 +1,4 @@
-﻿/// <reference path="C:\Users\Sean\workspace\Brickvast\src/MathUtil.js" />
-//************************************************************************************//
-// Test suite for MathUtil class
-//************************************************************************************//
-describe('MathUtil', function () {
+﻿describe('vastengine.MathUtil', function () {
     it('Calculates the distance between points (x1, y1) and (x2, y2)', function () {
         var d, x1, y1, x2, y2;
 

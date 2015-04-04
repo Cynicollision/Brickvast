@@ -167,7 +167,7 @@
         expect(testController.isPositionFree(120, 170, 'orange')).toBeTruthy();
     });
 
-    it('Sorts the managed collection of Entity objects in descending order by depth (largest = deepest first).', function () {
+    it('Sorts Entities in descending order by depth (largest = deepest first).', function () {
         var ent1 = new vastengine.Entity(null, 'e1');
         ent1.depth = 50;
         testController.addEntity(ent1);
@@ -190,5 +190,20 @@
         expect(testController.entities[1].id).toEqual("e1");
         expect(testController.entities[2].id).toEqual("e4");
         expect(testController.entities[3].id).toEqual("e3");
+    });
+
+    it('Draws each Entity\'s Sprite, then calls its draw() if it is defined', function () {
+        var testEnt = new vastengine.Entity();
+        testEnt.sprite = new vastengine.Sprite();
+        testEnt.draw = function () { };
+        testController.addEntity(testEnt);
+
+        spyOn(testEnt, 'drawSprite');
+        spyOn(testEnt, 'draw');
+
+        testController.drawEntities();
+
+        expect(testEnt.drawSprite).toHaveBeenCalled();
+        expect(testEnt.draw).toHaveBeenCalled();
     });
 });

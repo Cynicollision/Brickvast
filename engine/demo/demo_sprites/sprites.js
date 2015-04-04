@@ -15,7 +15,7 @@
 
     // build a 4-frame animated 64x64 sprite.
     var srcImage = $vast.Images.getById('sheet0');
-    ent.sprite = $vast.Sprite.buildFromImage(srcImage, 64, 64, 0, 3);
+    ent.sprite = $vast.Sprite.fromImage(srcImage, 64, 64, 0, 3);
 
     var ctrl = new $vast.Controller();
     ctrl.addEntity(ent);

@@ -69,7 +69,7 @@
         player.setPosition(64, 64);
         player.depth = -100; // make sure player stays on top
 
-        player.sprite = $vast.Sprite.buildFromImage($vast.Images.getById('sun'), 64, 64);
+        player.sprite = $vast.Sprite.fromImage($vast.Images.getById('sun'), 64, 64);
 
         // define a step function
         player.step = function () {
@@ -95,7 +95,7 @@
     // builds and returns an enemy
     function buildEnemyEntity() {
         var enemy = new $vast.Entity(null, 'enemy');
-        enemy.sprite = $vast.Sprite.buildFromImage($vast.Images.getById('badguy'));
+        enemy.sprite = $vast.Sprite.fromImage($vast.Images.getById('badguy'));
         enemy.setPosition(384, 256);
         enemy.setSize(TILE_SIZE, TILE_SIZE);
         enemy.speed = 10;
@@ -136,13 +136,13 @@
             for (var j = 0; j < row.length; j++) {
                 if (row.charAt(j) === '#') {
                     var wall = new $vast.Entity('wall', 0);
-                    wall.sprite = $vast.Sprite.buildFromImage($vast.Images.getById('stone'));
+                    wall.sprite = $vast.Sprite.fromImage($vast.Images.getById('stone'));
                     wall.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     wall.setSize(TILE_SIZE, TILE_SIZE);
                     ctrl.addEntity(wall);
                 } else if (row.charAt(j) === 'F') {
                     goal = new $vast.Entity(null, 'goal');
-                    goal.sprite = $vast.Sprite.buildFromImage($vast.Images.getById('flag'));
+                    goal.sprite = $vast.Sprite.fromImage($vast.Images.getById('flag'));
                     goal.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     ctrl.addEntity(goal);
                 }

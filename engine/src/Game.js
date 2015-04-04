@@ -14,13 +14,15 @@ vastengine.GameState = {
  * @constructor
  */
 vastengine.Game = (function () {
+    var activeController = new vastengine.Controller();
+
     // initialize Canvas, Images, and Audio
     vastengine.Canvas.buildCanvas();
     vastengine.Images = new vastengine.AssetManager(vastengine.AssetType.IMAGE);
     vastengine.Audio = new vastengine.AssetManager(vastengine.AssetType.AUDIO);
 
     // default state is stopped. run() must be called to start the game.
-    var activeController, state = vastengine.GameState.STOPPED;
+    state = vastengine.GameState.STOPPED;
 
     return {
         /**

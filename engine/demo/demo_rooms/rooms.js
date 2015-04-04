@@ -27,7 +27,7 @@
             setRoom(room2);
         });
 
-        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('sun'), 64, 64);
+        var sprite = $vast.Sprite.fromImage($vast.Images.getById('sun'), 64, 64);
         ent.setSprite(sprite);
 
         var ctrl = new $vast.Controller();
@@ -44,7 +44,7 @@
             setRoom(room3);
         });
 
-        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('stone'), 64, 64);
+        var sprite = $vast.Sprite.fromImage($vast.Images.getById('stone'), 64, 64);
         ent.setSprite(sprite);
 
         var ctrl = new $vast.Controller();
@@ -61,7 +61,7 @@
             setRoom(room1);
         });
 
-        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('badguy'), 64, 64);
+        var sprite = $vast.Sprite.fromImage($vast.Images.getById('badguy'), 64, 64);
         ent.setSprite(sprite);
 
         var ctrl = new $vast.Controller();

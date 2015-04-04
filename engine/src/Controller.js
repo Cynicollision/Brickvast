@@ -12,6 +12,7 @@ vastengine.Controller = function () {
     this.postStep = null;
     this.onTouch = null;
     this.onTouchEnd = null;
+    this.draw = null;
 };
 
 vastengine.Controller.prototype = {
@@ -159,7 +160,7 @@ vastengine.Controller.prototype = {
      * If the Entity has a Sprite object, draw that first.
      * @param {object} context The drawing context to draw on.
      */
-    draw: function (context) {
+    drawEntities: function (context) {
         this.sortEntities();
         for (var i = 0; i < this.entities.length; i++) {
             if (!this.entities[i].isDestroyed) {

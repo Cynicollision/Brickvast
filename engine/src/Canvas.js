@@ -192,7 +192,10 @@
              this.setBackgroundPosition(-relativeX * backgroundScrollFactor, -relativeY * backgroundScrollFactor);
 
              if (activeController) {
-                 activeController.draw(context);
+                 activeController.drawEntities(context);
+                 if (activeController.draw) {
+                     activeController.draw();
+                 }
              }
 
              context.restore();
