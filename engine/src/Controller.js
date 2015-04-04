@@ -154,22 +154,21 @@ vastengine.Controller.prototype = {
         }
     },
 
+    /**
+     * Draw each Entity (sorted in reverse order by depth) at their positions relative to the view.
+     * If the Entity has a Sprite object, draw that first.
+     * @param {object} context The drawing context to draw on.
+     */
     draw: function (context) {
-        // draw entities (sorted in reverse order by depth) at their positions relative to the view.
         this.sortEntities();
-        //var entities = controller.getEntities();
         for (var i = 0; i < this.entities.length; i++) {
-            // I DONT THINK THIS EVER HAPPENS
-            //// first call each Entitiy's draw() ...
-            //if (entities[i].draw) {
-            //    entities[i].draw();
-            //}
-     
-            // ...then draw its Sprite.
             if (!this.entities[i].isDestroyed) {
-                if (this.entities[i].sprite) {
-                    this.entities[i].sprite.draw(context, this.entities[i].x - this.view.x, this.entities[i].y - this.view.y);
-                }   
+                var relativeX = this.entities[i].x - this.view.x;
+                var relativeY = this.entities[i].y - this.view.y;
+                this.entities[i].drawSprite(context, relativeX, relativeY);
+                if (this.entities[i].draw) {
+                    this.entities[i].draw(context, relativeX, relativeY);
+                }
             }
         }
     }

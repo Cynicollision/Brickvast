@@ -163,6 +163,9 @@
              context.restore();
          },
 
+         /**
+          * Performs scaling and translation operations on the canvas element, then draws the active Controller and Debug objects.
+          */
          draw: function () {
              var activeController, translateX = 0, translateY = 0, relativeX = 0, relativeY = 0;
              

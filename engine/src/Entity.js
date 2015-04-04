@@ -14,7 +14,7 @@ vastengine.Entity = function (type, id) {
     this.isDestroyed = false;
     this.speed = 0;
     this.direction = 0;
-    this.width = 0; // TODO: way to get width and height from Sprite?
+    this.width = 0;
     this.height = 0;
     this.onTouch = null;
     this.onTouchEnd = null;
@@ -63,6 +63,12 @@ vastengine.Entity.prototype = {
         if (this.sprite) {
             this.width = this.sprite.width;
             this.height = this.sprite.height;
+        }
+    },
+
+    drawSprite: function (context, x, y) {
+        if (this.sprite) {
+            this.sprite.draw(context, x, y);
         }
     }
 };
