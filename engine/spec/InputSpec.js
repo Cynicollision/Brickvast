@@ -47,8 +47,8 @@
 
         // simulate scaled and translated touch coordinates.
         var scale = vastengine.Canvas.getScale();
-        var translateX = (window.innerWidth - (vastengine.Canvas.getCanvasWidth() / scale)) / 2;
-        var translateY = (window.innerHeight - (vastengine.Canvas.getCanvasHeight() / scale)) / 2;
+        var translateX = (window.innerWidth - (vastengine.Canvas.getWidth() / scale)) / 2;
+        var translateY = (window.innerHeight - (vastengine.Canvas.getHeight() / scale)) / 2;
 
         mockEvent.pageX -= translateX;
         mockEvent.pageY -= translateY;

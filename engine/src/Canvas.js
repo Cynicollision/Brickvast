@@ -100,7 +100,7 @@
           * Retrieves the width of the game canvas.
           * @return {number} Width of the game canvas.
           */
-         getCanvasWidth: function () {
+         getWidth: function () {
              return canvas.width;
          },
      
@@ -108,7 +108,7 @@
           * Retrieve the height of the game canvas.
           * @return {number} Height of the game canvas.
           */
-         getCanvasHeight: function () {
+         getHeight: function () {
              return canvas.height;
          },
      
@@ -162,51 +162,43 @@
              func(context);
              context.restore();
          },
-     
-         /**
-          * Clears the game canvas and draws the given Controller object. Draws the given controller's managed entities relative to its view.
-          * @param {Controller} controller Controller object to draw.
-          */
-         drawController: function (controller) {
+
+         draw: function () {
+             var activeController, translateX = 0, translateY = 0, relativeX = 0, relativeY = 0;
+             
              // clear and save the drawing context, then scale.
              context.clearRect(0, 0, canvas.width, canvas.height);
              context.save();
              context.scale(scaleFactor, scaleFactor);
      
              // translate context to account for scaling if scale mode is "from center"
-             var translateX = (this.getCanvasWidth() - (this.getCanvasWidth() / scaleFactor)) / 2;
-             var translateY = (this.getCanvasHeight() - (this.getCanvasHeight() / scaleFactor)) / 2;
+             translateX = (canvas.width - (canvas.width / scaleFactor)) / 2;
+             translateY = (canvas.height - (canvas.height / scaleFactor)) / 2;
              if (vastengine.Config.scaleCenter) {
                  context.translate(-translateX, -translateY);
              }
-     
-             // get relative (x,y) to the location of the controller's view.
-             var relativeX = this.getViewRelativeX(controller);
-             var relativeY = this.getViewRelativeY(controller);
+
+             // relative (x,y) to the location of the controller's view.
+             activeController = vastengine.Game.getActiveController();
+             if (activeController) {
+                 relativeX = activeController.view.x;
+                 relativeY = activeController.view.y;
+             }
      
              // adjust the background position according to the relative (x, y) of the view.
              this.setBackgroundPosition(-relativeX * backgroundScrollFactor, -relativeY * backgroundScrollFactor);
-     
-             // draw entities (sorted in reverse order by depth) at their positions relative to the view.
-             controller.sortEntities();
-             var entities = controller.getEntities();
-             for (var i = 0; i < entities.length; i++) {
-                 // first call each Entitiy's draw() ...
-                 if (entities[i].draw) {
-                     entities[i].draw();
-                 }
-     
-                 // ...then draw its Image.
-                 if (entities[i]) {
-                     var sprite = entities[i].getSprite();
-                     if (sprite) {
-                         sprite.draw(context, entities[i].x - relativeX, entities[i].y - relativeY);
-                     }   
-                 }
+
+             if (activeController) {
+                 activeController.draw(context);
              }
-     
-             // restore the drawing context.
+
              context.restore();
+
+             if (vastengine.Debug) {
+                 context.save();
+                 vastengine.Debug.draw(context);
+                 context.restore();
+             }
          }
     };
  }());

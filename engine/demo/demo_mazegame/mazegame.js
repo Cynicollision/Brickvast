@@ -8,7 +8,7 @@
     $vast.Config.scaleCenter = true;
     $vast.Config.fullScreen = true;
 
-    $vast.Debug.showDebug = true;
+    $vast.Debug.show = true;
 
     // images
     $vast.Canvas.setBackgroundImage('../images/bg.png', true);
@@ -42,8 +42,8 @@
         ctrl.onTouch = gameClick;
         ctrl.postStep = function () {
             // adjust the view's coordinates to follow the player Entity
-            var x = (mainPlayer.x + (mainPlayer.width / 2)) - ($vast.Canvas.getCanvasWidth() / 2);
-            var y = (mainPlayer.y + (mainPlayer.height / 2)) - ($vast.Canvas.getCanvasHeight() / 2);
+            var x = (mainPlayer.x + (mainPlayer.width / 2)) - ($vast.Canvas.getWidth() / 2);
+            var y = (mainPlayer.y + (mainPlayer.height / 2)) - ($vast.Canvas.getHeight() / 2);
             ctrl.setViewPosition(x, y);
 
             // trick to avoid "jumping" effect on load if you call Canvas.setVisible(false) right after Game.run(), then this.
@@ -69,8 +69,7 @@
         player.setPosition(64, 64);
         player.depth = -100; // make sure player stays on top
 
-        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('sun'), 64, 64);
-        player.setSprite(sprite);
+        player.sprite = $vast.Sprite.buildFromImage($vast.Images.getById('sun'), 64, 64);
 
         // define a step function
         player.step = function () {
@@ -96,8 +95,7 @@
     // builds and returns an enemy
     function buildEnemyEntity() {
         var enemy = new $vast.Entity(null, 'enemy');
-        var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('badguy'));
-        enemy.setSprite(sprite);
+        enemy.sprite = $vast.Sprite.buildFromImage($vast.Images.getById('badguy'));
         enemy.setPosition(384, 256);
         enemy.setSize(TILE_SIZE, TILE_SIZE);
         enemy.speed = 10;
@@ -138,16 +136,13 @@
             for (var j = 0; j < row.length; j++) {
                 if (row.charAt(j) === '#') {
                     var wall = new $vast.Entity('wall', 0);
-                    var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('stone'));
-                    wall.setSprite(sprite);
+                    wall.sprite = $vast.Sprite.buildFromImage($vast.Images.getById('stone'));
                     wall.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     wall.setSize(TILE_SIZE, TILE_SIZE);
                     ctrl.addEntity(wall);
                 } else if (row.charAt(j) === 'F') {
                     goal = new $vast.Entity(null, 'goal');
-
-                    var sprite = $vast.Sprite.buildFromImage($vast.Images.getById('flag'));
-                    goal.setSprite(sprite);
+                    goal.sprite = $vast.Sprite.buildFromImage($vast.Images.getById('flag'));
                     goal.setPosition(j * TILE_SIZE, i * TILE_SIZE);
                     ctrl.addEntity(goal);
                 }
@@ -204,15 +199,9 @@
 
         var d = $vast.MathUtil.getPointDistance(mainPlayer.x, mainPlayer.y, goal.x, goal.y);
         if (d <= 1) {
-            var text = 'Win!';
-            var w = vastengine.Game.Canvas.getCanvasWidth() / 2;
-
-            $vast.Game.setDialog(new $vast.Dialog(text, w, -1, ['Start over'], function () {
-                mainPlayer.setPosition(64, 64);
-            }));
+            mainPlayer.setPosition(64, 64);
         }
     }
-
 
     // kick it off
     buildAndRun();

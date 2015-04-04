@@ -83,13 +83,7 @@ vastengine.Game = (function () {
                     offset -= stepSize;
                 }
 
-                if (activeController) {
-                    vastengine.Canvas.drawController(activeController);
-                }
-
-                if (vastengine.Debug) {
-                    vastengine.Debug.draw();
-                }
+                vastengine.Canvas.draw();
 
                 previous = current;
                 requestAnimationFrame(stepAndDraw);

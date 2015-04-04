@@ -45,10 +45,6 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Demo\demo_dialogs\dialogs.html" />
-    <Content Include="Demo\demo_dialogs\dialogs.js" />
-    <Content Include="Demo\demo_drawing1\drawing1.html" />
-    <Content Include="Demo\demo_drawing1\drawing1.js" />
     <Content Include="Demo\demo_mazegame\mazegame.html" />
     <Content Include="Demo\demo_mazegame\mazegame.js" />
     <Content Include="Demo\demo_rooms\rooms.html" />

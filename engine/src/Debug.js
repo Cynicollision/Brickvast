@@ -28,33 +28,30 @@ vastengine.Debug = (function () {
     }());
 
     return {
-        displayFont: 'normal 16pt Arial',
+        displayFont: 'normal 16pt Consolas',
         displayColor: 'White',
-        showDebug: false,
+        show: false,
         /**
          * Draws any debug-related elements on the canvas.
          */
-        draw: function () {
-            if (this.showDebug) {
-                vastengine.Canvas.drawElement(function (context) {
-                    context.fillStyle = vastengine.Debug.displayColor;
-                    context.font = vastengine.Debug.displayFont;
-                    for (var i = 0; i < drawableElements.length; i++) {
-                        var text = "";
-                        // TODO: need a much better way to do this.
-                        if (i === 0) {
-                            text = "FPS: " + getCurrentFPS();
-                        } else if (i === 1) {
-                            var ctrl = vastengine.Game.getActiveController();
-                            if (ctrl) {
-                                text = "Entities: " + vastengine.Game.getActiveController().getEntities().length;
-                            }
+        draw: function (context) {
+            if (this.show) {
+                context.fillStyle = vastengine.Debug.displayColor;
+                context.font = vastengine.Debug.displayFont;
+                for (var i = 0; i < drawableElements.length; i++) {
+                    var text = "";
+                    // TODO: need a much better way to do this.
+                    if (i === 0) {
+                        text = "FPS: " + getCurrentFPS();
+                    } else if (i === 1) {
+                        var ctrl = vastengine.Game.getActiveController();
+                        if (ctrl) {
+                            text = "Entities: " + ctrl.getEntities().length;
                         }
-
-                        context.fillText(text, 16, 32 + (i * 16));
                     }
-                    
-                });
+
+                    context.fillText(text, 16, 32 + (i * 20));
+                }
             }
         }
     };

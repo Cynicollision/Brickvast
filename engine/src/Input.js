@@ -42,8 +42,8 @@ vastengine.Input = (function () {
 
             // translate to account for scaling.
             scale = vastengine.Canvas.getScale();
-            translateX = (window.innerWidth - (vastengine.Canvas.getCanvasWidth() / scale)) / 2;
-            translateY = (window.innerHeight - (vastengine.Canvas.getCanvasHeight() / scale)) / 2;
+            translateX = (window.innerWidth - (vastengine.Canvas.getWidth() / scale)) / 2;
+            translateY = (window.innerHeight - (vastengine.Canvas.getHeight() / scale)) / 2;
 
             // adjust for scale
             clickX = (actualX / scale);

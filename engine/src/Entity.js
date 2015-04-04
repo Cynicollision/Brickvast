@@ -49,14 +49,6 @@ vastengine.Entity.prototype = {
         return (onX > this.x && onY > this.y && onX < this.x + this.width && onY < this.y + this.height);
     },
 
-    getSprite: function () {
-        return this.sprite;
-    },
-
-    setSprite: function (newSprite) {
-        this.sprite = newSprite;
-    },
-
     setPosition: function (newX, newY) {
         this.x = newX;
         this.y = newY;

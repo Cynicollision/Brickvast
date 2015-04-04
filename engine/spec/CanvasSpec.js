@@ -48,7 +48,7 @@ describe('vastengine.Canvas', function () {
     it('Can return the width and height of the game canvas', function () {
         vastengine.Canvas.setSize(500, 300);
 
-        expect(vastengine.Canvas.getCanvasWidth()).toEqual(500);
-        expect(vastengine.Canvas.getCanvasHeight()).toEqual(300);
+        expect(vastengine.Canvas.getWidth()).toEqual(500);
+        expect(vastengine.Canvas.getHeight()).toEqual(300);
     });
 });
