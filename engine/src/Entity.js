@@ -14,45 +14,15 @@ vastengine.Entity = function (type, id) {
     this.isDestroyed = false;
     this.speed = 0;
     this.direction = 0;
-    this.width = 0; // TODO: get width and height from Sprite?
+    this.width = 0; // TODO: way to get width and height from Sprite?
     this.height = 0;
+    this.onTouch = null;
+    this.onTouchEnd = null;
+    this.step = null;
+    this.draw = null;
 };
 
 vastengine.Entity.prototype = {
-
-    /**
-     * Set the function to be called when this Entity is "clicked on". The means the coordinates 
-     * of the touch event fall within this Entity object's bounds (width x height at x, y).
-     * @param {function} onTouchFn function to call when clicked on.
-     */
-    setOnTouch: function (onTouchFn) {
-        this.onTouch = onTouchFn;
-    },
-
-    /**
-     * Set the function to be called when a click is released within this Entity object's bounds.
-     * @param {function} onTouchEndFn function to call when a click is released.
-     */
-    setOnTouchEnd: function (onTouchEndFn) {
-        this.onTouchEnd = onTouchEndFn;
-    },
-
-    /** 
-     * Set the function this Entity object calls each game step.
-     * @param {function} step function to call each game step.
-     */
-    setStep: function (stepFn) {
-        this.step = stepFn;
-    },
-
-    /**
-     * Set the function this Entity object calls when each frame is drawn.
-     * @param {function} drawFn draw function to call each frame.
-     */
-    setDraw: function (drawFn) {
-        this.draw = drawFn;
-    },
-
     /**
      * Destroy this Entity on the managing Controller's next step.
      */
@@ -95,5 +65,12 @@ vastengine.Entity.prototype = {
     setSize: function (newWidth, newHeight) {
         this.width = newWidth;
         this.height = newHeight;
+    },
+
+    setSizeFromSprite: function () {
+        if (this.sprite) {
+            this.width = this.sprite.width;
+            this.height = this.sprite.height;
+        }
     }
 };

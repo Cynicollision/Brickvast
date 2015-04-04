@@ -39,8 +39,8 @@
         // set up the "controller" with the test Entity object
         ctrl.addEntity(mainPlayer);
         ctrl.addEntity(badguy);
-        ctrl.setOnTouch(gameClick);
-        ctrl.setPostStep(function () {
+        ctrl.onTouch = gameClick;
+        ctrl.postStep = function () {
             // adjust the view's coordinates to follow the player Entity
             var x = (mainPlayer.x + (mainPlayer.width / 2)) - ($vast.Canvas.getCanvasWidth() / 2);
             var y = (mainPlayer.y + (mainPlayer.height / 2)) - ($vast.Canvas.getCanvasHeight() / 2);
@@ -51,7 +51,7 @@
             if (!$vast.Canvas.visible) {
                 $vast.Canvas.setVisible(true);
             }
-        });
+        };
 
         buildWallMap(ctrl);
         $vast.Game.setActiveController(ctrl);
@@ -73,7 +73,7 @@
         player.setSprite(sprite);
 
         // define a step function
-        player.setStep(function () {
+        player.step = function () {
             var x = Math.floor(mainPlayer.x);
             var y = Math.floor(mainPlayer.y);
             if ((x % TILE_SIZE < 5) && (y % TILE_SIZE < 5) && (mainPlayer.speed > 0)) {
@@ -87,7 +87,7 @@
                 // check to see if we died
                 checkForDead();
             }
-        });
+        };
 
         return player;
     }
@@ -102,7 +102,7 @@
         enemy.setSize(TILE_SIZE, TILE_SIZE);
         enemy.speed = 10;
         enemy.direction = 0; // right
-        enemy.setStep(function () {
+        enemy.step = function () {
             // "bounce" left and right
             var toMyLeft = ctrl.getEntitiesAtPosition(enemy.x - 2, enemy.y + 2, 'wall');
             var toMyRight = ctrl.getEntitiesAtPosition(enemy.x + enemy.width + 2, enemy.y + 2, 'wall');
@@ -112,7 +112,7 @@
             } else if (enemy.direction === 0 && toMyRight.length > 0) {
                 enemy.direction = 180;
             }
-        });
+        };
         return enemy;
     }
 

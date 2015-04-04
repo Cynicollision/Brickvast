@@ -7,6 +7,11 @@
 vastengine.Controller = function () {
     this.entities = [];
     this.view = { x: 0, y: 0 };
+
+    this.preStep = null;
+    this.postStep = null;
+    this.onTouch = null;
+    this.onTouchEnd = null;
 };
 
 vastengine.Controller.prototype = {
@@ -27,6 +32,10 @@ vastengine.Controller.prototype = {
     step: function () {
         this.removeDestroyedEntities();
 
+        if (this.preStep) {
+            this.preStep();
+        }
+
         for (var i = 0; i < this.entities.length; i++) {
             // apply Entity motion
             if (this.entities[i].speed !== 0) {
@@ -44,29 +53,6 @@ vastengine.Controller.prototype = {
         }
     },
 
-    /** 
-     * Sets the function to call at the end of each game step.
-     * @param {function} step() function to be called.
-     */
-    setPostStep: function (postStepFn) {
-        this.postStep = postStepFn;
-    },
-
-    /** 
-     * Sets the function to call on a touch event.
-     * @param {function} onTouchFn Function to call on a touch event.
-     */
-    setOnTouch: function (onTouchFn) {
-        this.onTouch = onTouchFn;
-    },
-
-    /** 
-     * Sets the function to call on a touch end event.
-     * @param {function} onTouchFn Function to call on a touch end event.
-     */
-    setOnTouchEnd: function (onTouchEndFn) {
-        this.onTouchEnd = onTouchEndFn;
-    },
 
     /**
      * Adds an Entity object to the collection of entities managed by this controller.
