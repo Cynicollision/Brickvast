@@ -45,6 +45,11 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Demo\vastgame\Game.js" />
+    <Content Include="Demo\vastgame\GameController.js" />
+    <Content Include="Demo\vastgame\Player.js" />
+    <Content Include="Demo\vastgame\vastgame.html" />
+    <Content Include="Demo\vastgame\vastgame.js" />
     <Content Include="Demo\demo_mazegame\mazegame.html" />
     <Content Include="Demo\demo_mazegame\mazegame.js" />
     <Content Include="Demo\demo_rooms\rooms.html" />
