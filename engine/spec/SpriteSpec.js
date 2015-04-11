@@ -10,6 +10,7 @@ describe('vastengine.Sprite', function () {
 
         mockCanvasContext = {
             drawImage: function (img, x, y) {
+                // simulate advancing the frame every draw cycle (not actually how frequently it actually changes)
 
             }
         };
@@ -42,5 +43,20 @@ describe('vastengine.Sprite', function () {
         expect(newSprite.frames[0]).toEqual(1);
         expect(newSprite.frames[1]).toEqual(2);
         expect(newSprite.frames[2]).toEqual(3);
+    });
+
+    it('Calls its onAnimationEnd function after the last frame has been drawn', function () {
+        // sprite with 4 frames
+        var sprite = vastengine.Sprite.fromImage(mockImage, 1, 1, 1, 5);
+        sprite.onAnimationEnd = function () { };
+
+        spyOn(sprite, 'onAnimationEnd');
+
+        sprite.frameSpeed = 1;
+        for (var i = 0; i < 10; i++) {
+            sprite.draw(mockCanvasContext, 0, 0);
+        }
+
+        expect(sprite.onAnimationEnd).toHaveBeenCalled();
     });
 });

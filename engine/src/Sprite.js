@@ -1,4 +1,5 @@
-﻿/// <reference path="Game.js" />
+﻿/// <reference path="namespace.js" />
+
 
 /** 
  * A graphical asset that can be animated, used as the visual representation of an Entity object.
@@ -11,10 +12,11 @@ vastengine.Sprite = function (image, width, height, frames) {
     this.frames = frames;
     this.width = width;
     this.height = height;
-    this.frameSpeed = 10;
+    this.frameSpeed = vastengine.Config.defaultFrameSpeed;
 
     this.currentFrame = 0;
     this.counter = 0;
+    this.onAnimationEnd = null;
 };
 
 /**
@@ -59,10 +61,13 @@ vastengine.Sprite.prototype = {
     draw: function (context, x, y) {
         if (this.image) {
             var row = 0, col = 0;
-
             if (this.frames.length > 1) {
-                if (this.counter == (this.frameSpeed - 1)) {
+                if (this.counter === (this.frameSpeed - 1)) {
                     this.currentFrame = (this.currentFrame + 1) % this.frames.length;
+
+                    if (this.onAnimationEnd && (this.currentFrame === this.frames.length - 1)) {
+                        this.onAnimationEnd();
+                    }
                 }
                 this.counter = (this.counter + 1) % this.frameSpeed;
 

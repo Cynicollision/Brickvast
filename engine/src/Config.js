@@ -6,5 +6,6 @@ vastengine.Config = {
     scaleCenter: false,
     scale: 1,
     canvasWidth: 640,
-    canvasHeight: 480
+    canvasHeight: 480,
+    defaultFrameSpeed: 10
 };
