@@ -31,12 +31,6 @@ describe('vastengine.Sprite', function () {
         expect(vastengine.Game.setError).toHaveBeenCalledWith(vastengine.Error.undefinedImageForSprite);
     });
 
-    it('Sprite.fromImage errors if width or height are less than zero', function () {
-        spyOn(vastengine.Game, 'setError');
-        vastengine.Sprite.fromImage(mockImage, 10, 0);
-        expect(vastengine.Game.setError).toHaveBeenCalledWith(vastengine.Error.invalidDimensionsForSprite);
-    });
-
     it('Sprite.fromImage builds an array of frame numbers based on the given start and end frames', function () {
         var newSprite = vastengine.Sprite.fromImage(mockImage, 1, 1, 1, 3);
         expect(newSprite.frames.length).toEqual(3);

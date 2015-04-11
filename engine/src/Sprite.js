@@ -7,14 +7,14 @@
  * @param {number} width Width of the new Sprite (pixels)
  * @param {number} height Height of the new Sprite (pixels)
  */
-vastengine.Sprite = function (image, width, height, frames) {
+vastengine.Sprite = function (image, width, height, frames, startFrame) {
     this.image = image;
     this.frames = frames;
     this.width = width;
     this.height = height;
     this.frameSpeed = vastengine.Config.defaultFrameSpeed;
 
-    this.currentFrame = 0;
+    this.currentFrame = startFrame;
     this.counter = 0;
     this.onAnimationEnd = null;
 };
@@ -24,28 +24,23 @@ vastengine.Sprite = function (image, width, height, frames) {
  * Can be used to create from a single-frame image or a sheet for animated Sprite objects.
  * @param {Image} image Image to build the Sprite from. 
  */
-vastengine.Sprite.fromImage = function (image, frameWidth, frameHeight, startFrame, endFrame) {
+vastengine.Sprite.fromImage = function (image, frameWidth, frameHeight, startFrame, endFrame, animationStartFrame) {
     if (image) {
         var frames = [];
 
         // default values for width/height (get from image) and for start/end frame
-        frameWidth = frameWidth || image.width;
-        frameHeight = frameHeight || image.height;
+        frameWidth = (frameWidth !== undefined ? frameWidth : image.width);
+        frameHeight = (frameHeight !== undefined ? frameHeight : image.height);
+        startFrame = (startFrame !== undefined ? startFrame : 0);
+        endFrame = (endFrame !== undefined ? endFrame : 0);
+        animationStartFrame = (animationStartFrame !== undefined ? animationStartFrame : 0);
 
-        if (frameWidth > 0 && frameHeight > 0) {
-            startFrame = startFrame || 0;
-            endFrame = endFrame || 0;
-
-            // create the sequence of frame numbers for the animation
-            
-            for (var frameNumber = startFrame; frameNumber <= endFrame; frameNumber++) {
-                frames.push(frameNumber);
-            }
-        } else {
-            vastengine.Game.setError(vastengine.Error.invalidDimensionsForSprite);
+        // create the sequence of frame numbers for the animation
+        for (var frameNumber = startFrame; frameNumber <= endFrame; frameNumber++) {
+            frames.push(frameNumber);
         }
 
-        return new vastengine.Sprite(image, frameWidth, frameHeight, frames);
+        return new vastengine.Sprite(image, frameWidth, frameHeight, frames, animationStartFrame);
     } else {
         vastengine.Game.setError(vastengine.Error.undefinedImageForSprite);
     }
@@ -70,13 +65,11 @@ vastengine.Sprite.prototype = {
                     }
                 }
                 this.counter = (this.counter + 1) % this.frameSpeed;
-
-                row = Math.floor(this.frames[this.currentFrame] / (this.image.width / this.width));
-                col = Math.floor(this.frames[this.currentFrame] % (this.image.width / this.width));
-                context.drawImage(this.image, col * this.width, row * this.height, this.width, this.height, x, y, this.width, this.height);
-            } else {
-                context.drawImage(this.image, x, y);
             }
+
+            row = Math.floor(this.frames[this.currentFrame] / (this.image.width / this.width));
+            col = Math.floor(this.frames[this.currentFrame] % (this.image.width / this.width));
+            context.drawImage(this.image, col * this.width, row * this.height, this.width, this.height, x, y, this.width, this.height);
         }
     }
 };
