@@ -84,6 +84,7 @@
     <Content Include="src\Controller.js" />
     <Content Include="src\Debug.js" />
     <Content Include="src\Entity.js" />
+    <Content Include="src\Error.js" />
     <Content Include="src\Game.js" />
     <Content Include="src\Input.js" />
     <Content Include="src\MathUtil.js" />
