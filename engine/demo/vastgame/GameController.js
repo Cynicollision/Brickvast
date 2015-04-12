@@ -20,14 +20,20 @@
                 playerTileX = Math.floor(mainPlayer.x / vastgame.TILE_SIZE);
                 playerTileY = Math.floor(mainPlayer.y / vastgame.TILE_SIZE);
 
-                if (gameController.isPositionFree(x, y, 'wall')) {
-                    if (clickedTileY === playerTileY) {
-                        if (clickedTileX === playerTileX + 1) {
+                if (gameController.isPositionFree(x, y)) {
+                    if (clickedTileX === playerTileX + 1) {
+                        if (clickedTileY === playerTileY) {
                             gameController.moving = true;
                             mainPlayer.moveRight();
-                        } else if (clickedTileX === playerTileX - 1) {
+                        } else if (clickedTileY === playerTileY - 1) {
+                            mainPlayer.jumpRight();
+                        }
+                    } else if (clickedTileX === playerTileX - 1) {
+                        if (clickedTileY === playerTileY) {
                             gameController.moving = true;
                             mainPlayer.moveLeft();
+                        } else if (clickedTileY === playerTileY - 1) {
+                            mainPlayer.jumpLeft();
                         }
                     }
                 } else {
@@ -58,16 +64,16 @@
         // sets up a room to move around in
         function buildRoom() {
             var levelMap = [
-                '#################',
-                '#               #',
-                '#               #',
-                '#               #',
-                '#               #',
-                '####            #',
-                '###### P      ###',
-                '#########     ###',
-                '#########     ###',
-                '################'
+                '##################',
+                '#                #',
+                '#                #',
+                '#                #',
+                '#XX              #',
+                '#####            #',
+                '####### P      ###',
+                '##########     ###',
+                '##########     ###',
+                '#################'
             ];
 
             for (var i = 0; i < levelMap.length; i++) {
@@ -84,6 +90,12 @@
                         case 'P':
                             mainPlayer.setPosition(j * vastgame.TILE_SIZE, i * vastgame.TILE_SIZE);
                             break;
+                        case 'X':
+                            var box = new $vast.Entity('box', 0);
+                            box.sprite = $vast.Sprite.fromImage($vast.Images.getById('box'), 64, 64);
+                            box.setPosition(j * vastgame.TILE_SIZE, i * vastgame.TILE_SIZE);
+                            box.setSize(vastgame.TILE_SIZE, vastgame.TILE_SIZE);
+                            gameController.addEntity(box);
                     }
                 }
             }
