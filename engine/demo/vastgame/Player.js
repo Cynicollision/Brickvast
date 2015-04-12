@@ -21,9 +21,6 @@
 
 
     vastgame.buildPlayer = function (ctrl) {
-        var srcImage = $vast.Images.getById('playersheet');
-        
-
         player = new $vast.Entity(null, 'player');
         player.state = State.idle;
         player.setSize(64, 64);
@@ -34,8 +31,17 @@
             switch (player.state) {
                 case State.movingLeft:
                 case State.movingRight:
-                    // TODO: better way to see if ctrl.moving is true...
                     if ((x % vastgame.TILE_SIZE < 5) && (y % vastgame.TILE_SIZE < 5)) {
+                        if (ctrl.isPositionFree(player.x + 2, player.y + 66)) {
+                            player.fall();
+                        } else if (!ctrl.moving) {
+                            player.stop();
+                        }
+                    }
+
+                    if (!ctrl.isPositionFree(player.x + 65, player.y + 2, 'wall')) {
+                        player.stop();
+                    } else if (!ctrl.isPositionFree(player.x - 1, player.y + 2, 'wall')) {
                         player.stop();
                     }
                     break;
@@ -60,11 +66,29 @@
                 player.setSprite(sprite.idleRight);
             }
 
-            
             player.state = State.stopping;
             player.speed = 0;
+
             // snap to the grid
-            player.setPosition(vastgame.TILE_SIZE * Math.floor(Math.floor(player.x) / vastgame.TILE_SIZE), vastgame.TILE_SIZE * Math.floor(Math.floor(player.y) / vastgame.TILE_SIZE));
+            var xL = Math.floor(player.x / vastgame.TILE_SIZE) * vastgame.TILE_SIZE;
+            var xR = Math.floor((player.x + vastgame.TILE_SIZE) / vastgame.TILE_SIZE) * vastgame.TILE_SIZE;
+            var yU = Math.floor(player.y / vastgame.TILE_SIZE) * vastgame.TILE_SIZE;
+            var yD = Math.floor((player.t + vastgame.TILE_SIZE) / vastgame.TILE_SIZE) * vastgame.TILE_SIZE;
+
+            var targetX = xL, targetY = yU;
+            var distanceToLeft = player.x - xL;
+            var distanceToRight = xR - player.x;
+            var distanceToUp = player.y - yU;
+            var distanceToDown = yD - player.y;
+
+            if (distanceToLeft > distanceToRight) {
+                targetX = xR;
+            }
+            if (distanceToDown > distanceToUp) {
+                targetY = yU;
+            }
+
+            player.setPosition(targetX, targetY);
         };
 
         player.moveRight = function () {
@@ -88,7 +112,7 @@
         };
 
         player.setSprite = function (spr) {
-            var newSprite;
+            var newSprite, srcImage = $vast.Images.getById('playersheet');
             switch (spr) {
                 case (sprite.moveRight):
                     newSprite = $vast.Sprite.fromImage(srcImage, 64, 64, 0, 3, 1);
@@ -109,7 +133,6 @@
         };
 
         player.setSprite(sprite.idleRight);
-
         return player;
     }
 }());

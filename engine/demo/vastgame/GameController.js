@@ -30,6 +30,8 @@
                             mainPlayer.moveLeft();
                         }
                     }
+                } else {
+                    gameController.moving = false;
                 }
             }
         };
