@@ -1,6 +1,6 @@
 ﻿
 (function () {
-    var gameController;
+    var gameController, heldBox;
 
     vastgame.buildGameController = function () {
         gameController = new vastengine.Controller();
@@ -20,6 +20,7 @@
                 playerTileX = Math.floor(mainPlayer.x / vastgame.TILE_SIZE);
                 playerTileY = Math.floor(mainPlayer.y / vastgame.TILE_SIZE);
 
+                // moving/jumping
                 if (gameController.isPositionFree(x, y)) {
                     if (clickedTileX === playerTileX + 1) {
                         if (clickedTileY === playerTileY) {
@@ -39,6 +40,14 @@
                 } else {
                     gameController.moving = false;
                 }
+
+                // lifting a block
+                var box = gameController.getEntitiesAtPosition(x, y, 'box');
+                if (box.length > 0) {
+                    // TODO: make sure it is either immediately left or right of the player.
+                    heldBox = box[0];
+                    mainPlayer.liftBox(heldBox);
+                }
             }
         };
 
@@ -56,9 +65,15 @@
             }
 
             // adjust the view's coordinates to follow the player Entity
-            var x = (mainPlayer.x + (mainPlayer.width / 2)) - ($vast.Canvas.getWidth() / 2);
-            var y = (mainPlayer.y + (mainPlayer.height / 2)) - ($vast.Canvas.getHeight() / 2);
-            gameController.setViewPosition(x, y);
+            var viewX = (mainPlayer.x + (mainPlayer.width / 2)) - ($vast.Canvas.getWidth() / 2),
+                viewY = (mainPlayer.y + (mainPlayer.height / 2)) - ($vast.Canvas.getHeight() / 2);
+            gameController.setViewPosition(viewX, viewY);
+
+            // if the player is holding a box, update its position
+            if (heldBox) {
+                heldBox.x = mainPlayer.x;
+                heldBox.y = mainPlayer.y - heldBox.height;
+            }
         };
 
         // sets up a room to move around in
@@ -69,11 +84,11 @@
                 '#                #',
                 '#                #',
                 '#XX              #',
-                '#####            #',
+                '#####           X#',
                 '####### P      ###',
-                '##########     ###',
-                '##########     ###',
-                '#################'
+                '##########    ####',
+                '##########  ## ###',
+                '##################'
             ];
 
             for (var i = 0; i < levelMap.length; i++) {
