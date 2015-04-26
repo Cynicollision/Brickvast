@@ -1,8 +1,9 @@
 ﻿/// <reference path="namespace.js" />
 
 /**
- * Used specifically for manipulating directly the main game canvas, i.e. drawing on it.
- * @constructor
+ * Used for manipulating directly the main game canvas, i.e. drawing on it.
+ * @class Canvas
+ * @memberof Vastengine
  */
  vastengine.Canvas = (function () {
      var canvas, context, backgroundScrollFactor = 1, scaleFactor = 1,
@@ -13,6 +14,7 @@
 
          /** 
           * Build the HTML canvas and insert into the DOM.
+          * @memberof! Vastengine.Canvas
           */
          buildCanvas: function () {
              canvas = document.createElement('canvas');
@@ -36,6 +38,7 @@
 
          /**
           * Set whether the canvas element is visible or not (Game will still run).
+          * @memberof! Vastengine.Canvas
           * @param {bool} Whether to display the canvas element.
           */
          setVisible: function (isVisible) {
@@ -45,6 +48,7 @@
 
          /**
           * Updates the size of the canvas according to whether the game is fullscreen or not.
+          * @memberof! Vastengine.Canvas
           */
          updateCanvasSize: function () {
              scaleFactor = vastengine.Config.scale;
@@ -59,6 +63,7 @@
 
          /**
           * Sets the background-color property of the game canvas.
+          * @memberof! Vastengine.Canvas
           * @param {string} color CSS color value.
           */
          setBackgroundColor: function (color) {
@@ -67,6 +72,7 @@
      
          /**
           * Sets the background-image property of the game canvas.
+          * @memberof! Vastengine.Canvas
           * @param {string} url URL to image resource to use as background image.
           * @param {boolean} Whether to tile the background image or not.
           */
@@ -79,6 +85,7 @@
      
          /**
           * Sets the background-position property of the game canvas.
+          * @memberof! Vastengine.Canvas
           * @param {number} x New X-offset from origin.
           * @param {number} y New Y-offset from origin.
           */
@@ -87,9 +94,9 @@
          },
      
          /**
-          * Sets the scroll factor (ratio) for the background image. A value of 0 results 
-          * in a fixed background and a value of 1 results in the background scrolling 
-          * proportionally to the active controller's view position.
+          * Sets the scroll factor (ratio) for the background image. A value of 0 results in a fixed background and a 
+          * value of 1 results in the background scrolling proportionally to the active controller's view position.
+          * @memberof! Vastengine.Canvas
           * @param {number} factor Scroll factor (ratio to active controller's view position).
           */
          setScrollFactor: function (factor) {
@@ -98,6 +105,7 @@
      
          /**
           * Retrieves the width of the game canvas.
+          * @memberof! Vastengine.Canvas
           * @return {number} Width of the game canvas.
           */
          getWidth: function () {
@@ -106,6 +114,7 @@
      
          /**
           * Retrieve the height of the game canvas.
+          * @memberof! Vastengine.Canvas
           * @return {number} Height of the game canvas.
           */
          getHeight: function () {
@@ -114,6 +123,7 @@
      
          /**
           * Sets the width and height of the HTML canvas.
+          * @memberof! Vastengine.Canvas
           * @param {number} w New width for the canvas.
           * @param {number} h New height for the canvas.
           */
@@ -123,7 +133,8 @@
          },
      
          /**
-          * Gets a single scaling ratio of the canvas.
+          * Gets the scaling ratio of the canvas.
+          * @memberof! Vastengine.Canvas
           */
          getScale: function () {
              return scaleFactor;
@@ -131,6 +142,7 @@
      
          /**
           * Retrieve the horizontal position of the view.
+          * @memberof! Vastengine.Canvas
           * @return {number} X-coordinate of the given Controller object's view property.
           */
          getViewRelativeX: function (controller) {
@@ -143,6 +155,7 @@
      
          /**
           * Retrieve the vertical position of the view.
+          * @memberof! Vastengine.Canvas
           * @return {number} Y-coordinate of the given Controller object's view property.
           */
          getViewRelativeY: function (controller) {
@@ -155,6 +168,7 @@
      
          /**
           * Draw directly on the canvas, passing a delegate function to call with the Canvas's 2D drawing context.
+          * @memberof! Vastengine.Canvas
           * @param {function} Delegate to call, passing the Canvas's 2D drawing context.
           */
          drawElement: function (func) {
@@ -165,6 +179,7 @@
 
          /**
           * Performs scaling and translation operations on the canvas element, then draws the active Controller and Debug objects.
+          * @memberof! Vastengine.Canvas
           */
          draw: function () {
              var activeController, translateX = 0, translateY = 0, relativeX = 0, relativeY = 0;

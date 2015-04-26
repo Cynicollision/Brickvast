@@ -1,12 +1,16 @@
 ﻿/// <reference path="namespace.js" />
 
+/**
+ * Utility class for debugging the game.
+ * @class Debug
+ * @memberof Vastengine
+ */
 vastengine.Debug = (function () {
     var drawableElements = [{ 0: 'showFPS' }, { 1: 'showEntityCount' }];
 
     /**
      * Returns the current FPS measured every one second.
      * Credit: http://stackoverflow.com/questions/8279729/calculate-fps-in-canvas-using-requestanimationframe
-     * @return {number} Current FPS.
      */
     var getCurrentFPS = (function () {
         var lastLoop = (new Date()).getMilliseconds();
@@ -31,8 +35,11 @@ vastengine.Debug = (function () {
         displayFont: 'normal 16pt Consolas',
         displayColor: 'White',
         show: false,
+
         /**
          * Draws any debug-related elements on the canvas.
+         * @memberof! Vastengine.Debug
+         * @param {object} context Canvas drawing context to draw on.
          */
         draw: function (context) {
             if (this.show) {

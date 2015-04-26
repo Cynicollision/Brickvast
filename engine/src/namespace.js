@@ -8,6 +8,9 @@
 /// <reference path="Input.js" />
 /// <reference path="MathUtil.js" />
 /// <reference path="Sprite.js" />
+/**
+ * @namespace Vastengine
+ */
 (function () {
     window.vastengine = window.vastengine || {};
     window.$vast = window.vastengine;

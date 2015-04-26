@@ -14,10 +14,6 @@
         vastengine.Game.setActiveController(testController);
     });
 
-    it('Defines vastengine.InputEventType enum', function () {
-        expect(vastengine.InputEventType).toBeDefined();
-    });
-
     it('Calls the onTouch method of the active Controller object.', function () {
         vastengine.Input.onTouch(mockEvent);
         

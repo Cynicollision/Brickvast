@@ -2,6 +2,8 @@
 
 /**
  * Enumeration of asset types.
+ * @class AssetType
+ * @memberof Vastengine
  */
 vastengine.AssetType = {
     IMAGE: 'image',
@@ -10,8 +12,9 @@ vastengine.AssetType = {
 
 /**
  * Dictionary-style class used to store, pre-load, and retrieve game assets (images and audio).
+ * @class AssetManager
+ * @memberof Vastengine
  * @param {string} type The type of asset to manage, either "image" or "audio".
- * @constructor
  */
 vastengine.AssetManager = function (type) {
     this.assets = [];
@@ -24,6 +27,7 @@ vastengine.AssetManager = function (type) {
 vastengine.AssetManager.prototype = {
     /**
      * Adds a new asset with the given ID (used for retrieval) and relative source file location.
+     * @memberof! Vastengine.AssetManager.prototype
      * @param {string} newId ID value to assign to the new asset.
      * @param {string} src Path to the asset's image or audio resource, including the file name.
      */
@@ -33,6 +37,7 @@ vastengine.AssetManager.prototype = {
 
     /**
      * Retrieves the asset (actual Image or Audio object) with the given ID.
+     * @memberof! Vastengine.AssetManager.prototype
      * @param {string} id ID value to look up asset with.
      * @return {object} Image or Audio object assigned to the given ID.
      */
@@ -49,6 +54,7 @@ vastengine.AssetManager.prototype = {
 
     /**
      * Instantiates all managed assets from their sources at once. Relies on this AssetManager object being correctly instantiated with a valid type.
+     * @memberof! Vastengine.AssetManager.prototype
      * @param {function} callback
      */
     load: function (callback) {

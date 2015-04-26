@@ -1,11 +1,14 @@
 ﻿/// <reference path="namespace.js" />
 
-
 /** 
  * A graphical asset that can be animated, used as the visual representation of an Entity object.
- * @param {object] Image object from vastengine.AssetManager
+ * @class Sprite
+ * @memberof Vastengine
+ * @param {object} image object from vastengine.AssetManager
  * @param {number} width Width of the new Sprite (pixels)
  * @param {number} height Height of the new Sprite (pixels)
+ * @param {number[]} frames Array of frame numbers to draw from the sheet
+ * @param {number} startFrame Frame number to begin animation with
  */
 vastengine.Sprite = function (image, width, height, frames, startFrame) {
     this.image = image;
@@ -13,7 +16,6 @@ vastengine.Sprite = function (image, width, height, frames, startFrame) {
     this.width = width;
     this.height = height;
     this.frameSpeed = vastengine.Config.defaultFrameSpeed;
-
     this.currentFrame = startFrame;
     this.counter = 0;
     this.onAnimationEnd = null;
@@ -22,6 +24,7 @@ vastengine.Sprite = function (image, width, height, frames, startFrame) {
 /**
  * "Factory" function for building and returning a new Sprite object from the given Image from the AssetManager.
  * Can be used to create from a single-frame image or a sheet for animated Sprite objects.
+ * @memberof! Vastengine.Sprite
  * @param {Image} image Image to build the Sprite from. 
  */
 vastengine.Sprite.fromImage = function (image, frameWidth, frameHeight, startFrame, endFrame, animationStartFrame) {
@@ -49,6 +52,7 @@ vastengine.Sprite.fromImage = function (image, frameWidth, frameHeight, startFra
 vastengine.Sprite.prototype = {
     /**
      * Draws the current frame of the Sprite.
+     * @memberof! Vastengine.Sprite.prototype
      * @param {object} context Drawing context to draw on.
      * @param {number} x Horizontal position relative to Controller's view.
      * @param {number} y Vertical position relative to Controller's view.

@@ -1,8 +1,9 @@
 /// <reference path="namespace.js" />
 
 /**
- * Enum of states that the game loop can be in (stopped or running).
- * @enum {number}
+ * Enumeration of states that the game loop can be in (stopped or running).
+ * @class GameState
+ * @memberof Vastengine
  */
 vastengine.GameState = {
     STOPPED: 0,
@@ -11,7 +12,8 @@ vastengine.GameState = {
 
 /**
  * Manages game-level components such as the currently running Controller object, routing input, and accessing assets through AssetManager instances.
- * @constructor
+ * @class Game
+ * @memberof Vastengine
  */
 vastengine.Game = (function () {
     var activeController = new vastengine.Controller();
@@ -27,19 +29,26 @@ vastengine.Game = (function () {
     return {
         /**
          * Sets the game state, used to pause and resume the game loop.
+         * @memberof! Vastengine.Game
          * @param {GameState} state.
          */
         setState: function (newState) {
             state = newState;
         },
 
+        /**
+         * Returns the current game state.
+         * @memberof! Vastengine.Game
+         * @return {GameState} The current state of the game.
+         */
         getState: function () {
             return state;
         },
 
         /** 
          * Sets the running Controller to the given Controller object.
-         * @param {Controller} controller.
+         * @memberof! Vastengine.Game
+         * @param {object} controller New active Controller object to run.
          */
         setActiveController: function (newActiveController) {
             activeController = newActiveController;
@@ -47,13 +56,16 @@ vastengine.Game = (function () {
 
         /** 
          * Returns the running Controller
+         * @memberof! Vastengine.Game
+         * @returns {object} Current active Controller object.
          */
         getActiveController: function () {
             return activeController;
         },
 
         /**
-         * The main game loop. Keeps the game running at a fixed FPS.
+         * The main game loop. Starts the game and keeps it running at a fixed FPS.
+         * @memberof! Vastengine.Game
          */
         run: function () {
             var stepSize, previous, now, offset = 0;
@@ -98,6 +110,7 @@ vastengine.Game = (function () {
 
         /**
          * For throwing exceptions by errors raised by vastengine itself.
+         * @memberof! Vastengine.Game
          * @param {string} message Error message.
          * @param {string} (optional) e Inner exception.
          */

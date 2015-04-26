@@ -2,7 +2,8 @@
 
 /**
  * Manages a collection of Entity objects and adjusts the visible view area.
- * @constructor
+ * @class Controller
+ * @memberof Vastengine
  */
 vastengine.Controller = function () {
     this.entities = [];
@@ -19,16 +20,18 @@ vastengine.Controller.prototype = {
 
     /**
      * Sets the view position to the given coordinates.
-     * @param {number} newX New X-coordinate for the view position (horizontal offset).
-     * @param {number} newY New Y-coordinate for the view position (vertical offset)
+     * @memberof! Vastengine.Controller.prototype
+     * @param {number} x New X-coordinate for the view position (horizontal offset).
+     * @param {number} y New Y-coordinate for the view position (vertical offset)
      */
-    setViewPosition: function (newX, newY) {
-        this.view.x = newX;
-        this.view.y = newY;
+    setViewPosition: function (x, y) {
+        this.view.x = x;
+        this.view.y = y;
     },
 
     /** 
      * Called by the controller continuously while the game loop is running. Calls all managed entities' own step() functions, then its own postStep() function.
+     * @memberof! Vastengine.Controller.prototype
      */
     step: function () {
         this.removeDestroyedEntities();
@@ -57,7 +60,8 @@ vastengine.Controller.prototype = {
 
     /**
      * Adds an Entity object to the collection of entities managed by this controller.
-     * @param 
+     * @memberof! Vastengine.Controller.prototype
+     * @param {object} newEnt Entity object to add to the Controller.
      */
     addEntity: function (newEnt) {
         this.entities.push(newEnt);
@@ -65,6 +69,7 @@ vastengine.Controller.prototype = {
 
     /**
      * Retrieve the collection of entities managed by this controller.
+     * @memberof! Vastengine.Controller.prototype
      * @return {Array.<Entity>} 
      */
     getEntities: function () {
@@ -73,6 +78,7 @@ vastengine.Controller.prototype = {
 
     /** 
      * Returns a single managed Entity with the given ID value if it exists (ID values are not enforced to be unique).
+     * @memberof! Vastengine.Controller.prototype
      * @return {Entity} The Entity with the given id value, if one exists within the managed collection.
      */
     getEntityById: function (id) {
@@ -85,6 +91,7 @@ vastengine.Controller.prototype = {
 
     /**
      * Retrieves all managed entities with the given type.
+     * @memberof! Vastengine.Controller.prototype
      * @param {string} type Find Entity objects with type property that matches.
      * @return {Array.<Entity>} Array of Entities with the given type.
      */
@@ -100,9 +107,10 @@ vastengine.Controller.prototype = {
 
     /**
      * Retrieve all Entity objects at the given position.
+     * @memberof! Vastengine.Controller.prototype
      * @param {number} x X-coordinate to check.
      * @param {number} y Y-coordinate to check.
-     * @param {string} Optional type to check/filter for. If specified, only Entity objects with this type will be returned.
+     * @param {string=} type Optional type to check/filter for. If specified, only Entity objects with this type will be returned.
      * @return {Array.<Entity>} Cllection of Entity objects for which (x, y) falls within its width and height bounds.
      */
     getEntitiesAtPosition: function (x, y, type) {
@@ -118,11 +126,11 @@ vastengine.Controller.prototype = {
     },
 
     /**
-     * Determines if the given position is free of all managed Entity objects. If the given (x, y) 
-     * falls within the (x, y) and (x+w, y+h) of any Entity objects
+     * Determines if the given position is free of all managed Entity objects. If the given (x, y) falls within the (x, y) and (x+w, y+h) of any Entity objects this will return false.
+     * @memberof! Vastengine.Controller.prototype
      * @param {number} x X-coordinate to check.
      * @param {number} y Y-coordinate to check.
-     * @param {string} Optional type to check/filter for. If specified, only check for Entity objects with this type.
+     * @param {string=} type Optional type to check/filter for. If specified, only check for Entity objects with this type.
      */
     isPositionFree: function (x, y, type) {
         for (var i = 0; i < this.entities.length; i++) {
@@ -137,6 +145,7 @@ vastengine.Controller.prototype = {
 
     /**
      * Sorts managed entities in descending order by depth.
+     * @memberof! Vastengine.Controller.prototype
      */
     sortEntities: function () {
         this.entities.sort(function (a, b) {
@@ -146,6 +155,7 @@ vastengine.Controller.prototype = {
 
     /** 
      * Removes all managed Entity object where property isDestroyed is true.
+     * @memberof! Vastengine.Controller.prototype
      */
     removeDestroyedEntities: function () {
         if (this.entities !== undefined && this.entities.length > 0) {
@@ -158,6 +168,7 @@ vastengine.Controller.prototype = {
     /**
      * Draw each Entity (sorted in reverse order by depth) at their positions relative to the view.
      * If the Entity has a Sprite object, draw that first.
+     * @memberof! Vastengine.Controller.prototype
      * @param {object} context The drawing context to draw on.
      */
     drawEntities: function (context) {

@@ -1,5 +1,10 @@
 ﻿/// <reference path="namespace.js" />
 
+/**
+ * Stores game-level settings.
+ * @class Config
+ * @memberof Vastengine
+ */
 vastengine.Config = {
     fullScreen: false,
     gameSpeed: 60,

@@ -1,13 +1,13 @@
-﻿var vastengine = vastengine || {};
-
-/**
- * For performing various mathematical calculations, trig etc.
- * @constructor
+﻿/**
+ * @class MathUtil
+ * @memberof Vastengine
  */
 vastengine.MathUtil = (function () {
     return {
         /**
+         * 
          * Calculate the distance between two points (x1, y1) and (x2, y2).
+         * @memberof! Vastengine.MathUtil
          * @param {number} x1 X-coordinate of point 1.
          * @param {number} y1 Y-coordinate of point 1.
          * @param {number} x2 X-coordinate of point 2.
@@ -21,6 +21,7 @@ vastengine.MathUtil = (function () {
 
         /**
          * Calculate the direction from two points (x1, y1) to (x2, y2).
+         * @memberof! Vastengine.MathUtil
          * @param {number} x1 X-coordinate of point 1.
          * @param {number} y1 Y-coordinate of point 1.
          * @param {number} x2 X-coordinate of point 2.
@@ -40,6 +41,7 @@ vastengine.MathUtil = (function () {
 
         /**
           * Calculate the x-offset of a point the given length and direction from (0, 0).
+          * @memberof! Vastengine.MathUtil
           * @param {number} len Length to point.
           * @param {number} dir Direction to point
           * @return {number} X-coorindate of the point in the length and direction.
@@ -51,6 +53,7 @@ vastengine.MathUtil = (function () {
 
         /**
           * Calculate the y-offset of a point the given length and direction from (0, 0).
+          * @memberof! Vastengine.MathUtil
           * @param {number} len Length to point.
           * @param {number} dir Direction to point
           * @return {number} Y-coorindate of the point in the length and direction.
