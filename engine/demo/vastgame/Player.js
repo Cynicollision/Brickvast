@@ -3,8 +3,7 @@
     var player,
         moveSpeed = 50,
         frameSpeed = 4,
-        facingRight = true,
-        handsFull = false;
+        facingRight = true;
    
     var State = {
         idle: 0,
@@ -33,6 +32,7 @@
     vastgame.buildPlayer = function (ctrl) {
         player = new $vast.Entity(null, 'player');
         player.state = State.idle;
+        player.handsFull = false;
         player.setSize(64, 64);
         player.depth = -100;
         player.step = function () {
@@ -109,6 +109,7 @@
                     newSprite.onAnimationEnd = function () {
                         player.setSprite(Sprite.idleRightHandsFull);
                         player.sprite.onAnimationEnd = null;
+                        player.handsFull = true;
                     };
                     break;
 
@@ -117,6 +118,7 @@
                     newSprite.onAnimationEnd = function () {
                         player.setSprite(Sprite.idleLeftHandsFull);
                         player.sprite.onAnimationEnd = null;
+                        player.handsFull = true;
                     };
                     break;
 
@@ -147,7 +149,7 @@
             player.direction = 0;
             player.speed = moveSpeed;
 
-            if (handsFull) {
+            if (player.handsFull) {
                 player.setSprite(Sprite.moveRightHandsFull);
             } else {
                 player.setSprite(Sprite.moveRight);
@@ -160,7 +162,7 @@
             player.direction = 180;
             player.speed = moveSpeed;
 
-            if (handsFull) {
+            if (player.handsFull) {
                 player.setSprite(Sprite.moveLeftHandsFull);
             } else {
                 player.setSprite(Sprite.moveLeft);
@@ -169,13 +171,13 @@
 
         player.stop = function () {
             if (facingRight) {
-                if (handsFull) {
+                if (player.handsFull) {
                     player.setSprite(Sprite.idleRightHandsFull);
                 } else {
                     player.setSprite(Sprite.idleRight);
                 }
             } else {
-                if (handsFull) {
+                if (player.handsFull) {
                     player.setSprite(Sprite.idleLeftHandsFull);
                 } else {
                     player.setSprite(Sprite.idleLeft);
@@ -227,13 +229,20 @@
         };
 
         player.liftBox = function (boxEntity) {
-            if (!handsFull) {
-                handsFull = true;
+            if (!player.handsFull) {
                 if (boxEntity.x > player.x) {
                     player.setSprite(Sprite.liftRight);
                 } else {
                     player.setSprite(Sprite.liftLeft);
                 }
+
+                return boxEntity;
+            }
+        };
+
+        player.dropBox = function (boxEntity) {
+            if (facingRight) {
+                player.setSprite(Sprite.dropRight);
             }
         };
 

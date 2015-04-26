@@ -21,19 +21,20 @@
                 playerTileY = Math.floor(mainPlayer.y / vastgame.TILE_SIZE);
 
                 // moving/jumping
+                // TODO: special checks if player's hands are held (i.e. heldBox is defined?)
                 if (gameController.isPositionFree(x, y)) {
                     if (clickedTileX === playerTileX + 1) {
-                        if (clickedTileY === playerTileY) {
+                        if (clickedTileY === playerTileY || clickedTileY === playerTileY + 1) {
                             gameController.moving = true;
                             mainPlayer.moveRight();
-                        } else if (clickedTileY === playerTileY - 1) {
+                        } else if (clickedTileY === playerTileY - 1 && !gameController.isPositionFree(mainPlayer.x + vastgame.TILE_SIZE + 1, mainPlayer.y + 1)) {
                             mainPlayer.jumpRight();
                         }
                     } else if (clickedTileX === playerTileX - 1) {
-                        if (clickedTileY === playerTileY) {
+                        if (clickedTileY === playerTileY || clickedTileY === playerTileY + 1) {
                             gameController.moving = true;
                             mainPlayer.moveLeft();
-                        } else if (clickedTileY === playerTileY - 1) {
+                        } else if (clickedTileY === playerTileY - 1 && !gameController.isPositionFree(mainPlayer.x - 1, mainPlayer.y + 1)) {
                             mainPlayer.jumpLeft();
                         }
                     }
@@ -44,9 +45,19 @@
                 // lifting a block
                 var box = gameController.getEntitiesAtPosition(x, y, 'box');
                 if (box.length > 0) {
-                    // TODO: make sure it is either immediately left or right of the player.
-                    heldBox = box[0];
-                    mainPlayer.liftBox(heldBox);
+                    if (box[0].x === (playerTileX * vastgame.TILE_SIZE) - vastgame.TILE_SIZE || box[0].x === (playerTileX * vastgame.TILE_SIZE) + vastgame.TILE_SIZE) {
+                        var attemptedLift = mainPlayer.liftBox(box[0]);
+                        if (attemptedLift) {
+                            heldBox = attemptedLift;
+                        }
+                    }
+                }
+
+                // dropping a block
+                if (heldBox) {
+                    if (clickedTileX === playerTileX && clickedTileY === playerTileY - 1) {
+
+                    }
                 }
             }
         };
@@ -70,7 +81,7 @@
             gameController.setViewPosition(viewX, viewY);
 
             // if the player is holding a box, update its position
-            if (heldBox) {
+            if (heldBox && mainPlayer.handsFull) {
                 heldBox.x = mainPlayer.x;
                 heldBox.y = mainPlayer.y - heldBox.height;
             }
