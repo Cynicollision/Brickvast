@@ -25,64 +25,66 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>﻿
-var vastengine = vastengine || {};
-(function () {
+            <pre class="prettyprint source"><code>﻿/// &lt;reference path="namespace.js" />
 
+/**
+ * Enumeration of asset types.
+ * @class AssetType
+ * @memberof Vastengine
+ */
+vastengine.AssetType = {
+    IMAGE: 'image',
+    AUDIO: 'audio'
+};
 
-    /**
-     * Dictionary-style class used to store, pre-load, and retrieve game assets (images and audio).
-     * @param {string} type The type of asset to manage, either "image" or "audio".
-     * @constructor
-     */
-    vastengine.AssetManager = function (type) {
-        this.assets = [];
-        this.type = type;
-        if (type != vastengine.AssetType.IMAGE && type != vastengine.AssetType.AUDIO) {
-            throw 'Invalid asset type "' + type + '"';
-        }
-    };
+/**
+ * Dictionary-style class used to store, pre-load, and retrieve game assets (images and audio).
+ * @class AssetManager
+ * @memberof Vastengine
+ * @param {string} type The type of asset to manage, either "image" or "audio".
+ */
+vastengine.AssetManager = function (type) {
+    this.assets = [];
+    this.type = type;
+    if (type != vastengine.AssetType.IMAGE && type != vastengine.AssetType.AUDIO) {
+        throw 'Invalid asset type "' + type + '"';
+    }
+};
 
-
-    /**
-     * Enumeration of asset types.
-     */
-    vastengine.AssetType = {
-        IMAGE: 'image',
-        AUDIO: 'audio'
-    };
-
-
+vastengine.AssetManager.prototype = {
     /**
      * Adds a new asset with the given ID (used for retrieval) and relative source file location.
+     * @memberof! Vastengine.AssetManager.prototype
      * @param {string} newId ID value to assign to the new asset.
      * @param {string} src Path to the asset's image or audio resource, including the file name.
      */
-    vastengine.AssetManager.prototype.add = function (newId, src) {
+    add: function (newId, src) {
         this.assets.push({ id: newId, source: src, asset: undefined });
-    };
-
+    },
 
     /**
      * Retrieves the asset (actual Image or Audio object) with the given ID.
+     * @memberof! Vastengine.AssetManager.prototype
      * @param {string} id ID value to look up asset with.
      * @return {object} Image or Audio object assigned to the given ID.
      */
-    vastengine.AssetManager.prototype.getById = function (id) {
+    getById: function (id) {
         for (var i = 0; i &lt; this.assets.length; i++) {
             if (this.assets[i].id === id) {
                 return this.assets[i].asset;
             }
         }
 
-        throw "No asset exists with the given ID value.";
-    };
+        throw "No asset exists with the given ID value: " + id;
+    },
 
 
     /**
      * Instantiates all managed assets from their sources at once. Relies on this AssetManager object being correctly instantiated with a valid type.
+     * @memberof! Vastengine.AssetManager.prototype
+     * @param {function} callback
      */
-    vastengine.AssetManager.prototype.load = function () {
+    load: function (callback) {
         for (var i = 0; i &lt; this.assets.length; i++) {
             if (this.type === vastengine.AssetType.IMAGE) {
                 this.assets[i].asset = new Image();
@@ -92,9 +94,12 @@ var vastengine = vastengine || {};
 
             this.assets[i].asset.src = this.assets[i].source;
         }
-    };
 
-})();</code></pre>
+        if (callback) {
+            callback();
+        }
+    }
+};</code></pre>
         </article>
     </section>
 
@@ -104,13 +109,13 @@ var vastengine = vastengine || {};
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="vastengine.AssetManager.html">AssetManager</a></li><li><a href="vastengine.Canvas.html">Canvas</a></li><li><a href="vastengine.Controller.html">Controller</a></li><li><a href="vastengine.Dialog.html">Dialog</a></li><li><a href="vastengine.Entity.html">Entity</a></li><li><a href="vastengine.Game.html">Game</a></li><li><a href="vastengine.Input.html">Input</a></li><li><a href="vastengine.MathUtil.html">MathUtil</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Vastengine.AssetManager.html">AssetManager</a></li><li><a href="Vastengine.AssetType.html">AssetType</a></li><li><a href="Vastengine.Canvas.html">Canvas</a></li><li><a href="Vastengine.Config.html">Config</a></li><li><a href="Vastengine.Controller.html">Controller</a></li><li><a href="Vastengine.Debug.html">Debug</a></li><li><a href="Vastengine.Entity.html">Entity</a></li><li><a href="Vastengine.Error.html">Error</a></li><li><a href="Vastengine.Game.html">Game</a></li><li><a href="Vastengine.GameState.html">GameState</a></li><li><a href="Vastengine.Input.html">Input</a></li><li><a href="Vastengine.MathUtil.html">MathUtil</a></li><li><a href="Vastengine.Sprite.html">Sprite</a></li></ul><h3>Namespaces</h3><ul><li><a href="Vastengine.html">Vastengine</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 01 2015 13:44:46 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Apr 26 2015 18:19:53 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -61,9 +61,9 @@ var vastengine = vastengine || {};
         // position such that the dialog box will be centered, build buttons and text.
         this.x = 0;
         this.y = 0;
-        if (vastengine.Game.Canvas) {
-            this.x = (vastengine.Game.Canvas.getCanvasWidth() / 2) - (this.width / 2);
-            this.y = (vastengine.Game.Canvas.getCanvasHeight() / 2) - (this.height / 2);
+        if (vastengine.Canvas) {
+            this.x = (vastengine.Canvas.getCanvasWidth() / 2) - (this.width / 2);
+            this.y = (vastengine.Canvas.getCanvasHeight() / 2) - (this.height / 2);
         }
     
         this.buttons = this.buildButtons(options, this.x, this.y, this.width, this.height, this.buttonHeight);
@@ -86,157 +86,153 @@ var vastengine = vastengine || {};
         }();
     };
 
+    vastengine.Dialog.prototype = {
 
-    /**
-     * Builds an array of individual lines of the dialog text based
-     * such that it wraps neatly in the dialog box.
-     * @param {string} text The text to build into lines.
-     * @return {Array.&lt;string>} Individual lines of wrapped text.
-     */
-    vastengine.Dialog.prototype.buildTextLines = function (text, maxWidth, font) {
-        // determine line width.
-        var lineWidth = -1;
+        /**
+         * Builds an array of individual lines of the dialog text based
+         * such that it wraps neatly in the dialog box.
+         * @param {string} text The text to build into lines.
+         * @return {Array.&lt;string>} Individual lines of wrapped text.
+         */
+        buildTextLines: function (text, maxWidth, font) {
+            // determine line width.
+            var lineWidth = -1;
 
-        var context;
-        if (vastengine.Game.Canvas) {
-            context = vastengine.Game.Canvas.getDrawingContext();
-            if (context) {
-                context.font = font;
-            }
-        }
-    
-        var textLines = [];
-        var words = text.split(' ');
-        var line = '';
-        for (var i = 0; i &lt; words.length; i++) {
-            var currentLine = line + words[i] + ' ';
-            if (context) {
-                var currentLineWidth = context.measureText(currentLine).width;
-                if (currentLineWidth > maxWidth && i > 0) {
-                    textLines.push(line);
-                    line = words[i] + ' ';
-                }
-                else {
-                    line = currentLine;
+            var context;
+            if (vastengine.Canvas) {
+                context = vastengine.Canvas.getDrawingContext();
+                if (context) {
+                    context.font = font;
                 }
             }
-        
-        }
-        textLines.push(line); // the rest.
 
-        return textLines;
-    };
+            var textLines = [];
+            var words = text.split(' ');
+            var line = '';
+            for (var i = 0; i &lt; words.length; i++) {
+                var currentLine = line + words[i] + ' ';
+                if (context) {
+                    var currentLineWidth = context.measureText(currentLine).width;
+                    if (currentLineWidth > maxWidth && i > 0) {
+                        textLines.push(line);
+                        line = words[i] + ' ';
+                    }
+                    else {
+                        line = currentLine;
+                    }
+                }
 
-
-    /**
-     * Builds buttons to be clicked on, including their position and size, for each of the given options.
-     * @param {Array.&lt;string>} options The options to build buttons for.
-     */
-    vastengine.Dialog.prototype.buildButtons = function (options, dialogX, dialogY, dialogW, dialogH, buttonHeight) {
-        var buttons = [];
-        for (var i = options.length - 1; i >= 0; i--) {
-            buttons.push({ text: options[options.length - i - 1], x: dialogX, y: dialogY + dialogH - ((i + 1) * buttonHeight), w: dialogW, h: buttonHeight });
-        }
-        return buttons;
-    };
-
-
-    /**
-     * Sets whether this Dialog object is visible on the screen.
-     * @param {boolean} isVisible True to show the dialog.
-     */
-    vastengine.Dialog.prototype.setVisible = function (isVisible) {
-        this.visible = isVisible;
-    };
-
-
-    /**
-     * Determines whether this Dialog is currently visible.
-     * @return {boolean} True if the Dialog object is currently visible (being drawn).
-     */
-    vastengine.Dialog.prototype.isVisible = function () {
-        return this.visible;
-    };
-
-
-    /**
-     * Touch event-handler. Determine if any of the buttons were clicked on, and if 
-     * so call this Dialog object's callback function with the selected index then hide this dialog.
-     * @param {number} x X-coordinate of touch event.
-     * @param {number} y Y-coordinate of touch event.
-     */
-    vastengine.Dialog.prototype.onTouch = function (x, y) {
-        var clickedOn = -1;
-
-        // see if a button was clicked on.
-        for (var i = 0; i &lt; this.buttons.length; i++) {
-            if (x > this.buttons[i].x && x &lt; (this.buttons[i].x + this.buttons[i].w) && y > this.buttons[i].y && (y &lt; this.buttons[i].y + this.buttons[i].h)) {
-                clickedOn = i;
             }
-        }
+            textLines.push(line); // the rest.
 
-        // destroy the dialog if a button was clicked and call the callback.
-        if (clickedOn > -1) {
-            vastengine.Game.setDialog(undefined);
-            this.doCallback(clickedOn);
-        }
-    };
+            return textLines;
+        },
 
+        /**
+         * Builds buttons to be clicked on, including their position and size, for each of the given options.
+         * @param {Array.&lt;string>} options The options to build buttons for.
+         */
+        buildButtons: function (options, dialogX, dialogY, dialogW, dialogH, buttonHeight) {
+            var buttons = [];
+            for (var i = options.length - 1; i >= 0; i--) {
+                buttons.push({ text: options[options.length - i - 1], x: dialogX, y: dialogY + dialogH - ((i + 1) * buttonHeight), w: dialogW, h: buttonHeight });
+            }
+            return buttons;
+        },
 
-    /**
-     * Calls the Dialog's callback with the given input.
-     * @param {number} Integer selection.
-     */
-    vastengine.Dialog.prototype.doCallback = function (input) {
-        if (this.callback) {
-            this.callback(input);
-        }
-    };
+        /**
+         * Sets whether this Dialog object is visible on the screen.
+         * @param {boolean} isVisible True to show the dialog.
+         */
+        setVisible: function (isVisible) {
+            this.visible = isVisible;
+        },
 
+        /**
+         * Determines whether this Dialog is currently visible.
+         * @return {boolean} True if the Dialog object is currently visible (being drawn).
+         */
+        isVisible: function () {
+            return this.visible;
+        },
 
-    /**
-     * Draw the dialog box and its components.
-     */
-    vastengine.Dialog.prototype.draw = function () {
-        if (this.visible) {
-            var context = vastengine.Game.Canvas.getDrawingContext();
-            context.save();
-            this.scale.update();
+        /**
+         * Touch event-handler. Determine if any of the buttons were clicked on, and if 
+         * so call this Dialog object's callback function with the selected index then hide this dialog.
+         * @param {number} x X-coordinate of touch event.
+         * @param {number} y Y-coordinate of touch event.
+         */
+        onTouch: function (x, y) {
+            var clickedOn = -1;
 
-            // background shadow
-            context.fillStyle = '#000';
-            context.globalAlpha = 0.5;
-            context.fillRect(0, 0, vastengine.Game.Canvas.getCanvasWidth(), vastengine.Game.Canvas.getCanvasHeight());
+            // see if a button was clicked on.
+            for (var i = 0; i &lt; this.buttons.length; i++) {
+                if (x > this.buttons[i].x && x &lt; (this.buttons[i].x + this.buttons[i].w) && y > this.buttons[i].y && (y &lt; this.buttons[i].y + this.buttons[i].h)) {
+                    clickedOn = i;
+                }
+            }
 
-            // dialog background
-            context.globalAlpha = 1;
-            context.shadowBlur = 20;
-            context.shadowColor = "black";
-            context.fillStyle = '#FFF';
-            context.fillRect(this.x + ((this.width - this.width * this.scale.get()) / 2), this.y + ((this.height - this.height * this.scale.get()) / 2), this.width * this.scale.get(), this.height * this.scale.get());
-            context.shadowBlur = 0;
+            // destroy the dialog if a button was clicked and call the callback.
+            if (clickedOn > -1) {
+                vastengine.Game.setDialog(undefined);
+                this.doCallback(clickedOn);
+            }
+        },
 
-            // draw text and buttons only when animation is finished.
-            if (this.scale.get() === 1) {
-                // text
-                context.textBaseline = 'top';
+        /**
+         * Calls the Dialog's callback with the given input.
+         * @param {number} Integer selection.
+         */
+        doCallback: function (input) {
+            if (this.callback) {
+                this.callback(input);
+            }
+        },
+
+        /**
+         * Draw the dialog box and its components.
+         */
+        draw: function () {
+            if (this.visible) {
+                var context = vastengine.Canvas.getDrawingContext();
+                context.save();
+                this.scale.update();
+
+                // background shadow
                 context.fillStyle = '#000';
-                context.font = this.textFont;
-            
-                for (var i = 0; i &lt; this.textLines.length; i++) {
-                    context.fillText(this.textLines[i], this.x + this.textPadding, this.y + i * this.lineSpacing);
+                context.globalAlpha = 0.5;
+                context.fillRect(0, 0, vastengine.Canvas.getCanvasWidth(), vastengine.Canvas.getCanvasHeight());
+
+                // dialog background
+                context.globalAlpha = 1;
+                context.shadowBlur = 20;
+                context.shadowColor = "black";
+                context.fillStyle = '#FFF';
+                context.fillRect(this.x + ((this.width - this.width * this.scale.get()) / 2), this.y + ((this.height - this.height * this.scale.get()) / 2), this.width * this.scale.get(), this.height * this.scale.get());
+                context.shadowBlur = 0;
+
+                // draw text and buttons only when animation is finished.
+                if (this.scale.get() === 1) {
+                    // text
+                    context.textBaseline = 'top';
+                    context.fillStyle = '#000';
+                    context.font = this.textFont;
+
+                    for (var i = 0; i &lt; this.textLines.length; i++) {
+                        context.fillText(this.textLines[i], this.x + this.textPadding, this.y + i * this.lineSpacing);
+                    }
+                    // buttons
+                    context.font = (this.buttonHeight / 2) + 'pt Calibri';
+                    context.textAlign = 'center';
+                    context.textBaseline = 'middle';
+                    for (var n = 0; n &lt; this.buttons.length; n++) {
+                        context.fillText(this.buttons[n].text, this.buttons[n].x + (this.buttons[n].w / 2), this.buttons[n].y + (this.buttons[n].h / 2));
+                    }
                 }
-                // buttons
-                context.font = (this.buttonHeight / 2) + 'pt Calibri';
-                context.textAlign = 'center';
-                context.textBaseline = 'middle';
-                for (var n = 0; n &lt; this.buttons.length; n++) {
-                    context.fillText(this.buttons[n].text, this.buttons[n].x + (this.buttons[n].w / 2), this.buttons[n].y + (this.buttons[n].h / 2));
-                }
+
+                // reset context styles
+                context.restore();
             }
-        
-            // reset context styles
-            context.restore();
         }
     };
 })();</code></pre>
@@ -249,13 +245,13 @@ var vastengine = vastengine || {};
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="vastengine.AssetManager.html">AssetManager</a></li><li><a href="vastengine.Canvas.html">Canvas</a></li><li><a href="vastengine.Controller.html">Controller</a></li><li><a href="vastengine.Dialog.html">Dialog</a></li><li><a href="vastengine.Entity.html">Entity</a></li><li><a href="vastengine.Game.html">Game</a></li><li><a href="vastengine.Input.html">Input</a></li><li><a href="vastengine.MathUtil.html">MathUtil</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="vastengine.AssetManager.html">AssetManager</a></li><li><a href="vastengine.Canvas.html">Canvas</a></li><li><a href="vastengine.Controller.html">Controller</a></li><li><a href="vastengine.Dialog.html">Dialog</a></li><li><a href="vastengine.Entity.html">Entity</a></li><li><a href="vastengine.Game.html">Game</a></li><li><a href="vastengine.Input.html">Input</a></li><li><a href="vastengine.MathUtil.html">MathUtil</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildCanvas">buildCanvas</a></li><li><a href="global.html#draw">draw</a></li><li><a href="global.html#drawController">drawController</a></li><li><a href="global.html#drawElement">drawElement</a></li><li><a href="global.html#getActiveController">getActiveController</a></li><li><a href="global.html#getCanvasHeight">getCanvasHeight</a></li><li><a href="global.html#getCanvasWidth">getCanvasWidth</a></li><li><a href="global.html#getCurrentFPS">getCurrentFPS</a></li><li><a href="global.html#getScale">getScale</a></li><li><a href="global.html#getViewRelativeX">getViewRelativeX</a></li><li><a href="global.html#getViewRelativeY">getViewRelativeY</a></li><li><a href="global.html#onTouch">onTouch</a></li><li><a href="global.html#onTouchEnd">onTouchEnd</a></li><li><a href="global.html#onTouchEvent">onTouchEvent</a></li><li><a href="global.html#run">run</a></li><li><a href="global.html#setActiveController">setActiveController</a></li><li><a href="global.html#setBackgroundColor">setBackgroundColor</a></li><li><a href="global.html#setBackgroundImage">setBackgroundImage</a></li><li><a href="global.html#setBackgroundPosition">setBackgroundPosition</a></li><li><a href="global.html#setError">setError</a></li><li><a href="global.html#setScrollFactor">setScrollFactor</a></li><li><a href="global.html#setSize">setSize</a></li><li><a href="global.html#setState">setState</a></li><li><a href="global.html#updateCanvasSize">updateCanvasSize</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 01 2015 13:44:46 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Mar 31 2015 20:11:02 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

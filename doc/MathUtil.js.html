@@ -25,68 +25,72 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>﻿var vastengine = vastengine || {};
-(function () {
-    /**
-     * For performing various mathematical calculations, trig etc.
-     * @constructor
-     */
-    vastengine.MathUtil = {};
+            <pre class="prettyprint source"><code>﻿/**
+ * @class MathUtil
+ * @memberof Vastengine
+ */
+vastengine.MathUtil = (function () {
+    return {
+        /**
+         * 
+         * Calculate the distance between two points (x1, y1) and (x2, y2).
+         * @memberof! Vastengine.MathUtil
+         * @param {number} x1 X-coordinate of point 1.
+         * @param {number} y1 Y-coordinate of point 1.
+         * @param {number} x2 X-coordinate of point 2.
+         * @param {number} y2 Y-coordinate of point 2.
+         * @return {number} Distance between the two given points.
+         */
+        getPointDistance: function (x1, y1, x2, y2) {
+            return Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
+        },
 
 
-    /**
-     * Calculate the distance between two points (x1, y1) and (x2, y2).
-     * @param {number} x1 X-coordinate of point 1.
-     * @param {number} y1 Y-coordinate of point 1.
-     * @param {number} x2 X-coordinate of point 2.
-     * @param {number} y2 Y-coordinate of point 2.
-     * @return {number} Distance between the two given points.
-     */
-    vastengine.MathUtil.getPointDistance = function (x1, y1, x2, y2) {
-        return Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
-    };
+        /**
+         * Calculate the direction from two points (x1, y1) to (x2, y2).
+         * @memberof! Vastengine.MathUtil
+         * @param {number} x1 X-coordinate of point 1.
+         * @param {number} y1 Y-coordinate of point 1.
+         * @param {number} x2 X-coordinate of point 2.
+         * @param {number} y2 Y-coordinate of point 2.
+         * @return {number} Direction from point 1 to point 2.
+         */
+        getPointDirection: function (x1, y1, x2, y2) {
+            var direction = ((180 / Math.PI) * Math.atan2(y2 - y1, x2 - x1));
+            if (direction > 360) {
+                direction -= 360;
+            } else if (direction &lt; 0) {
+                direction += 360;
+            }
+            return direction;
+        },
 
 
-    /**
-     * Calculate the direction from two points (x1, y1) to (x2, y2).
-     * @param {number} x1 X-coordinate of point 1.
-     * @param {number} y1 Y-coordinate of point 1.
-     * @param {number} x2 X-coordinate of point 2.
-     * @param {number} y2 Y-coordinate of point 2.
-     * @return {number} Direction from point 1 to point 2.
-     */
-    vastengine.MathUtil.getPointDirection = function (x1, y1, x2, y2) {
-        var direction = ((180 / Math.PI) * Math.atan2(y2 - y1, x2 - x1));
-        if (direction > 360) {
-            direction -= 360;
-        } else if (direction &lt; 0) {
-            direction += 360;
+        /**
+          * Calculate the x-offset of a point the given length and direction from (0, 0).
+          * @memberof! Vastengine.MathUtil
+          * @param {number} len Length to point.
+          * @param {number} dir Direction to point
+          * @return {number} X-coorindate of the point in the length and direction.
+          */
+        getLengthDirectionX: function (len, dir) {
+            return Math.floor(len * Math.cos(dir * (Math.PI / 180)));
+        },
+
+
+        /**
+          * Calculate the y-offset of a point the given length and direction from (0, 0).
+          * @memberof! Vastengine.MathUtil
+          * @param {number} len Length to point.
+          * @param {number} dir Direction to point
+          * @return {number} Y-coorindate of the point in the length and direction.
+          */
+        getLengthDirectionY: function (len, dir) {
+            return Math.floor(len * Math.sin(dir * (Math.PI / 180)));
         }
-        return direction;
     };
-
-
-    /**
-      * Calculate the x-offset of a point the given length and direction from (0, 0).
-      * @param {number} len Length to point.
-      * @param {number} dir Direction to point
-      * @return {number} X-coorindate of the point in the length and direction.
-      */
-    vastengine.MathUtil.getLengthDirectionX = function (len, dir) {
-        return Math.floor(len * Math.cos(dir * (Math.PI / 180)));
-    };
-
-
-    /**
-      * Calculate the y-offset of a point the given length and direction from (0, 0).
-      * @param {number} len Length to point.
-      * @param {number} dir Direction to point
-      * @return {number} Y-coorindate of the point in the length and direction.
-      */
-    vastengine.MathUtil.getLengthDirectionY = function (len, dir) {
-        return Math.floor(len * Math.sin(dir * (Math.PI / 180)));
-    };
-})();</code></pre>
+}());
+</code></pre>
         </article>
     </section>
 
@@ -96,13 +100,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="vastengine.AssetManager.html">AssetManager</a></li><li><a href="vastengine.Canvas.html">Canvas</a></li><li><a href="vastengine.Controller.html">Controller</a></li><li><a href="vastengine.Dialog.html">Dialog</a></li><li><a href="vastengine.Entity.html">Entity</a></li><li><a href="vastengine.Game.html">Game</a></li><li><a href="vastengine.Input.html">Input</a></li><li><a href="vastengine.MathUtil.html">MathUtil</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Vastengine.AssetManager.html">AssetManager</a></li><li><a href="Vastengine.AssetType.html">AssetType</a></li><li><a href="Vastengine.Canvas.html">Canvas</a></li><li><a href="Vastengine.Config.html">Config</a></li><li><a href="Vastengine.Controller.html">Controller</a></li><li><a href="Vastengine.Debug.html">Debug</a></li><li><a href="Vastengine.Entity.html">Entity</a></li><li><a href="Vastengine.Error.html">Error</a></li><li><a href="Vastengine.Game.html">Game</a></li><li><a href="Vastengine.GameState.html">GameState</a></li><li><a href="Vastengine.Input.html">Input</a></li><li><a href="Vastengine.MathUtil.html">MathUtil</a></li><li><a href="Vastengine.Sprite.html">Sprite</a></li></ul><h3>Namespaces</h3><ul><li><a href="Vastengine.html">Vastengine</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 01 2015 13:44:46 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Apr 26 2015 18:19:53 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

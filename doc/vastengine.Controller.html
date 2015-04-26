@@ -27,6 +27,8 @@
     
 <header>
     <h2>
+        <span class="ancestors"><a href="Vastengine.html">Vastengine</a>.</span>
+    
     Controller
     </h2>
     
@@ -80,7 +82,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line9">line 9</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line3">line 3</a>
     </li></ul></dd>
     
     
@@ -173,13 +175,18 @@
             
             <td class="type">
             
+                
+<span class="param-type">object</span>
+
+
+            
             </td>
             
             
             
             
             
-            <td class="description last"></td>
+            <td class="description last">Entity object to add to the Controller.</td>
         </tr>
 	
 	
@@ -210,7 +217,124 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line86">line 86</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="drawEntities"><span class="type-signature"></span>drawEntities<span class="signature">(context)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Draw each Entity (sorted in reverse order by depth) at their positions relative to the view.If the Entity has a Sprite object, draw that first.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>context</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The drawing context to draw on.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line174">line 174</a>
     </li></ul></dd>
     
     
@@ -279,7 +403,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line95">line 95</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line75">line 75</a>
     </li></ul></dd>
     
     
@@ -325,7 +449,7 @@
         
             
 <dt>
-    <h4 class="name" id="getEntitiesAtPosition"><span class="type-signature"></span>getEntitiesAtPosition<span class="signature">(x, y, Optional)</span><span class="type-signature"> &rarr; {Array.&lt;Entity>}</span></h4>
+    <h4 class="name" id="getEntitiesAtPosition"><span class="type-signature"></span>getEntitiesAtPosition<span class="signature">(x, y, <span class="optional">type</span>)</span><span class="type-signature"> &rarr; {Array.&lt;Entity>}</span></h4>
     
     
 </dt>
@@ -355,6 +479,8 @@
 		<th>Type</th>
 		
 		
+		<th>Argument</th>
+		
 		
 		
 		
@@ -380,6 +506,14 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
             
             
             
@@ -403,6 +537,14 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
             
             
             
@@ -413,7 +555,7 @@
 	
         <tr>
             
-                <td class="name"><code>Optional</code></td>
+                <td class="name"><code>type</code></td>
             
             
             <td class="type">
@@ -426,10 +568,20 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                    
+                
+                </td>
             
             
             
-            <td class="description last">type to check/filter for. If specified, only Entity objects with this type will be returned.</td>
+            
+            <td class="description last">Optional type to check/filter for. If specified, only Entity objects with this type will be returned.</td>
         </tr>
 	
 	
@@ -460,7 +612,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line136">line 136</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line116">line 116</a>
     </li></ul></dd>
     
     
@@ -599,7 +751,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line118">line 118</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line98">line 98</a>
     </li></ul></dd>
     
     
@@ -690,7 +842,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line104">line 104</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line84">line 84</a>
     </li></ul></dd>
     
     
@@ -740,7 +892,7 @@
         
             
 <dt>
-    <h4 class="name" id="isPositionFree"><span class="type-signature"></span>isPositionFree<span class="signature">(x, y, Optional)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="isPositionFree"><span class="type-signature"></span>isPositionFree<span class="signature">(x, y, <span class="optional">type</span>)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -748,7 +900,7 @@
     
     
     <div class="description">
-        Determines if the given position is free of all managed Entity objects. If the given (x, y) falls within the (x, y) and (x+w, y+h) of any Entity objects
+        Determines if the given position is free of all managed Entity objects. If the given (x, y) falls within the (x, y) and (x+w, y+h) of any Entity objects this will return false.
     </div>
     
 
@@ -769,6 +921,8 @@
 		
 		<th>Type</th>
 		
+		
+		<th>Argument</th>
 		
 		
 		
@@ -795,6 +949,14 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
             
             
             
@@ -818,6 +980,14 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
             
             
             
@@ -828,7 +998,7 @@
 	
         <tr>
             
-                <td class="name"><code>Optional</code></td>
+                <td class="name"><code>type</code></td>
             
             
             <td class="type">
@@ -841,10 +1011,20 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                    
+                
+                </td>
             
             
             
-            <td class="description last">type to check/filter for. If specified, only check for Entity objects with this type.</td>
+            
+            <td class="description last">Optional type to check/filter for. If specified, only check for Entity objects with this type.</td>
         </tr>
 	
 	
@@ -875,7 +1055,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line156">line 156</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line135">line 135</a>
     </li></ul></dd>
     
     
@@ -944,7 +1124,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line180">line 180</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line160">line 160</a>
     </li></ul></dd>
     
     
@@ -972,358 +1152,7 @@
         
             
 <dt>
-    <h4 class="name" id="setOnTouch"><span class="type-signature"></span>setOnTouch<span class="signature">(onTouchFn)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Sets the function to call on a touch event.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>onTouchFn</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Function to call on a touch event.</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line69">line 69</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setOnTouchEnd"><span class="type-signature"></span>setOnTouchEnd<span class="signature">(onTouchFn)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Sets the function to call on a touch end event.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>onTouchFn</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Function to call on a touch end event.</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line78">line 78</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setPostStep"><span class="type-signature"></span>setPostStep<span class="signature">(step())</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Sets the function to call at the end of each game step.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>step()</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">function to be called.</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line60">line 60</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setViewPosition"><span class="type-signature"></span>setViewPosition<span class="signature">(newX, newY)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setViewPosition"><span class="type-signature"></span>setViewPosition<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1365,7 +1194,7 @@
 	
         <tr>
             
-                <td class="name"><code>newX</code></td>
+                <td class="name"><code>x</code></td>
             
             
             <td class="type">
@@ -1388,7 +1217,7 @@
 	
         <tr>
             
-                <td class="name"><code>newY</code></td>
+                <td class="name"><code>y</code></td>
             
             
             <td class="type">
@@ -1435,7 +1264,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line25">line 25</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line27">line 27</a>
     </li></ul></dd>
     
     
@@ -1504,7 +1333,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line170">line 170</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line150">line 150</a>
     </li></ul></dd>
     
     
@@ -1573,7 +1402,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line34">line 34</a>
+        <a href="Controller.js.html">Controller.js</a>, <a href="Controller.js.html#line36">line 36</a>
     </li></ul></dd>
     
     
@@ -1614,13 +1443,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="vastengine.AssetManager.html">AssetManager</a></li><li><a href="vastengine.Canvas.html">Canvas</a></li><li><a href="vastengine.Controller.html">Controller</a></li><li><a href="vastengine.Dialog.html">Dialog</a></li><li><a href="vastengine.Entity.html">Entity</a></li><li><a href="vastengine.Game.html">Game</a></li><li><a href="vastengine.Input.html">Input</a></li><li><a href="vastengine.MathUtil.html">MathUtil</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Vastengine.AssetManager.html">AssetManager</a></li><li><a href="Vastengine.AssetType.html">AssetType</a></li><li><a href="Vastengine.Canvas.html">Canvas</a></li><li><a href="Vastengine.Config.html">Config</a></li><li><a href="Vastengine.Controller.html">Controller</a></li><li><a href="Vastengine.Debug.html">Debug</a></li><li><a href="Vastengine.Entity.html">Entity</a></li><li><a href="Vastengine.Error.html">Error</a></li><li><a href="Vastengine.Game.html">Game</a></li><li><a href="Vastengine.GameState.html">GameState</a></li><li><a href="Vastengine.Input.html">Input</a></li><li><a href="Vastengine.MathUtil.html">MathUtil</a></li><li><a href="Vastengine.Sprite.html">Sprite</a></li></ul><h3>Namespaces</h3><ul><li><a href="Vastengine.html">Vastengine</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 01 2015 13:44:46 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Apr 26 2015 18:19:53 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>

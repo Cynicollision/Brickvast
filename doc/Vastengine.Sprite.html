@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: AssetManager</title>
+    <title>JSDoc: Class: Sprite</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: AssetManager</h1>
+    <h1 class="page-title">Class: Sprite</h1>
     
     
 
@@ -29,7 +29,7 @@
     <h2>
         <span class="ancestors"><a href="Vastengine.html">Vastengine</a>.</span>
     
-    AssetManager
+    Sprite
     </h2>
     
 </header>  
@@ -41,7 +41,7 @@
     
         
 <dt>
-    <h4 class="name" id="AssetManager"><span class="type-signature"></span>new AssetManager<span class="signature">(type)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Sprite"><span class="type-signature"></span>new Sprite<span class="signature">(image, width, height, frames, startFrame)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -49,7 +49,7 @@
     
     
     <div class="description">
-        Dictionary-style class used to store, pre-load, and retrieve game assets (images and audio).
+        A graphical asset that can be animated, used as the visual representation of an Entity object.
     </div>
     
 
@@ -83,13 +83,13 @@
 	
         <tr>
             
-                <td class="name"><code>type</code></td>
+                <td class="name"><code>image</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
             
@@ -99,7 +99,99 @@
             
             
             
-            <td class="description last">The type of asset to manage, either "image" or "audio".</td>
+            <td class="description last">object from vastengine.AssetManager</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Width of the new Sprite (pixels)</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Height of the new Sprite (pixels)</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>frames</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number[]</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Array of frame numbers to draw from the sheet</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>startFrame</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Frame number to begin animation with</td>
         </tr>
 	
 	
@@ -130,7 +222,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AssetManager.js.html">AssetManager.js</a>, <a href="AssetManager.js.html#line13">line 13</a>
+        <a href="Sprite.js.html">Sprite.js</a>, <a href="Sprite.js.html#line3">line 3</a>
     </li></ul></dd>
     
     
@@ -176,7 +268,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="add"><span class="type-signature"></span>add<span class="signature">(newId, src)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="vastengine.Sprite.fromImage"><span class="type-signature">&lt;static> </span>vastengine.Sprite.fromImage<span class="signature">(image)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -184,7 +276,7 @@
     
     
     <div class="description">
-        Adds a new asset with the given ID (used for retrieval) and relative source file location.
+        "Factory" function for building and returning a new Sprite object from the given Image from the AssetManager.Can be used to create from a single-frame image or a sheet for animated Sprite objects.
     </div>
     
 
@@ -218,13 +310,13 @@
 	
         <tr>
             
-                <td class="name"><code>newId</code></td>
+                <td class="name"><code>image</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Image</span>
 
 
             
@@ -234,30 +326,7 @@
             
             
             
-            <td class="description last">ID value to assign to the new asset.</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>src</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Path to the asset's image or audio resource, including the file name.</td>
+            <td class="description last">Image to build the Sprite from.</td>
         </tr>
 	
 	
@@ -288,7 +357,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AssetManager.js.html">AssetManager.js</a>, <a href="AssetManager.js.html#line34">line 34</a>
+        <a href="Sprite.js.html">Sprite.js</a>, <a href="Sprite.js.html#line30">line 30</a>
     </li></ul></dd>
     
     
@@ -316,7 +385,7 @@
         
             
 <dt>
-    <h4 class="name" id="getById"><span class="type-signature"></span>getById<span class="signature">(id)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="draw"><span class="type-signature"></span>draw<span class="signature">(context, x, y)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -324,7 +393,7 @@
     
     
     <div class="description">
-        Retrieves the asset (actual Image or Audio object) with the given ID.
+        Draws the current frame of the Sprite.
     </div>
     
 
@@ -358,152 +427,36 @@
 	
         <tr>
             
-                <td class="name"><code>id</code></td>
+                <td class="name"><code>context</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">ID value to look up asset with.</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AssetManager.js.html">AssetManager.js</a>, <a href="AssetManager.js.html#line44">line 44</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Image or Audio object assigned to the given ID.
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
 <span class="param-type">object</span>
 
 
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
             
-<dt>
-    <h4 class="name" id="load"><span class="type-signature"></span>load<span class="signature">(callback)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Instantiates all managed assets from their sources at once. Relies on this AssetManager object being correctly instantiated with a valid type.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Drawing context to draw on.</td>
+        </tr>
 	
-	<tbody>
 	
 	
         <tr>
             
-                <td class="name"><code>callback</code></td>
+                <td class="name"><code>x</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type">number</span>
 
 
             
@@ -513,7 +466,30 @@
             
             
             
-            <td class="description last"></td>
+            <td class="description last">Horizontal position relative to Controller's view.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Vertical position relative to Controller's view.</td>
         </tr>
 	
 	
@@ -544,7 +520,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AssetManager.js.html">AssetManager.js</a>, <a href="AssetManager.js.html#line60">line 60</a>
+        <a href="Sprite.js.html">Sprite.js</a>, <a href="Sprite.js.html#line60">line 60</a>
     </li></ul></dd>
     
     

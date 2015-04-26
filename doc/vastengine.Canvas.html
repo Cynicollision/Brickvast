@@ -27,6 +27,8 @@
     
 <header>
     <h2>
+        <span class="ancestors"><a href="Vastengine.html">Vastengine</a>.</span>
+    
     Canvas
     </h2>
     
@@ -47,7 +49,7 @@
     
     
     <div class="description">
-        Used specifically for manipulating directly the main game canvas, i.e. drawing on it.
+        Used for manipulating directly the main game canvas, i.e. drawing on it.
     </div>
     
 
@@ -80,7 +82,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line10">line 10</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line3">line 3</a>
     </li></ul></dd>
     
     
@@ -126,7 +128,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="buildCanvas"><span class="type-signature"></span>buildCanvas<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="buildCanvas"><span class="type-signature">&lt;static> </span>buildCanvas<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -134,7 +136,7 @@
     
     
     <div class="description">
-        build the HTML canvas and insert into the DOM.
+        Build the HTML canvas and insert into the DOM.
     </div>
     
 
@@ -167,7 +169,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line30">line 30</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line19">line 19</a>
     </li></ul></dd>
     
     
@@ -188,28 +190,6 @@
     
     
     
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Reference to the canvas that was built.
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">Object</span>
-
-
-	</dd>
-</dl>
-
-        
     
     
 </dd>
@@ -217,7 +197,7 @@
         
             
 <dt>
-    <h4 class="name" id="draw"><span class="type-signature"></span>draw<span class="signature">(controller)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="draw"><span class="type-signature">&lt;static> </span>draw<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -225,7 +205,7 @@
     
     
     <div class="description">
-        Clears the game canvas and draws the given Controller object. Draws the given controller's managed entities relative to its view.
+        Performs scaling and translation operations on the canvas element, then draws the active Controller and Debug objects.
     </div>
     
 
@@ -233,54 +213,6 @@
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>controller</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Controller</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Controller object to draw.</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -306,7 +238,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line168">line 168</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line184">line 184</a>
     </li></ul></dd>
     
     
@@ -334,7 +266,7 @@
         
             
 <dt>
-    <h4 class="name" id="drawElement"><span class="type-signature"></span>drawElement<span class="signature">(Delegate)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="drawElement"><span class="type-signature">&lt;static> </span>drawElement<span class="signature">(Delegate)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -423,7 +355,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line157">line 157</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line174">line 174</a>
     </li></ul></dd>
     
     
@@ -451,7 +383,7 @@
         
             
 <dt>
-    <h4 class="name" id="getCanvasHeight"><span class="type-signature"></span>getCanvasHeight<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="getHeight"><span class="type-signature">&lt;static> </span>getHeight<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
     
     
 </dt>
@@ -492,7 +424,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line100">line 100</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line120">line 120</a>
     </li></ul></dd>
     
     
@@ -542,7 +474,7 @@
         
             
 <dt>
-    <h4 class="name" id="getCanvasWidth"><span class="type-signature"></span>getCanvasWidth<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="getScale"><span class="type-signature">&lt;static> </span>getScale<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -550,7 +482,7 @@
     
     
     <div class="description">
-        Retrieves the width of the game canvas.
+        Gets the scaling ratio of the canvas.
     </div>
     
 
@@ -583,189 +515,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line92">line 92</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Width of the game canvas.
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">number</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getDrawingContext"><span class="type-signature"></span>getDrawingContext<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Retrieves a reference of the 2D drawing context.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line45">line 45</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    2D drawing context of the game's canvas.
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type">object</span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getScale"><span class="type-signature"></span>getScale<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Gets a single scaling ratio of the canvas.
-    </div>
-    
-
-    
-    
-    
-    
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line125">line 125</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line139">line 139</a>
     </li></ul></dd>
     
     
@@ -793,7 +543,7 @@
         
             
 <dt>
-    <h4 class="name" id="getViewRelativeX"><span class="type-signature"></span>getViewRelativeX<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="getViewRelativeX"><span class="type-signature">&lt;static> </span>getViewRelativeX<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
     
     
 </dt>
@@ -834,7 +584,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line133">line 133</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line148">line 148</a>
     </li></ul></dd>
     
     
@@ -884,7 +634,7 @@
         
             
 <dt>
-    <h4 class="name" id="getViewRelativeY"><span class="type-signature"></span>getViewRelativeY<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    <h4 class="name" id="getViewRelativeY"><span class="type-signature">&lt;static> </span>getViewRelativeY<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
     
     
 </dt>
@@ -925,7 +675,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line145">line 145</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line161">line 161</a>
     </li></ul></dd>
     
     
@@ -975,7 +725,98 @@
         
             
 <dt>
-    <h4 class="name" id="setBackgroundColor"><span class="type-signature"></span>setBackgroundColor<span class="signature">(color)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getWidth"><span class="type-signature">&lt;static> </span>getWidth<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Retrieves the width of the game canvas.
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line111">line 111</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Width of the game canvas.
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">number</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setBackgroundColor"><span class="type-signature">&lt;static> </span>setBackgroundColor<span class="signature">(color)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1064,7 +905,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line53">line 53</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line69">line 69</a>
     </li></ul></dd>
     
     
@@ -1092,7 +933,7 @@
         
             
 <dt>
-    <h4 class="name" id="setBackgroundImage"><span class="type-signature"></span>setBackgroundImage<span class="signature">(url, Whether)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setBackgroundImage"><span class="type-signature">&lt;static> </span>setBackgroundImage<span class="signature">(url, Whether)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1204,7 +1045,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line62">line 62</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line79">line 79</a>
     </li></ul></dd>
     
     
@@ -1232,7 +1073,7 @@
         
             
 <dt>
-    <h4 class="name" id="setBackgroundPosition"><span class="type-signature"></span>setBackgroundPosition<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setBackgroundPosition"><span class="type-signature">&lt;static> </span>setBackgroundPosition<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1344,7 +1185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line74">line 74</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line92">line 92</a>
     </li></ul></dd>
     
     
@@ -1372,7 +1213,124 @@
         
             
 <dt>
-    <h4 class="name" id="setCanvasSize"><span class="type-signature"></span>setCanvasSize<span class="signature">(w, h)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setScrollFactor"><span class="type-signature">&lt;static> </span>setScrollFactor<span class="signature">(factor)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Sets the scroll factor (ratio) for the background image. A value of 0 results in a fixed background and a value of 1 results in the background scrolling proportionally to the active controller's view position.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>factor</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Scroll factor (ratio to active controller's view position).</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line102">line 102</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setSize"><span class="type-signature">&lt;static> </span>setSize<span class="signature">(w, h)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1484,7 +1442,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line109">line 109</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line130">line 130</a>
     </li></ul></dd>
     
     
@@ -1512,7 +1470,7 @@
         
             
 <dt>
-    <h4 class="name" id="setScale"><span class="type-signature"></span>setScale<span class="signature">(Scale)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="setVisible"><span class="type-signature">&lt;static> </span>setVisible<span class="signature">(Whether)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1520,7 +1478,7 @@
     
     
     <div class="description">
-        Sets the scale ratio for the canvas.
+        Set whether the canvas element is visible or not (Game will still run).
     </div>
     
 
@@ -1554,13 +1512,13 @@
 	
         <tr>
             
-                <td class="name"><code>Scale</code></td>
+                <td class="name"><code>Whether</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">bool</span>
 
 
             
@@ -1570,7 +1528,7 @@
             
             
             
-            <td class="description last">ratio.</td>
+            <td class="description last">to display the canvas element.</td>
         </tr>
 	
 	
@@ -1601,7 +1559,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line118">line 118</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line44">line 44</a>
     </li></ul></dd>
     
     
@@ -1629,7 +1587,7 @@
         
             
 <dt>
-    <h4 class="name" id="setScrollFactor"><span class="type-signature"></span>setScrollFactor<span class="signature">(factor)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="updateCanvasSize"><span class="type-signature">&lt;static> </span>updateCanvasSize<span class="signature">()</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1637,7 +1595,7 @@
     
     
     <div class="description">
-        Sets the scroll factor (ratio) for the background image. A value of 0 results in a fixed background and a value of 1 results in the background scrolling proportionally to the active controller's view position.
+        Updates the size of the canvas according to whether the game is fullscreen or not.
     </div>
     
 
@@ -1645,54 +1603,6 @@
     
     
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>factor</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Scroll factor (ratio to active controller's view position).</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
     
     
     
@@ -1718,7 +1628,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line84">line 84</a>
+        <a href="Canvas.js.html">Canvas.js</a>, <a href="Canvas.js.html#line53">line 53</a>
     </li></ul></dd>
     
     
@@ -1759,13 +1669,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="vastengine.AssetManager.html">AssetManager</a></li><li><a href="vastengine.Canvas.html">Canvas</a></li><li><a href="vastengine.Controller.html">Controller</a></li><li><a href="vastengine.Dialog.html">Dialog</a></li><li><a href="vastengine.Entity.html">Entity</a></li><li><a href="vastengine.Game.html">Game</a></li><li><a href="vastengine.Input.html">Input</a></li><li><a href="vastengine.MathUtil.html">MathUtil</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Vastengine.AssetManager.html">AssetManager</a></li><li><a href="Vastengine.AssetType.html">AssetType</a></li><li><a href="Vastengine.Canvas.html">Canvas</a></li><li><a href="Vastengine.Config.html">Config</a></li><li><a href="Vastengine.Controller.html">Controller</a></li><li><a href="Vastengine.Debug.html">Debug</a></li><li><a href="Vastengine.Entity.html">Entity</a></li><li><a href="Vastengine.Error.html">Error</a></li><li><a href="Vastengine.Game.html">Game</a></li><li><a href="Vastengine.GameState.html">GameState</a></li><li><a href="Vastengine.Input.html">Input</a></li><li><a href="Vastengine.MathUtil.html">MathUtil</a></li><li><a href="Vastengine.Sprite.html">Sprite</a></li></ul><h3>Namespaces</h3><ul><li><a href="Vastengine.html">Vastengine</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Mar 01 2015 13:44:46 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Sun Apr 26 2015 18:19:53 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
