@@ -21,7 +21,7 @@
                 playerTileY = Math.floor(mainPlayer.y / vastgame.TILE_SIZE);
 
                 // moving/jumping
-                // TODO: special checks if player's hands are held (i.e. heldBox is defined?)
+                // TODO: special checks if player's hands are held (i.e. heldBox is defined?) to make sure the space next to the block is free too
                 if (gameController.isPositionFree(x, y)) {
                     if (clickedTileX === playerTileX + 1) {
                         if (clickedTileY === playerTileY || clickedTileY === playerTileY + 1) {
@@ -45,10 +45,14 @@
                 // lifting a block
                 var box = gameController.getEntitiesAtPosition(x, y, 'box');
                 if (box.length > 0) {
-                    if (box[0].x === (playerTileX * vastgame.TILE_SIZE) - vastgame.TILE_SIZE || box[0].x === (playerTileX * vastgame.TILE_SIZE) + vastgame.TILE_SIZE) {
-                        var attemptedLift = mainPlayer.liftBox(box[0]);
-                        if (attemptedLift) {
-                            heldBox = attemptedLift;
+                    // make sure box is immediately left or right of the player
+                    if (box[0].y === mainPlayer.y && (box[0].x === (playerTileX * vastgame.TILE_SIZE) - vastgame.TILE_SIZE || box[0].x === (playerTileX * vastgame.TILE_SIZE) + vastgame.TILE_SIZE)) {
+                        // also make sure the space above the box is clear
+                        if (gameController.isPositionFree(box[0].x + 5, box[0].y - 5)) {
+                            var attemptedLift = mainPlayer.liftBox(box[0]);
+                            if (attemptedLift) {
+                                heldBox = attemptedLift;
+                            }
                         }
                     }
                 }
@@ -56,7 +60,12 @@
                 // dropping a block
                 if (heldBox) {
                     if (clickedTileX === playerTileX && clickedTileY === playerTileY - 1) {
+                        var rightFree = gameController.isPositionFree(mainPlayer.x + vastgame.TILE_SIZE + 5, mainPlayer.y + 5);
+                        var leftFree = gameController.isPositionFree(mainPlayer.x - 5, mainPlayer.y + 5);
+                        var rightUpFree = gameController.isPositionFree(mainPlayer.x + vastgame.TILE_SIZE + 5, mainPlayer.y - 5);
+                        var leftUpFree = gameController.isPositionFree(mainPlayer.x - 5, mainPlayer.y - 5);
 
+                        mainPlayer.tryDrop(heldBox, rightFree, rightUpFree, leftFree, leftUpFree);
                     }
                 }
             }
@@ -122,6 +131,7 @@
                             box.setPosition(j * vastgame.TILE_SIZE, i * vastgame.TILE_SIZE);
                             box.setSize(vastgame.TILE_SIZE, vastgame.TILE_SIZE);
                             gameController.addEntity(box);
+                            break;
                     }
                 }
             }

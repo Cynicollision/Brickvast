@@ -70,7 +70,7 @@
                     }
                     break;
                 case State.falling:
-                    if (!ctrl.isPositionFree(player.x + 2, player.y + 63, 'wall')) {
+                    if (!ctrl.isPositionFree(player.x + 2, player.y + 63, 'wall') || !ctrl.isPositionFree(player.x + 2, player.y + 63, 'box')) {
                         player.stop();
                     }
                     break;
@@ -136,6 +136,14 @@
 
                 case (Sprite.moveLeftHandsFull):
                     newSprite = $vast.Sprite.fromImage(srcImage, 64, 64, 12, 15);
+                    break;
+
+                case (Sprite.dropRight):
+                    newSprite = $vast.Sprite.fromImage(srcImage, 64, 64, 24, 26);
+                    break;
+
+                case (Sprite.dropLeft):
+                    newSprite = $vast.Sprite.fromImage(srcImage, 64, 64, 28, 30);
                     break;
             }
 
@@ -240,9 +248,37 @@
             }
         };
 
-        player.dropBox = function (boxEntity) {
+        player.tryDrop = function (boxEntity, rightFree, rightUpFree, leftFree, leftUpFree) {
+            var dropped = false;
             if (facingRight) {
-                player.setSprite(Sprite.dropRight);
+                if (rightFree) {
+                    boxEntity.x = player.x + vastgame.TILE_SIZE;
+                    boxEntity.y = player.y;
+                    dropped = true;
+                } else if (rightUpFree) {
+                    boxEntity.x = player.x + vastgame.TILE_SIZE;
+                    boxEntity.y = player.y - vastgame.TILE_SIZE;
+                    dropped = true;
+                }
+            } else {
+                if (leftFree) {
+                    boxEntity.x = player.x - vastgame.TILE_SIZE;
+                    boxEntity.y = player.y;
+                    dropped = true;
+                } else if (leftUpFree) {
+                    boxEntity.x = player.x - vastgame.TILE_SIZE;
+                    boxEntity.y = player.y - vastgame.TILE_SIZE;
+                    dropped = true;
+                }
+            }
+
+            if (dropped) {
+                player.handsFull = false;
+                player.setSprite(facingRight ? Sprite.dropRight : Sprite.dropLeft);
+                player.sprite.onAnimationEnd = function () {
+                    player.setSprite(facingRight ? Sprite.idleRight : Sprite.idleLeft);
+                    player.sprite.onAnimationEnd = null;
+                };
             }
         };
 
