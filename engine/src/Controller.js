@@ -48,7 +48,7 @@ vastengine.Controller.prototype = {
             }
 
             if (this.entities[i].step) {
-                this.entities[i].step();
+                this.entities[i].step(this.entities[i]);
             }
         }
 

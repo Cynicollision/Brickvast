@@ -196,6 +196,7 @@
             player.speed = 0;
 
             // snap to the grid
+            // TODO: this should probably be in vastengine.Controller?
             var xL = Math.floor(player.x / vastgame.TILE_SIZE) * vastgame.TILE_SIZE,
                 xR = Math.floor((player.x + vastgame.TILE_SIZE) / vastgame.TILE_SIZE) * vastgame.TILE_SIZE,
                 yU = Math.floor(player.y / vastgame.TILE_SIZE) * vastgame.TILE_SIZE,

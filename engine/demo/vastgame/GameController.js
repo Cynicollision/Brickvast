@@ -107,7 +107,7 @@
                 '#####           X#',
                 '####### P      ###',
                 '##########    ####',
-                '##########  ## ###',
+                '##########  ######',
                 '##################'
             ];
 
@@ -134,6 +134,38 @@
                             break;
                     }
                 }
+            }
+
+            var boxes = gameController.getEntitiesByType('box');
+            for (var i = 0; i < boxes.length; i++) {
+                boxes[i].falling = false;
+                boxes[i].step = function (me) {
+                    if (!me.falling) {
+                        if (gameController.isPositionFree(me.x + 5, me.y + vastgame.TILE_SIZE + 5)) {
+                            me.falling = true;
+                            me.speed = 50;
+                            me.direction = 90;
+                        }
+                    } else if (!gameController.isPositionFree(me.x + 2, me.y + vastgame.TILE_SIZE + 5, 'wall') || !gameController.isPositionFree(me.x + 2, me.y + vastgame.TILE_SIZE + 5, 'box')) {
+                        me.falling = false;
+                        // snap to the grid
+                        // TODO: this should probably be in vastengine.Controller?
+                        var xL = Math.floor(me.x / vastgame.TILE_SIZE) * vastgame.TILE_SIZE,
+                            xR = Math.floor((me.x + vastgame.TILE_SIZE) / vastgame.TILE_SIZE) * vastgame.TILE_SIZE,
+                            yU = Math.floor(me.y / vastgame.TILE_SIZE) * vastgame.TILE_SIZE,
+                            yD = Math.floor((me.y + vastgame.TILE_SIZE) / vastgame.TILE_SIZE) * vastgame.TILE_SIZE,
+                            targetX = xL,
+                            targetY = yU,
+                            distanceToLeft = me.x - xL,
+                            distanceToRight = xR - me.x,
+                            distanceToUp = me.y - yU,
+                            distanceToDown = yD - me.y;
+
+
+                        me.y = yD;
+                        me.speed = 0;
+                    }
+                };
             }
         }
 
