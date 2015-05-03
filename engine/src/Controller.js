@@ -147,7 +147,7 @@ vastengine.Controller.prototype = {
      * Sorts managed entities in descending order by depth.
      * @memberof! Vastengine.Controller.prototype
      */
-    sortEntities: function () {
+    sortEntitiesByDepth: function () {
         this.entities.sort(function (a, b) {
             return -(a.depth - b.depth);
         });
@@ -172,11 +172,15 @@ vastengine.Controller.prototype = {
      * @param {object} context The drawing context to draw on.
      */
     drawEntities: function (context) {
-        this.sortEntities();
+        var relativeX, relativeY;
+
+        this.sortEntitiesByDepth();
+
         for (var i = 0; i < this.entities.length; i++) {
             if (!this.entities[i].isDestroyed) {
-                var relativeX = this.entities[i].x - this.view.x;
-                var relativeY = this.entities[i].y - this.view.y;
+                relativeX = this.entities[i].x - this.view.x;
+                relativeY = this.entities[i].y - this.view.y;
+
                 this.entities[i].drawSprite(context, relativeX, relativeY);
                 if (this.entities[i].draw) {
                     this.entities[i].draw(context, relativeX, relativeY);

@@ -184,7 +184,7 @@
         ent4.depth = 20;
         testController.addEntity(ent4);
 
-        testController.sortEntities();
+        testController.sortEntitiesByDepth();
 
         expect(testController.entities[0].id).toEqual("e2");
         expect(testController.entities[1].id).toEqual("e1");

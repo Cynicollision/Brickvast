@@ -3,7 +3,7 @@
     // TODO: better way to set resolution like this based on a target width/height (target size and then horizontally or vertically oriented)
     // just need better way to set scale in general
     //vastengine.Config.scaleToHorizontalResolution ?
-    var resX = (1 / (640 / window.innerWidth));
+    var resX = (1 / (320 / window.innerWidth));
     $vast.Config.scale = resX;
     $vast.Config.scaleCenter = true;
     $vast.Config.fullScreen = true;
