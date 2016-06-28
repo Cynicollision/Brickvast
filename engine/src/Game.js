@@ -68,20 +68,18 @@ vastengine.Game = (function () {
          * @memberof! Vastengine.Game
          */
         run: function () {
-            var stepSize, previous, now, offset = 0;
-            stepSize = 1 / vastengine.Config.gameSpeed;
-            state = vastengine.GameState.RUNNING;
-            now = (function () {
-                return function () {
-                    if (window.performance && window.performance.now) {
-                        return window.performance.now();
-                    } else {
-                        return (new Date()).getTime();
-                    }
-                };
-            })();
+            var offset = 0,
+                stepSize = 1 / vastengine.Config.gameSpeed,
+                state = vastengine.GameState.RUNNING,
+                previous;
 
-            previous = now();
+            function now() {
+                if (window.performance && window.performance.now) {
+                    return window.performance.now();
+                } else {
+                    return (new Date()).getTime();
+                }
+            }
 
             function stepAndDraw() {
                 var current = now();
@@ -103,8 +101,11 @@ vastengine.Game = (function () {
                 requestAnimationFrame(stepAndDraw);
             }
 
+            previous = now();
+
             vastengine.Canvas.updateCanvasSize();
             vastengine.Canvas.setVisible(true);
+
             requestAnimationFrame(stepAndDraw);
         },
 
